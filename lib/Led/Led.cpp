@@ -113,6 +113,7 @@ class Led
     if (ledMode != newMode) {
       ledMode = newMode;
       ledBrightness = 0;
+      updatedAt = 0;
     }
   }
 
@@ -120,8 +121,6 @@ class Led
     float R = (100 * log10(2))/(log10(1024));
 
     int pwm_value = pow (2, (roundf(percent*100) / R)) - 1;
-    Serial.print(pwm_value);
-    Serial.print("\n");
 
     analogWrite(ledPin, 1023-pwm_value);
   }

@@ -11,8 +11,11 @@ void setup()
 
 void loop()
 {
-
-    led1.setMode(4);
+    if (Serial.available()) {
+    int setmode = Serial.read() - 48;
+    led1.setMode(setmode);
+    Serial.print(setmode);
+    }
 
 	led1.update();
 }
