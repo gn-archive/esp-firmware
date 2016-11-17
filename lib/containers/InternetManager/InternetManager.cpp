@@ -18,7 +18,16 @@ This example, contributed by DataCute needs the Double Reset Detector library fr
 #include <DNSServer.h>
 #include <WiFiManager.h>          //https://github.com/kentaylor/WiFiManager
 
+#include <DoubleResetDetector.h>  //https://github.com/datacute/DoubleResetDetector
+
 #include "../../components/Led/Led.cpp"
+
+// Number of seconds after reset during which a
+// subseqent reset will be considered a double reset.
+#define DRD_TIMEOUT 2
+
+// RTC Memory Address for the DoubleResetDetector to use
+#define DRD_ADDRESS 0
 
 
 class InternetManager
@@ -26,17 +35,19 @@ class InternetManager
 	private:
 	Led status_led;
 	WiFiManager wifiManager;
+	DoubleResetDetector drd;
 
   public:
 		InternetManager();
 		void setup();
 		void loop();
+		String getMacAddress();
 };
 
 // Constructor - creates a InternetManager
 // and initializes the member variables and state
 InternetManager::InternetManager() :
-	status_led(D4) {
+	status_led(D4), drd(DRD_TIMEOUT, DRD_ADDRESS) {
 
 	}
 
@@ -45,8 +56,13 @@ InternetManager::InternetManager() :
 void InternetManager::setup() {
 	Serial.println("Starting InternetManager");
 	status_led.setMode(2);
+	if (drd.detectDoubleReset()) {
+		Serial.println("Double reset detected, clearing saved WiFi");
+		WiFi.disconnect();
+	}
 	WiFiManager wifiManager;
-	wifiManager.autoConnect("AP-NAME");
+	String nodeName = "Grow Node " + getMacAddress();
+	wifiManager.autoConnect(nodeName.c_str());
 }
 
 
@@ -58,4 +74,18 @@ void InternetManager::loop() {
 	}
 
 	status_led.update();
+	drd.loop();
+}
+
+String InternetManager::getMacAddress() {
+	byte mac[6];
+
+	WiFi.macAddress(mac);
+	String cMac = "";
+	for (int i = 0; i < 6; ++i) {
+		if (mac[i]<0x10) {cMac += "0";}
+		cMac += String(mac[i],HEX);
+	}
+	cMac.toUpperCase();
+	return cMac;
 }
