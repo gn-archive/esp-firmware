@@ -3,8 +3,8 @@
 
 class InternetManager
 {
+	private:
 	Led status_led;
-	// private:
 
   public:
 		InternetManager();
