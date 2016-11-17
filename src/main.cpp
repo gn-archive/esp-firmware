@@ -7,18 +7,21 @@
 
 InternetManager internetManager;
 
-// Led test_led(D0);
+Led test_led(D0);
 
 void setup()
 {
   Serial.begin(9600);
+  Serial.print("\n\n==============================================================================\n");
+  Serial.print("                               Welcome to NodeOS!\n");
+  Serial.print("==============================================================================\n\n");
 
-  // test_led.setMode(3);
+  test_led.setMode(3);
   internetManager.setup();
 }
 
 void loop()
 {
-  // test_led.update();
+  test_led.update();
   internetManager.loop();
 }

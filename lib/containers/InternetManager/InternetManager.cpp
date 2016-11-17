@@ -20,7 +20,7 @@ InternetManager::InternetManager() :
 
 
 void InternetManager::setup() {
-	status_led.setMode(3);
+	status_led.setMode(4);
 }
 
 
