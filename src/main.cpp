@@ -1,12 +1,18 @@
 #include "Arduino.h"
+#include "../lib/Led/Led.cpp"
 
-void setup() {
-  pinMode(D0, OUTPUT);
+
+Led led1(D0);
+
+void setup()
+{
+  Serial.begin(9600);
 }
 
-void loop() {
-  digitalWrite(D0, HIGH);
-  delay(1000);
-  digitalWrite(D0, LOW);
-  delay(1000);
+void loop()
+{
+
+    led1.setMode(4);
+
+	led1.update();
 }
