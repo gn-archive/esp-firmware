@@ -1,21 +1,24 @@
 #include "Arduino.h"
-#include "../lib/Led/Led.cpp"
+#include "../lib/containers/InternetManager/InternetManager.cpp"
+// #include "../lib/components/Led/Led.cpp"
 
+// D0 = NodeMCU LED
+// D4 = ESP8266 LED
 
-Led led1(D0);
+InternetManager internetManager;
+
+// Led test_led(D0);
 
 void setup()
 {
   Serial.begin(9600);
+
+  // test_led.setMode(3);
+  internetManager.setup();
 }
 
 void loop()
 {
-    if (Serial.available()) {
-    int setmode = Serial.read() - 48;
-    led1.setMode(setmode);
-    Serial.print(setmode);
-    }
-
-	led1.update();
+  // test_led.update();
+  internetManager.loop();
 }

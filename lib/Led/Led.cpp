@@ -12,28 +12,32 @@
 #endif
 
 
-class Led
-{
+class Led {
 	// Class Member Variables
 	// These are initialized at startup
-	byte ledPin;      // the number of the LED pin
+	int ledPin;      // the number of the LED pin
 
 	float ledBrightness;
   int ledMode;      // 0 Off, 1 On, 2 Slow Blink, 3 Fast Blink, 4 Breathe
 	unsigned long updatedAt;  	// will store last time LED was updated
 
-  // Constructor - creates a Led
-  // and initializes the member variables and state
   public:
 
-  Led(byte pin)
-  {
-	ledPin = pin;
-  ledMode = 0;
-	pinMode(ledPin, OUTPUT);
+	// Constructor - creates a Led
+	// and initializes the member variables and state
+	Led(int attachTo) :
+		ledPin(attachTo)
+		{
+		}
 
-	ledBrightness = 0;
-	updatedAt = 0;
+
+
+  void setup() {
+	  ledMode = 0;
+		pinMode(ledPin, OUTPUT);
+
+		ledBrightness = 0;
+		updatedAt = 0;
   }
 
   void update()
