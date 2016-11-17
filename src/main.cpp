@@ -16,7 +16,7 @@ void setup()
   Serial.print("                               Welcome to NodeOS!\n");
   Serial.print("==============================================================================\n\n");
 
-  test_led.setMode(3);
+  test_led.setMode(4);
   internetManager.setup();
 }
 
