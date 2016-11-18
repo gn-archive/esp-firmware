@@ -10,12 +10,9 @@ grow_plan()
 }
 
 void GrowManager::setup() {
-  Serial << "GrowManager: Initializing" << endl;
-
+  Serial << "GrowManager..." << endl;
+  grow_plan.setup();
 }
 
 void GrowManager::loop() {
-  if (millis() % 5000 == 0) {
-    Serial << grow_plan.read() << endl;
-  }
 }

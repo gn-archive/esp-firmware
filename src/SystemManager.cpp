@@ -8,8 +8,9 @@ grow_manager()
 }
 
 void SystemManager::setup() {
-	Serial << "SystemManager: Initializing" << endl;
+	Serial << endl << endl << "=== SystemManager Initialization ===" << endl;
 	grow_manager.setup();
+	Serial << "=== SystemManager Initialization Complete ===" << endl << endl;
 }
 
 void SystemManager::loop() {

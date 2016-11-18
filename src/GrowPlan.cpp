@@ -6,7 +6,7 @@
 GrowPlan::GrowPlan() :
 grow_plan_json("growplan", "JSON representation of the grow plan.")
 {
-	grow_plan_json.setDefaultValue("").setValidator([] (const char* candidate) {
+	grow_plan_json.setDefaultValue("{}").setValidator([] (const char* candidate) {
 		if (candidate == NULL) {
 			return false;
 		}
@@ -15,7 +15,8 @@ grow_plan_json("growplan", "JSON representation of the grow plan.")
 }
 
 void GrowPlan::setup() {
-  Serial << "GrowPlan: Setup" << endl;
+  Serial << "GrowPlan..." << endl;
+	Serial << "The grow plan stored in flash is: " << read() << endl;
 }
 
 void GrowPlan::loop() {
@@ -23,11 +24,8 @@ void GrowPlan::loop() {
 }
 
 String GrowPlan::read() {
-	if (grow_plan_json.wasProvided()) {
+		// Todo Parse JSON and return struct?
 		return grow_plan_json.get();
-	} else {
-		return "{}";
-	}
 }
 
 bool GrowPlan::refresh() {
