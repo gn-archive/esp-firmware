@@ -1,14 +1,14 @@
 #include "Arduino.h"
 #include <ESP8266WiFi.h>
 
-#include <GrowManager.hpp>
+#include <GrowPlan.hpp>
 
-class SystemManager
+class GrowManager
 {
 	private:
-		GrowManager grow_manager;
+		GrowPlan grow_plan;
   public:
-    SystemManager();
+    GrowManager();
     void loop();
 		void setup();
 };

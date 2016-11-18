@@ -16,12 +16,12 @@ void setup()
   delay(200);
   Serial.begin(74880);
 
-  Homie.setLedPin(D0, LOW);
   Serial << endl << endl <<
   Serial << "==============================================================================" << endl;
   Serial << "                               Welcome to NodeOS!" << endl;
   Serial << "==============================================================================" << endl;
 
+  Homie.setLedPin(D0, LOW);
   // test_led.setMode(4);
   	Homie_setFirmware("node-os", "1.0.0"); // The "_" is not a typo! See Magic bytes
     Homie_setBrand("Grow Nodes"); // before Homie.setup()
