@@ -9,7 +9,7 @@ NtpManager::NtpManager()
 }
 
 void NtpManager::setup() {
-  Serial << "NtpManager...";
+  Serial << "NtpManager..." << endl;
   NTP.onNTPSyncEvent([](NTPSyncEvent_t error) {
       if (error) {
           Serial << "NtpManager: Time Sync error: ";
