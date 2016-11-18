@@ -15,4 +15,7 @@ void GrowManager::setup() {
 }
 
 void GrowManager::loop() {
+  if (timeStatus() == timeSet) {
+    // Run grow tasks
+  }
 }

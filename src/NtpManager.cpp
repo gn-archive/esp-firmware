@@ -28,6 +28,14 @@ void NtpManager::setup() {
 }
 
 void NtpManager::loop() {
+  if (timeStatus() != timeSet) {
+    if(!messageSent) {
+      messageSent = true;
+      Serial << "NtpManager: Time is not set or needs to be synced." << endl;
+    }
+  } else {
+    messageSent = false;
+  }
   // if ((millis() % 2000) == 0) {
       // Serial.print(NTP.getTimeDateString()); Serial.print(". ");
       // Serial.print("WiFi is ");

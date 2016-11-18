@@ -8,6 +8,7 @@
 class NtpManager
 {
 	private:
+		bool messageSent;
   public:
     NtpManager();
     void loop();
