@@ -6,7 +6,7 @@ class HomieManager
 {
 	private:
 		HomieNode temperatureNode;
-		HomieSetting<long> percentageSetting;  // id, description
+		HomieSetting<const char*> growPlan;
 		unsigned long lastSend;
   public:
     HomieManager();
@@ -17,12 +17,14 @@ class HomieManager
 // Constructor - creates a HomieManager
 // and initializes the member variables and state
 HomieManager::HomieManager() :
-temperatureNode("temperature", "Fake temperature"), percentageSetting("percentage", "A simple percentage")
+temperatureNode("temperature", "Fake temperature"), growPlan("growplan", "JSON representation of the grow plan.")
 {
 	lastSend = 0;
-	percentageSetting.setDefaultValue(50).setValidator([] (long candidate) {
-		Serial << "Verifying: " << candidate << endl;
-		return (candidate >= 0) && (candidate <= 100);
+	growPlan.setDefaultValue("").setValidator([] (const char* candidate) {
+		if (candidate == NULL) {
+			return false;
+		}
+		return true;
 	});
 }
 
@@ -34,10 +36,10 @@ void HomieManager::loop() {
 		if (millis() - lastSend > 2000) {
 			lastSend = millis();
 			// send every 2000ns
-			if (percentageSetting.wasProvided()) {
-				Serial << "Percent :" << percentageSetting.get() << endl;
+			if (growPlan.wasProvided()) {
+				Serial << "Grow Plan :" << growPlan.get() << endl;
 			} else {
-				Serial << "Percent not provided!" << endl;
+				Serial << "Grow Plan not provided!" << endl;
 			}
 		}
 }
