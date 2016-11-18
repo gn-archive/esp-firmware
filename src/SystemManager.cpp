@@ -1,22 +1,9 @@
-#include "Arduino.h"
-#include <Homie.h>
-#include <ESP8266WiFi.h>
+// Central starting point for all subsystems affected by internet.
+#include <SystemManager.hpp>
 
-class HomieManager
-{
-	private:
-		HomieNode temperatureNode;
-		HomieSetting<const char*> growPlan;
-		unsigned long lastSend;
-  public:
-    HomieManager();
-    void loop();
-		void setup();
-};
-
-// Constructor - creates a HomieManager
+// Constructor - creates a SystemManager
 // and initializes the member variables and state
-HomieManager::HomieManager() :
+SystemManager::SystemManager() :
 temperatureNode("temperature", "Fake temperature"), growPlan("growplan", "JSON representation of the grow plan.")
 {
 	lastSend = 0;
@@ -28,11 +15,11 @@ temperatureNode("temperature", "Fake temperature"), growPlan("growplan", "JSON r
 	});
 }
 
-void HomieManager::setup() {
-  Serial << "HomieManager: Setup" << endl;
+void SystemManager::setup() {
+  Serial << "SystemManager: Setup" << endl;
 }
 
-void HomieManager::loop() {
+void SystemManager::loop() {
 		if (millis() - lastSend > 2000) {
 			lastSend = millis();
 			// send every 2000ns
