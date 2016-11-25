@@ -36,12 +36,4 @@ void NtpManager::loop() {
   } else {
     messageSent = false;
   }
-  // if ((millis() % 2000) == 0) {
-      // Serial.print(NTP.getTimeDateString()); Serial.print(". ");
-      // Serial.print("WiFi is ");
-      // Serial.print(WiFi.isConnected() ? "connected" : "not connected"); Serial.print(". ");
-      // Serial.print("Uptime: ");
-      // Serial.print(NTP.getUptimeString()); Serial.print(" since ");
-      // Serial.println(NTP.getTimeDateString(NTP.getFirstSync()).c_str());
-  // }
 }

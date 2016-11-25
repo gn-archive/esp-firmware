@@ -32,17 +32,15 @@ void setup()
     ntp_manager.setup();
     sensor_manager.setup();
     grow_manager.setup();
+
     Homie.setup();
 }
 
 void loop()
 {
-  if (Homie.isConnected()) {
     ntp_manager.loop();
     sensor_manager.loop();
     grow_manager.loop();
-  }
-  Homie.loop();
-  // config_svc.loop();
-  // test_led.update();
+
+    Homie.loop();
 }

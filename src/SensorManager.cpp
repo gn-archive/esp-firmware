@@ -8,13 +8,14 @@ temperatureNode("temperature", "temperature")
 }
 
 void SensorManager::setup() {
-  temperatureNode.advertise("unit");
   temperatureNode.advertise("degrees");
 }
 
 void SensorManager::loop() {
-  if (millis() - dataLastSentAt >= SEND_INTERVAL || dataLastSentAt == 0) {
-    float temperature = 22; // Fake temperature here, for the example
+  // Read sensor data here. Fake temperature here, for the example
+  float temperature = 22;
+
+  if (Homie.isConnected() && (millis() - dataLastSentAt >= SEND_INTERVAL || dataLastSentAt == 0)) {
     Serial << "Temperature: " << temperature << " °C" << endl;
     temperatureNode.setProperty("degrees").send(String(temperature));
     dataLastSentAt = millis();
