@@ -1,15 +1,16 @@
 #include "Arduino.h"
 
 #include <Homie.h>
-#include <SystemManager.hpp>
+#include <NtpManager.hpp>
+#include <GrowManager.hpp>
 // #include <Led.cpp>
 // D0 = NodeMCU LED
 // D4 = ESP8266 LED
 
 // Led test_led(D0);
 
-SystemManager system_manager;
-
+NtpManager ntp_manager;
+GrowManager grow_manager;
 
 void setup()
 {
@@ -27,12 +28,14 @@ void setup()
     Homie_setBrand("Grow Nodes"); // before Homie.setup()
 
   	Homie.setup();
-    system_manager.setup();
+    ntp_manager.setup();
+    grow_manager.setup();
 }
 
 void loop()
 {
-  system_manager.loop();
+  ntp_manager.loop();
+  grow_manager.loop();
   Homie.loop();
   // config_svc.loop();
   // test_led.update();
