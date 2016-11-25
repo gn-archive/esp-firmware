@@ -6,7 +6,6 @@ class GrowPlan
 {
 	private:
 		HomieSetting<const char*> grow_plan_json;
-
   public:
     GrowPlan();
     void loop();
