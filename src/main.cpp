@@ -31,9 +31,10 @@ void setup()
 
     ntp_manager.setup();
     sensor_manager.setup();
-    grow_manager.setup();
 
     Homie.setup();
+    
+    grow_manager.setup();
 }
 
 void loop()
