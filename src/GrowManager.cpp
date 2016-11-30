@@ -28,21 +28,25 @@ void GrowManager::loop() {
        if (now() >= from_abs && now() < to_abs) {
          /* If this is the current plant stage */
 
+        //  Control Grow Light
          if (second() >= (int)plant_stage["light_on_at"] && second() < (int)plant_stage["light_off_at"]) {
            digitalWrite(LEDPIN, LOW);
          } else {
            digitalWrite(LEDPIN, HIGH);
          }
-         Serial << second() << endl;
-        // Serial.print(" light_on_at: ");
-        // Serial.print((int)plant_stage["light_on_at"]);
-        // Serial.print(" light_off_at: ");
-        // Serial.print((int)plant_stage["light_off_at"]);
-        // Serial.print(" air_temp_high: ");
-        // Serial.print((int)plant_stage["air_temp_high"]);
-        // Serial.print(" air_temp_low: ");
-        // Serial.print((int)plant_stage["air_temp_low"]);
-        // Serial.print(" \n");
+
+
+         // Control Fan
+        //  if (temp > (int)plant_stage["air_temp_high"])) {
+        //    //  fan on
+        //  }
+         //
+        //  if (temp < (int)plant_stage["air_temp_low"])) {
+        //    /* fan off */
+        //  }
+
+
+
        }
     }
   }
