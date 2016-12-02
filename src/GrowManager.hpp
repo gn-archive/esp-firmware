@@ -7,9 +7,12 @@
 class GrowManager
 {
 	private:
-		HomieSetting<const char*> plant_stages_json;
-		HomieSetting<long> grow_start_at;
-		HomieSetting<bool> grow_aborted;
+		HomieSetting<const char*> h_plant_stages_json;
+		HomieSetting<long> h_grow_start_at;
+		HomieSetting<bool> h_grow_aborted;
+		const char* plant_stages_json;
+		long grow_start_at;
+		bool grow_aborted;
   public:
     GrowManager();
     void loop();
