@@ -2,6 +2,7 @@
 #include <ESP8266WiFi.h>
 #include <Homie.h>
 #include <DHT.h>
+#include <constants.h>
 
 class SensorManager
 {

@@ -1,7 +1,5 @@
 // Central starting point for all Grow subsystems.
 #include <GrowManager.hpp>
-#define FAN_PIN D2
-#define GROW_LIGHT_PIN D5
 
 // Constructor - creates a GrowManager
 // and initializes the member variables and state

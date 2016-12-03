@@ -1,12 +1,8 @@
 #include <SensorManager.hpp>
-#define SEND_INTERVAL 10*1000
-
-#define DHTTYPE DHT11
-#define DHTPIN D1
 
 SensorManager::SensorManager() :
 airTempNode("temperature", "temperature"),
-air_temp_sensor(DHTPIN, DHTTYPE)
+air_temp_sensor(AIR_SENSOR_DHT_PIN, AIR_SENSOR_DHT)
 {
   dataLastSentAt = 0;
 }
@@ -17,7 +13,7 @@ void SensorManager::setup() {
 
 void SensorManager::loop() {
 
-  if (millis() - dataLastSentAt >= SEND_INTERVAL || dataLastSentAt == 0) {
+  if (millis() - dataLastSentAt >= SEND_STATS_INTERVAL || dataLastSentAt == 0) {
     dataLastSentAt = millis();
     float new_air_temp_f = air_temp_sensor.readTemperature(true);
 
