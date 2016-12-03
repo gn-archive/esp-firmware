@@ -34,7 +34,7 @@ void setup()
 
     Homie.setup();
 
-    grow_manager.setup();
+
 }
 
 void loop()

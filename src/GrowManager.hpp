@@ -7,6 +7,9 @@
 class GrowManager
 {
 	private:
+		bool growManagerSetupRan;
+		void setup();
+
 		HomieSetting<const char*> h_plant_stages_json;
 		HomieSetting<long> h_grow_start_at;
 		HomieSetting<bool> h_grow_aborted;
@@ -23,5 +26,4 @@ class GrowManager
   public:
     GrowManager();
     void loop(float air_temp_f);
-		void setup();
 };

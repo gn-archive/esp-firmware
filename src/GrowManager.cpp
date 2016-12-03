@@ -12,6 +12,7 @@ h_grow_aborted("aborted", "True = stop growing"),
 growLightNode("grow_light", "switch"),
 fanNode("fan", "switch")
 {
+  growManagerSetupRan = false;
 }
 
 void GrowManager::setup() {
@@ -36,7 +37,14 @@ void GrowManager::setup() {
 }
 
 void GrowManager::loop(float air_temp_f) {
-  if (timeStatus() == timeSet && !grow_aborted) {
+  if (timeStatus() != timeSet || grow_aborted) {
+    return;
+  }
+  // need to run after homie setup to send off values on bootup
+  if (!growManagerSetupRan) {
+    growManagerSetupRan = true;
+    setup();
+  }
 
     StaticJsonBuffer<450> jsonBuffer;
     JsonArray& plant_stages = jsonBuffer.parseArray(plant_stages_json);
@@ -92,5 +100,4 @@ void GrowManager::loop(float air_temp_f) {
 
        }
     }
-  }
 }
