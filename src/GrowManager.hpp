@@ -17,6 +17,9 @@ class GrowManager
 		// Refactor these
 		HomieNode growLightNode;
 		bool growLightOn;
+
+		HomieNode fanNode;
+		bool fanOn;
   public:
     GrowManager();
     void loop(float air_temp_f);

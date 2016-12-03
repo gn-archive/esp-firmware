@@ -9,7 +9,8 @@ GrowManager::GrowManager() :
 h_plant_stages_json("plant_stages", "JSON array of growth stages, each with lighting and air constraints"),
 h_grow_start_at("start_at", "Seconds from UNIX epoch of when the grow was started."),
 h_grow_aborted("aborted", "True = stop growing"),
-growLightNode("grow_light", "switch")
+growLightNode("grow_light", "switch"),
+fanNode("fan", "switch")
 {
 }
 
@@ -20,10 +21,12 @@ void GrowManager::setup() {
   grow_start_at = h_grow_start_at.get();
   grow_aborted = h_grow_aborted.get();
 
-
+  // Refactor these
   pinMode(FAN_PIN, OUTPUT);
   digitalWrite(FAN_PIN, LOW);
-
+  fanOn = false;
+  fanNode.advertise("on");
+  fanNode.setProperty("on").send("false");
 
   pinMode(GROW_LIGHT_PIN, OUTPUT);
   digitalWrite(GROW_LIGHT_PIN, LOW);
@@ -70,13 +73,19 @@ void GrowManager::loop(float air_temp_f) {
 
         //  Control Fan
         if (!isnan(air_temp_f)) {
-          if (air_temp_f > (float)plant_stage["air_temp_high"]) {
+          if (!fanOn && (air_temp_f > (float)plant_stage["air_temp_high"])) {
+            Serial << "Temp: " << air_temp_f << " Fan is " << (fanOn ? "on" : "off") << ", turning ON" << endl;
+            fanOn = true;
+            fanNode.setProperty("on").send("true");
             digitalWrite(FAN_PIN, HIGH);
           }
-
-          if (air_temp_f < (float)plant_stage["air_temp_low"]) {
-            digitalWrite(FAN_PIN, LOW);
-          }
+        } else {
+          if (fanOn && (air_temp_f < (float)plant_stage["air_temp_low"])) {
+             Serial << "Temp: " << air_temp_f << " Fan is " << (fanOn ? "on" : "off") << ", turning OFF" << endl;
+             fanOn = false;
+             fanNode.setProperty("on").send("false");
+             digitalWrite(FAN_PIN, LOW);
+         }
         }
 
 
