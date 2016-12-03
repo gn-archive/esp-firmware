@@ -1,23 +1,38 @@
 #include <SensorManager.hpp>
 #define SEND_INTERVAL 10*1000
 
+#define DHTTYPE DHT11
+#define DHTPIN D1
+
 SensorManager::SensorManager() :
-temperatureNode("temperature", "temperature")
+airTempNode("temperature", "temperature"),
+air_temp_sensor(DHTPIN, DHTTYPE)
 {
   dataLastSentAt = 0;
 }
 
 void SensorManager::setup() {
-  temperatureNode.advertise("degrees");
+  airTempNode.advertise("degrees");
 }
 
 void SensorManager::loop() {
-  // Read sensor data here. Fake temperature here, for the example
-  float temperature = 22;
 
-  if (Homie.isConnected() && (millis() - dataLastSentAt >= SEND_INTERVAL || dataLastSentAt == 0)) {
-    Serial << "Temperature: " << temperature << " °C" << endl;
-    temperatureNode.setProperty("degrees").send(String(temperature));
+  if (millis() - dataLastSentAt >= SEND_INTERVAL || dataLastSentAt == 0) {
     dataLastSentAt = millis();
+    float new_air_temp_f = air_temp_sensor.readTemperature(true);
+
+    if (isnan(new_air_temp_f)) {
+    Serial.println("Failed to read air_temp_sensor!");
+      return;
+    }
+    air_temp_f = new_air_temp_f;
+
+    Serial << "Temperature: " << air_temp_f << " °F" << endl;
+    airTempNode.setProperty("degrees").send(String(air_temp_f));
   }
+}
+
+
+float SensorManager::getAirTempF() {
+  return air_temp_f;
 }

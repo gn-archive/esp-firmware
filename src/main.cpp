@@ -33,15 +33,17 @@ void setup()
     sensor_manager.setup();
 
     Homie.setup();
-    
+
     grow_manager.setup();
 }
 
 void loop()
 {
     ntp_manager.loop();
-    sensor_manager.loop();
-    grow_manager.loop();
+    if (Homie.isConnected()) {
+      sensor_manager.loop();
+      grow_manager.loop(sensor_manager.getAirTempF());
+    }
 
     Homie.loop();
 }

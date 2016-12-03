@@ -1,25 +1,38 @@
 // Central starting point for all Grow subsystems.
 #include <GrowManager.hpp>
-#define LEDPIN D4
+#define FAN_PIN D2
+#define GROW_LIGHT_PIN D5
 
 // Constructor - creates a GrowManager
 // and initializes the member variables and state
 GrowManager::GrowManager() :
 h_plant_stages_json("plant_stages", "JSON array of growth stages, each with lighting and air constraints"),
 h_grow_start_at("start_at", "Seconds from UNIX epoch of when the grow was started."),
-h_grow_aborted("aborted", "True = stop growing")
+h_grow_aborted("aborted", "True = stop growing"),
+growLightNode("grow_light", "switch")
 {
 }
 
 void GrowManager::setup() {
   Serial << "GrowManager..." << endl;
-  pinMode(D4, OUTPUT);
+
   plant_stages_json = h_plant_stages_json.get();
   grow_start_at = h_grow_start_at.get();
   grow_aborted = h_grow_aborted.get();
+
+
+  pinMode(FAN_PIN, OUTPUT);
+  digitalWrite(FAN_PIN, LOW);
+
+
+  pinMode(GROW_LIGHT_PIN, OUTPUT);
+  digitalWrite(GROW_LIGHT_PIN, LOW);
+  growLightOn = false;
+  growLightNode.advertise("on");
+  growLightNode.setProperty("on").send("false");
 }
 
-void GrowManager::loop() {
+void GrowManager::loop(float air_temp_f) {
   if (timeStatus() == timeSet && !grow_aborted) {
 
     StaticJsonBuffer<450> jsonBuffer;
@@ -39,20 +52,32 @@ void GrowManager::loop() {
 
         //  Control Grow Light
          if (second() >= (int)plant_stage["light_on_at"] && second() < (int)plant_stage["light_off_at"]) {
-           digitalWrite(LEDPIN, LOW);
+           if (!growLightOn) {
+             Serial << "Time: " << second() << " Grow light is " << (growLightOn ? "on" : "off") << ", turning ON" << endl;
+             growLightOn = true;
+             growLightNode.setProperty("on").send("true");
+             digitalWrite(GROW_LIGHT_PIN, HIGH);
+           }
          } else {
-           digitalWrite(LEDPIN, HIGH);
+           if (growLightOn) {
+              Serial << "Time: " << second() << " Grow light is " << (growLightOn ? "on" : "off") << ", turning OFF" << endl;
+              growLightOn = false;
+              growLightNode.setProperty("on").send("false");
+              digitalWrite(GROW_LIGHT_PIN, LOW);
+          }
          }
 
 
-         // Control Fan
-        //  if (temp > (int)plant_stage["air_temp_high"])) {
-        //    //  fan on
-        //  }
-         //
-        //  if (temp < (int)plant_stage["air_temp_low"])) {
-        //    /* fan off */
-        //  }
+        //  Control Fan
+        if (!isnan(air_temp_f)) {
+          if (air_temp_f > (float)plant_stage["air_temp_high"]) {
+            digitalWrite(FAN_PIN, HIGH);
+          }
+
+          if (air_temp_f < (float)plant_stage["air_temp_low"]) {
+            digitalWrite(FAN_PIN, LOW);
+          }
+        }
 
 
 

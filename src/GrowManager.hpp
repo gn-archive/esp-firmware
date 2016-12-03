@@ -13,8 +13,12 @@ class GrowManager
 		const char* plant_stages_json;
 		long grow_start_at;
 		bool grow_aborted;
+
+		// Refactor these
+		HomieNode growLightNode;
+		bool growLightOn;
   public:
     GrowManager();
-    void loop();
+    void loop(float air_temp_f);
 		void setup();
 };
