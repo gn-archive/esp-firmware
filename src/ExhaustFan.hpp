@@ -15,6 +15,5 @@ class ExhaustFan
   private:
 		HomieNode fanNode;
 
-    bool growLightOn;
 		bool fanOn;
 };

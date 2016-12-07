@@ -45,8 +45,16 @@ int GrowSettings::get_air_temp_high() {
   return air_temp_high;
 }
 
+int GrowSettings::get_air_temp_low() {
+  return air_temp_low;
+}
+
 int GrowSettings::get_water_temp_high() {
   return water_temp_high;
+}
+
+int GrowSettings::get_water_temp_low() {
+  return water_temp_low;
 }
 
 int GrowSettings::get_light_on_at() {

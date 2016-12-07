@@ -36,7 +36,9 @@ class GrowSettings
 		long get_start_at();
 		const char* get_settings_id();
 		int get_air_temp_high();
+		int get_air_temp_low();
 		int get_water_temp_high();
+		int get_water_temp_low();
 		int get_light_on_at();
 		int get_light_off_at();
 };
