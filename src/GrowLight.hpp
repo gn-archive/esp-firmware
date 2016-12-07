@@ -4,12 +4,13 @@
 #include <constants.h>
 #include <Timelib.h>
 #include <GrowSettings.hpp>
+#include <SensorManager.hpp>
 
 class GrowLight
 {
 	public:
 		void setup();
-    void loop(GrowSettings grow_settings);
+    void loop(GrowSettings grow_settings, SensorManager sensors);
     GrowLight();
 
   private:

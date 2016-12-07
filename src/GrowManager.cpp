@@ -25,6 +25,6 @@ void GrowManager::loop(GrowSettings grow_settings, SensorManager sensors) {
     setup();
   }
 
-  grow_light.loop(grow_settings);
+  grow_light.loop(grow_settings, sensors);
   exhaust_fan.loop(grow_settings, sensors);
 }

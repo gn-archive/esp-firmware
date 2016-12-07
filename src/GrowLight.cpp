@@ -16,7 +16,17 @@ void GrowLight::setup() {
 
 
 
-void GrowLight::loop(GrowSettings grow_settings) {
+void GrowLight::loop(GrowSettings grow_settings, SensorManager sensors) {
+
+	if (sensors.getAirTempF() >= (float)grow_settings.get_air_temp_high() ) {
+		// Overheating, shut down lights
+		growLightOn = false;
+		growLightNode.setProperty("on").send("false");
+		digitalWrite(GROW_LIGHT_PIN, LOW);
+		return;
+	}
+
+
 	//  Control Grow Light
 	if (second() >= grow_settings.get_light_on_at() && second() < grow_settings.get_light_off_at()) {
 		if (!growLightOn) {
