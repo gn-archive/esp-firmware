@@ -15,5 +15,6 @@ class GrowLight
 
   private:
     HomieNode growLightNode;
+		void ensureOn(bool yes);
     bool growLightOn;
 };

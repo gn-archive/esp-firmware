@@ -9,6 +9,9 @@ class NtpManager
 {
 	private:
 		bool messageSent;
+		unsigned long lastSerialClockMillis;
+		void printDateTime();
+		void printDigits(int digits);
   public:
     NtpManager();
     void loop();

@@ -14,7 +14,7 @@ class ExhaustFan
 
   private:
 		HomieNode fanNode;
-		void shouldBeOn(bool yes);
+		void ensureOn(bool yes);
 
 		bool fanOn;
 };

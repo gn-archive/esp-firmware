@@ -6,6 +6,7 @@
 
 NtpManager::NtpManager()
 {
+  lastSerialClockMillis = 0;
 }
 
 void NtpManager::setup() {
@@ -28,6 +29,11 @@ void NtpManager::setup() {
 }
 
 void NtpManager::loop() {
+  if (millis() - lastSerialClockMillis >= 1000) {
+    lastSerialClockMillis = millis();
+    printDateTime();
+  }
+
   if (timeStatus() != timeSet) {
     if(!messageSent) {
       messageSent = true;
@@ -36,4 +42,22 @@ void NtpManager::loop() {
   } else {
     messageSent = false;
   }
+}
+
+
+
+void NtpManager::printDateTime () {
+  // digital clock display of the time
+  Serial << year() << "-" << month() << "-" << day() << "  " << hour();
+   printDigits(minute());
+   printDigits(second());
+   Serial << endl;
+}
+
+void NtpManager::printDigits(int digits){
+  // utility function for digital clock display: prints preceding colon and leading 0
+  Serial.print(":");
+  if(digits < 10)
+    Serial.print('0');
+  Serial.print(digits);
 }

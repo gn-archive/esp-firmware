@@ -24,29 +24,29 @@ fanNode("fan", "switch")
 		}
 
 		if (sensors.getAirTempF() < (float)grow_settings.get_air_temp_low() ) {
-			shouldBeOn(false);
+			ensureOn(false);
 		} else if (sensors.getAirTempF() <= (float)grow_settings.get_air_temp_high() ) {
 			// If the air temp is within tolerance. Aka above the low cutoff but less than the danger temp
-			shouldBeOn(true);
+			ensureOn(true);
 		} else {
 			// If the air temp is above the danger temp
-				shouldBeOn(true);
+				ensureOn(true);
 		}
 	}
 
 
-	void ExhaustFan::shouldBeOn(bool yes) {
-		// if (yes && !fanOn) {
-		// 	// turn on the fan if it is not already on
-		// 	Serial << " Fan is " << (fanOn ? "on" : "off") << ", turning ON" << endl;
-		// 	fanOn = true;
-		// 	fanNode.setProperty("on").send("true");
-		// 	digitalWrite(FAN_PIN, HIGH);
-		// }
-		// if (!yes && fanOn) {
-		// 	Serial << " Fan is " << (fanOn ? "on" : "off") << ", turning OFF" << endl;
-		// 	fanOn = false;
-		// 	fanNode.setProperty("on").send("false");
-		// 	digitalWrite(FAN_PIN, LOW);
-		// }
+	void ExhaustFan::ensureOn(bool yes) {
+		if (yes && !fanOn) {
+			// turn on the fan if it is not already on
+			Serial << " Fan is " << (fanOn ? "on" : "off") << ", turning ON" << endl;
+			fanOn = true;
+			fanNode.setProperty("on").send("true");
+			digitalWrite(FAN_PIN, HIGH);
+		}
+		if (!yes && fanOn) {
+			Serial << " Fan is " << (fanOn ? "on" : "off") << ", turning OFF" << endl;
+			fanOn = false;
+			fanNode.setProperty("on").send("false");
+			digitalWrite(FAN_PIN, LOW);
+		}
 	}
