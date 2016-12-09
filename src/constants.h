@@ -1,3 +1,6 @@
+// Usable Pins
+// D0, D1, D2, D5, D6, D7, D8
+
 #define SEND_STATS_INTERVAL 10*1000
 
 #define HOMIE_STATUS_PIN D0
@@ -9,5 +12,5 @@
 
 #define GROW_LIGHT_PIN D5
 
-#define AIR_PUMP_PIN D3
-#define WATER_PUMP_PIN D4
+#define AIR_PUMP_PIN D6
+#define WATER_PUMP_PIN D7
