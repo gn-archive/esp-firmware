@@ -5,15 +5,15 @@
 #include <GrowSettings.hpp>
 #include <SensorManager.hpp>
 
-class AirPump
+class WaterPump
 {
 	public:
 		void setup();
     void loop(GrowSettings grow_settings, SensorManager sensors);
-    AirPump();
+    WaterPump();
 
   private:
-    HomieNode airPumpNode;
+    HomieNode waterPumpNode;
 		void ensureOn(bool yes);
-    bool airPumpOn;
+    bool waterPumpOn;
 };

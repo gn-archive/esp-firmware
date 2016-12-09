@@ -7,6 +7,7 @@
 #include <ExhaustFan.hpp>
 #include <SensorManager.hpp>
 #include <AirPump.hpp>
+#include <WaterPump.hpp>
 class GrowManager
 {
 	private:
@@ -16,6 +17,7 @@ class GrowManager
 		GrowLight grow_light;
 		ExhaustFan exhaust_fan;
 		AirPump air_pump;
+		WaterPump water_pump;
   public:
     GrowManager();
 		void loop(GrowSettings grow_settings, SensorManager sensors);

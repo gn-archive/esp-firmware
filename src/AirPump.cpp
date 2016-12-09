@@ -12,7 +12,7 @@ void AirPump::setup() {
   airPumpOn = true;
   airPumpNode.advertise("on").settable([&](const HomieRange& range, const String& value) {
 		if (value != "true" && value != "false") return false;
-		bool airPumpOn = (value == "true");
+		airPumpOn = (value == "true");
 		digitalWrite(AIR_PUMP_PIN, airPumpOn ? HIGH : LOW);
 		airPumpNode.setProperty("on").send(value);
 		return true;
