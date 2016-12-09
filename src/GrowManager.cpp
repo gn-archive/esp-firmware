@@ -4,7 +4,7 @@
 // Constructor - creates a GrowManager
 // and initializes the member variables and state
 GrowManager::GrowManager() :
-grow_light(), exhaust_fan()
+grow_light(), exhaust_fan(), air_pump()
 {
   growManagerSetupRan = false;
 }
@@ -13,6 +13,7 @@ void GrowManager::setup() {
   Serial << "GrowManager::setup()" << endl;
   grow_light.setup();
   exhaust_fan.setup();
+  air_pump.setup();
 }
 
 void GrowManager::loop(GrowSettings grow_settings, SensorManager sensors) {

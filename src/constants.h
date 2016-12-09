@@ -1,10 +1,13 @@
-#define HOMIE_STATUS_PIN D0
-
-
-
-#define FAN_PIN D2
-#define GROW_LIGHT_PIN D5
 #define SEND_STATS_INTERVAL 10*1000
+
+#define HOMIE_STATUS_PIN D0
 
 #define AIR_SENSOR_DHT DHT11
 #define AIR_SENSOR_DHT_PIN D1
+
+#define FAN_PIN D2
+
+#define GROW_LIGHT_PIN D5
+
+#define AIR_PUMP_PIN D3
+#define WATER_PUMP_PIN D4
