@@ -1,5 +1,17 @@
 // Usable Pins
-// D0, D1, D2, D5, D6, D7, D8
+// D0 = NodeMCU built in LED, also deepsleep stuff
+// D1 = GPIO5
+// D2 = GPIO4
+// D4 = GPIO2 (ESP8266 onboard LED, also serial input)
+// D5 = (GPIO 14)
+// D6 = GPIO12
+// D7 = GPIO13
+// D8 = GPIO15 (maybe/doubtful - tied to gnd)
+// SD2 (GPIO 10)
+// input:
+// SD1 (GPIO 9)
+
+// DO NOT USE D3 = GPIO0
 
 #define SEND_STATS_INTERVAL 10*1000
 
