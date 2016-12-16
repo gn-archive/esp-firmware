@@ -6,12 +6,11 @@
 // D5 = (GPIO 14)
 // D6 = GPIO12
 // D7 = GPIO13
-// D8 = GPIO15 (maybe/doubtful - tied to gnd)
+// D8 = GPIO15 (input with pulldown resistor/tied to gnd)
 // SD2 (GPIO 10)
 // input:
 // SD1 (GPIO 9)
 
-// DO NOT USE D3 = GPIO0
 
 #define SEND_STATS_INTERVAL 10*1000
 
@@ -23,6 +22,7 @@
 #define FAN_PIN D2
 
 #define GROW_LIGHT_PIN D5
-
 #define AIR_PUMP_PIN D6
 #define WATER_PUMP_PIN D7
+#define WATER_LEVEL_PIN D8
+#define WATER_LEVEL_MIN 4.5

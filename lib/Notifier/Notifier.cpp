@@ -31,3 +31,16 @@ void NotifierClass::setOverheat(bool new_overheating) {
 		send("Environment is too hot!");
 	}
 }
+
+
+void NotifierClass::setWaterLevelLow(bool new_water_level_low) {
+	if (water_level_low == new_water_level_low) {
+		return;
+	}
+
+	water_level_low = new_water_level_low;
+
+	if (water_level_low) {
+		send("Water level low!");
+	}
+}

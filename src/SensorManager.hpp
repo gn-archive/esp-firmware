@@ -17,11 +17,15 @@ class SensorManagerClass
 		HomieNode airTempNode;
 		DHT air_temp_sensor;
 		float air_temp_f;
+
+		HomieNode waterLevelNode;
+		float water_level;
   public:
     SensorManagerClass();
 		void setup();
     void loop();
 		float getAirTempF();
+		float getWaterLevel();
 };
 
 extern SensorManagerClass SensorManager;
