@@ -7,7 +7,7 @@
 #include <Homie.h>
 #include <DHT.h>
 #include <constants.h>
-
+#include <GrowSettings.hpp>
 #include <Notifier.h>
 
 class SensorManagerClass

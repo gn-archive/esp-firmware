@@ -28,7 +28,7 @@ void SensorManagerClass::loop() {
     airTempNode.setProperty("degrees").send(String(air_temp_f));
   }
 
-  bool is_overheating = air_temp_f > 70;
+  bool is_overheating = air_temp_f > GrowSettings.get_air_temp_high();
   Notifier.setOverheat(is_overheating);
 }
 
