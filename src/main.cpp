@@ -1,6 +1,7 @@
 #include "Arduino.h"
 
 #include <Homie.h>
+#include <Notifier.h>
 #include <NtpManager.hpp>
 #include <GrowManager.hpp>
 #include <SensorManager.hpp>
@@ -42,10 +43,11 @@ void setup()
 void loop()
 {
     ntp_manager.loop();
-    
+
     if (Homie.isConnected()) {
       sensor_manager.loop();
       grow_manager.loop(grow_settings, sensor_manager);
+      Notifier.loop(sensor_manager.getAirTempF());
     }
 
     Homie.loop();
