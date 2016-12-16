@@ -1,9 +1,13 @@
+#ifndef GROW_SETTINGS_H
+#define GROW_SETTINGS_H
+
 #pragma once
+
 #include "Arduino.h"
 #include <ESP8266WiFi.h>
 #include <Homie.h>
 
-class GrowSettings
+class GrowSettingsClass
 {
 	private:
 		// void setup();
@@ -29,7 +33,7 @@ class GrowSettings
 		int light_off_at;
 
 	public:
-    GrowSettings();
+    GrowSettingsClass();
 		void setup();
 
 		bool get_aborted();
@@ -42,3 +46,8 @@ class GrowSettings
 		int get_light_on_at();
 		int get_light_off_at();
 };
+
+
+extern GrowSettingsClass GrowSettings;
+
+#endif

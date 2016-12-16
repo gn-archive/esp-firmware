@@ -1,17 +1,19 @@
 #include <SensorManager.hpp>
 
-SensorManager::SensorManager() :
+SensorManagerClass::SensorManagerClass() :
 airTempNode("temperature", "temperature"),
 air_temp_sensor(AIR_SENSOR_DHT_PIN, AIR_SENSOR_DHT)
 {
   dataLastSentAt = 0;
 }
 
-void SensorManager::setup() {
+SensorManagerClass SensorManager;
+
+void SensorManagerClass::setup() {
   airTempNode.advertise("degrees");
 }
 
-void SensorManager::loop() {
+void SensorManagerClass::loop() {
   if (millis() - dataLastSentAt >= SEND_STATS_INTERVAL || dataLastSentAt == 0) {
     dataLastSentAt = millis();
     float new_air_temp_f = air_temp_sensor.readTemperature(true);
@@ -31,6 +33,6 @@ void SensorManager::loop() {
 }
 
 
-float SensorManager::getAirTempF() {
+float SensorManagerClass::getAirTempF() {
   return air_temp_f;
 }

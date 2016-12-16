@@ -17,15 +17,15 @@ fanNode("fan", "switch")
 
 	// Turn the fan on if the temperature is below the minimum temperature.
 
-	void ExhaustFan::loop(GrowSettings grow_settings, SensorManager sensors) {
+	void ExhaustFan::loop() {
 		// Control Fan
-		if (isnan(sensors.getAirTempF())) {
+		if (isnan(SensorManager.getAirTempF())) {
 			return;
 		}
 
-		if (sensors.getAirTempF() < (float)grow_settings.get_air_temp_low() ) {
+		if (SensorManager.getAirTempF() < (float)GrowSettings.get_air_temp_low() ) {
 			ensureOn(false);
-		} else if (sensors.getAirTempF() <= (float)grow_settings.get_air_temp_high() ) {
+		} else if (SensorManager.getAirTempF() <= (float)GrowSettings.get_air_temp_high() ) {
 			// If the air temp is within tolerance. Aka above the low cutoff but less than the danger temp
 			ensureOn(true);
 		} else {

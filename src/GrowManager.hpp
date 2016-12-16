@@ -4,9 +4,10 @@
 #include <Homie.h>
 #include <ArduinoJson.h>
 
+#include <GrowSettings.hpp>
+
 #include <GrowLight.hpp>
 #include <ExhaustFan.hpp>
-#include <SensorManager.hpp>
 #include <AirPump.hpp>
 #include <WaterPump.hpp>
 
@@ -23,5 +24,5 @@ class GrowManager
 		WaterPump water_pump;
   public:
     GrowManager();
-		void loop(GrowSettings grow_settings, SensorManager sensors);
+		void loop();
 };

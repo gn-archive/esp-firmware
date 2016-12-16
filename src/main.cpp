@@ -3,8 +3,6 @@
 
 #include <NtpManager.hpp>
 #include <GrowManager.hpp>
-#include <SensorManager.hpp>
-#include <GrowSettings.hpp>
 // #include <Led.cpp>
 // D0 = NodeMCU LED
 // D4 = ESP8266 LED
@@ -13,8 +11,6 @@
 
 NtpManager ntp_manager;
 GrowManager grow_manager;
-SensorManager sensor_manager;
-GrowSettings grow_settings;
 
 void setup()
 {
@@ -32,11 +28,11 @@ void setup()
     Homie_setBrand("Grow Nodes"); // before Homie.setup()
 
     ntp_manager.setup();
-    sensor_manager.setup();
+    SensorManager.setup();
 
     Homie.setup();
 
-    grow_settings.setup();
+    GrowSettings.setup();
 }
 
 void loop()
@@ -44,8 +40,8 @@ void loop()
     ntp_manager.loop();
 
     if (Homie.isConnected()) {
-      sensor_manager.loop();
-      grow_manager.loop(grow_settings, sensor_manager);
+      SensorManager.loop();
+      grow_manager.loop();
     }
 
     Homie.loop();

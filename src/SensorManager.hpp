@@ -1,4 +1,7 @@
 #pragma once
+#ifndef SENSOR_MANAGER_H
+#define SENSOR_MANAGER_H
+
 #include "Arduino.h"
 #include <ESP8266WiFi.h>
 #include <Homie.h>
@@ -7,7 +10,7 @@
 
 #include <Notifier.h>
 
-class SensorManager
+class SensorManagerClass
 {
 	private:
 		unsigned long dataLastSentAt;
@@ -15,8 +18,12 @@ class SensorManager
 		DHT air_temp_sensor;
 		float air_temp_f;
   public:
-    SensorManager();
+    SensorManagerClass();
 		void setup();
     void loop();
 		float getAirTempF();
 };
+
+extern SensorManagerClass SensorManager;
+
+#endif

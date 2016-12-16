@@ -17,8 +17,8 @@ void GrowManager::setup() {
   water_pump.setup();
 }
 
-void GrowManager::loop(GrowSettings grow_settings, SensorManager sensors) {
-  if (timeStatus() != timeSet || grow_settings.get_aborted()) {
+void GrowManager::loop() {
+  if (timeStatus() != timeSet || GrowSettings.get_aborted()) {
     return;
   }
   // need to run after homie setup to send off values on bootup
@@ -27,6 +27,6 @@ void GrowManager::loop(GrowSettings grow_settings, SensorManager sensors) {
     setup();
   }
 
-  grow_light.loop(grow_settings, sensors);
-  exhaust_fan.loop(grow_settings, sensors);
+  grow_light.loop();
+  exhaust_fan.loop();
 }

@@ -9,7 +9,7 @@ class ExhaustFan
 {
 	public:
 		void setup();
-    void loop(GrowSettings grow_settings, SensorManager sensors);
+    void loop();
     ExhaustFan();
 
   private:

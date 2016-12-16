@@ -1,9 +1,8 @@
-// Central starting point for all Grow subsystems.
 #include <GrowSettings.hpp>
 
-// Constructor - creates a GrowSettings
+// Constructor - creates a GrowSettingsClass
 // and initializes the member variables and state
-GrowSettings::GrowSettings():
+GrowSettingsClass::GrowSettingsClass():
 h_aborted("aborted", "True = stop growing"),
 h_start_at("start_at", "Seconds from UNIX epoch when the grow was started."),
 h_settings_id("settings_id", "UUID of this setting"),
@@ -16,8 +15,10 @@ h_light_off_at("light_off_at", "light turns off at")
 {
 }
 
+GrowSettingsClass GrowSettings;
 
-void GrowSettings::setup() {
+
+void GrowSettingsClass::setup() {
   aborted = h_aborted.get();
   start_at = h_start_at.get();
   settings_id = h_settings_id.get();
@@ -29,38 +30,38 @@ void GrowSettings::setup() {
   light_off_at = h_light_off_at.get();
 }
 
-bool GrowSettings::get_aborted() {
+bool GrowSettingsClass::get_aborted() {
   return aborted;
 }
 
-long GrowSettings::get_start_at() {
+long GrowSettingsClass::get_start_at() {
   return start_at;
 }
 
-const char* GrowSettings::get_settings_id() {
+const char* GrowSettingsClass::get_settings_id() {
   return settings_id;
 }
 
-int GrowSettings::get_air_temp_high() {
+int GrowSettingsClass::get_air_temp_high() {
   return air_temp_high;
 }
 
-int GrowSettings::get_air_temp_low() {
+int GrowSettingsClass::get_air_temp_low() {
   return air_temp_low;
 }
 
-int GrowSettings::get_water_temp_high() {
+int GrowSettingsClass::get_water_temp_high() {
   return water_temp_high;
 }
 
-int GrowSettings::get_water_temp_low() {
+int GrowSettingsClass::get_water_temp_low() {
   return water_temp_low;
 }
 
-int GrowSettings::get_light_on_at() {
+int GrowSettingsClass::get_light_on_at() {
   return light_on_at;
 }
 
-int GrowSettings::get_light_off_at() {
+int GrowSettingsClass::get_light_off_at() {
   return light_off_at;
 }
