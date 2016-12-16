@@ -5,6 +5,8 @@
 #include <DHT.h>
 #include <constants.h>
 
+#include <Notifier.h>
+
 class SensorManager
 {
 	private:

@@ -9,12 +9,11 @@ class NotifierClass
 	public:
     NotifierClass();
 		void setup();
-    void loop(float tempf);
     void send(const char* body);
+		void setOverheat(bool new_overheating);
   private:
     HomieNode notifierNode;
 
-    void setOverheat(bool new_overheating);
     bool overheating;
     unsigned long overheated_at;
 };

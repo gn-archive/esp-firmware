@@ -12,7 +12,6 @@ void SensorManager::setup() {
 }
 
 void SensorManager::loop() {
-
   if (millis() - dataLastSentAt >= SEND_STATS_INTERVAL || dataLastSentAt == 0) {
     dataLastSentAt = millis();
     float new_air_temp_f = air_temp_sensor.readTemperature(true);
@@ -26,6 +25,9 @@ void SensorManager::loop() {
     Serial << "Temperature: " << air_temp_f << " °F" << endl;
     airTempNode.setProperty("degrees").send(String(air_temp_f));
   }
+
+  bool is_overheating = air_temp_f > 70;
+  Notifier.setOverheat(is_overheating);
 }
 
 
