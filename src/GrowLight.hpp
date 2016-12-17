@@ -9,12 +9,18 @@
 class GrowLight
 {
 	public:
+		enum State {
+			ON,
+			OFF,
+			OVERHEAT,
+			ERROR
+		};
 		void setup();
 		void loop();
     GrowLight();
 
   private:
+		State _state;
     HomieNode growLightNode;
-		void ensureOn(bool yes);
-    bool growLightOn;
+		void setState(State state);
 };
