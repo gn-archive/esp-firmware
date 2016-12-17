@@ -11,6 +11,8 @@ grow_light(), exhaust_fan(), air_pump(), water_pump()
 
 void GrowProgram::setup() {
   Serial << "GrowProgram::setup()" << endl;
+  GrowSettings.setup();
+  SensorManager.setup();
   grow_light.setup();
   exhaust_fan.setup();
   air_pump.setup();
@@ -18,6 +20,8 @@ void GrowProgram::setup() {
 }
 
 void GrowProgram::loop() {
+  SensorManager.loop();
+
   if (timeStatus() != timeSet || GrowSettings.get_aborted()) {
     return;
   }

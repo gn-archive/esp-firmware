@@ -1,6 +1,6 @@
 #include "Arduino.h"
 #include <Homie.h>
-
+#include <HLogger.h>
 #include <NtpManager.hpp>
 #include <GrowProgram.hpp>
 // #include <Led.cpp>
@@ -28,11 +28,8 @@ void setup()
     Homie_setBrand("Grow Nodes"); // before Homie.setup()
 
     ntp_manager.setup();
-    SensorManager.setup();
 
     Homie.setup();
-
-    GrowSettings.setup();
 }
 
 void loop()
@@ -40,7 +37,6 @@ void loop()
     ntp_manager.loop();
 
     if (Homie.isConnected()) {
-      SensorManager.loop();
       grow_program.loop();
     }
 
