@@ -14,14 +14,23 @@
 
 class GrowProgram
 {
-	private:
-		void setup();
+public:
+	enum State {
+		STOPPED,
+		RUNNING
+	};
+	GrowProgram();
+	void setup();
+	void loop();
+	void setState(State state);
+
+private:
+		State _state;
 
 		GrowLight grow_light;
 		ExhaustFan exhaust_fan;
 		AirPump air_pump;
 		WaterPump water_pump;
-  public:
-    GrowProgram();
-		void loop();
+
+
 };

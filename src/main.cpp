@@ -27,6 +27,12 @@ void loop()
 {
     ntp_manager.loop();
 
+    if ( GrowSettings.get_aborted() ) {
+      grow_program.setState(GrowProgram::STOPPED);
+    } else {
+      grow_program.setState(GrowProgram::RUNNING);
+    }
+    
     grow_program.loop();
 
     Homie.loop();

@@ -13,15 +13,14 @@ class GrowLight
 			ON,
 			OFF,
 			OVERHEAT,
-			ERROR,
-			UNDEFINED
+			DISABLED
 		};
+		GrowLight();
 		void setup();
 		void loop();
-    GrowLight();
+		void setState(State state);
 
   private:
 		State _state;
-    HomieNode growLightNode;
-		void setState(State state);
+    HomieNode _growLightNode;
 };
