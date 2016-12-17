@@ -1,29 +1,29 @@
 // Central starting point for all Grow subsystems.
-#include <GrowManager.hpp>
+#include <GrowProgram.hpp>
 
-// Constructor - creates a GrowManager
+// Constructor - creates a GrowProgram
 // and initializes the member variables and state
-GrowManager::GrowManager() :
+GrowProgram::GrowProgram() :
 grow_light(), exhaust_fan(), air_pump(), water_pump()
 {
-  growManagerSetupRan = false;
+  GrowProgramSetupRan = false;
 }
 
-void GrowManager::setup() {
-  Serial << "GrowManager::setup()" << endl;
+void GrowProgram::setup() {
+  Serial << "GrowProgram::setup()" << endl;
   grow_light.setup();
   exhaust_fan.setup();
   air_pump.setup();
   water_pump.setup();
 }
 
-void GrowManager::loop() {
+void GrowProgram::loop() {
   if (timeStatus() != timeSet || GrowSettings.get_aborted()) {
     return;
   }
   // need to run after homie setup to send off values on bootup
-  if (!growManagerSetupRan) {
-    growManagerSetupRan = true;
+  if (!GrowProgramSetupRan) {
+    GrowProgramSetupRan = true;
     setup();
   }
 

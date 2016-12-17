@@ -12,10 +12,10 @@
 #include <WaterPump.hpp>
 
 
-class GrowManager
+class GrowProgram
 {
 	private:
-		bool growManagerSetupRan;
+		bool GrowProgramSetupRan;
 		void setup();
 
 		GrowLight grow_light;
@@ -23,6 +23,6 @@ class GrowManager
 		AirPump air_pump;
 		WaterPump water_pump;
   public:
-    GrowManager();
+    GrowProgram();
 		void loop();
 };

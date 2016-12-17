@@ -2,7 +2,7 @@
 #include <Homie.h>
 
 #include <NtpManager.hpp>
-#include <GrowManager.hpp>
+#include <GrowProgram.hpp>
 // #include <Led.cpp>
 // D0 = NodeMCU LED
 // D4 = ESP8266 LED
@@ -10,7 +10,7 @@
 // Led test_led(D0);
 
 NtpManager ntp_manager;
-GrowManager grow_manager;
+GrowProgram grow_program;
 
 void setup()
 {
@@ -41,7 +41,7 @@ void loop()
 
     if (Homie.isConnected()) {
       SensorManager.loop();
-      grow_manager.loop();
+      grow_program.loop();
     }
 
     Homie.loop();
