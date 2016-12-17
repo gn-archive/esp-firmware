@@ -6,7 +6,6 @@
 GrowProgram::GrowProgram() :
 grow_light(), exhaust_fan(), air_pump(), water_pump()
 {
-  GrowProgramSetupRan = false;
 }
 
 void GrowProgram::setup() {
@@ -22,13 +21,8 @@ void GrowProgram::setup() {
 void GrowProgram::loop() {
   SensorManager.loop();
 
-  if (timeStatus() != timeSet || GrowSettings.get_aborted()) {
+  if (GrowSettings.get_aborted()) {
     return;
-  }
-  // need to run after homie setup to send off values on bootup
-  if (!GrowProgramSetupRan) {
-    GrowProgramSetupRan = true;
-    setup();
   }
 
   grow_light.loop();

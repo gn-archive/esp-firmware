@@ -1,13 +1,4 @@
-#include "Arduino.h"
-#include <Homie.h>
-#include <HLogger.h>
-#include <NtpManager.hpp>
-#include <GrowProgram.hpp>
-// #include <Led.cpp>
-// D0 = NodeMCU LED
-// D4 = ESP8266 LED
-
-// Led test_led(D0);
+#include <main.h>
 
 NtpManager ntp_manager;
 GrowProgram grow_program;
@@ -36,9 +27,7 @@ void loop()
 {
     ntp_manager.loop();
 
-    if (Homie.isConnected()) {
-      grow_program.loop();
-    }
+    grow_program.loop();
 
     Homie.loop();
 }

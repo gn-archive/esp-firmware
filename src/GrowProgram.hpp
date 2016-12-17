@@ -15,7 +15,6 @@
 class GrowProgram
 {
 	private:
-		bool GrowProgramSetupRan;
 		void setup();
 
 		GrowLight grow_light;
