@@ -13,7 +13,8 @@ class GrowLight
 			ON,
 			OFF,
 			OVERHEAT,
-			ERROR
+			ERROR,
+			UNDEFINED
 		};
 		void setup();
 		void loop();

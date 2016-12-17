@@ -9,6 +9,7 @@ growLightNode("grow_light", "switch")
 		Serial << "GrowLight::setup()" << endl;
 		pinMode(GROW_LIGHT_PIN, OUTPUT);
 		digitalWrite(GROW_LIGHT_PIN, LOW);
+		_state = UNDEFINED;
 		setState(OFF);
 		growLightNode.advertise("on");
 		growLightNode.setProperty("on").send("false");
