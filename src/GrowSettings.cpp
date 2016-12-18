@@ -8,24 +8,24 @@ h_settings_id("settings_id", "UUID of this setting"),
 h_light_on_at("light_on_at", "light turns on at"),
 h_light_off_at("light_off_at", "light turns off at")
 {
+  aborted = false;
+  light_on_at = DEFAULT_GROW_LIGHT_ON_AT;
+  light_off_at = DEFAULT_GROW_LIGHT_OFF_AT;
 }
 
 GrowSettingsClass GrowSettings;
 
 
 void GrowSettingsClass::setup() {
-  aborted = h_aborted.get();
-  settings_id = h_settings_id.get();
-  light_on_at = h_light_on_at.get();
-  light_off_at = h_light_off_at.get();
+  if (Homie.isConfigured()) {
+    aborted = h_aborted.get();
+    light_on_at = h_light_on_at.get() ;
+    light_off_at = h_light_off_at.get();
+  }
 }
 
 bool GrowSettingsClass::get_aborted() {
   return aborted;
-}
-
-const char* GrowSettingsClass::get_settings_id() {
-  return settings_id;
 }
 
 int GrowSettingsClass::get_light_on_at() {
