@@ -28,22 +28,26 @@ void SensorManagerClass::loop() {
       air_temp_f = new_air_temp_f;
 
       Serial << "Temperature: " << air_temp_f << " °F" << endl;
-      airTempNode.setProperty("degrees").send(String(air_temp_f));
+      if (Homie.isConnected()) {
+        airTempNode.setProperty("degrees").send(String(air_temp_f));
+      }
     }
 
     water_level = digitalRead(WATER_LEVEL_PIN) == LOW ? 1.2 : 4.9;
-    waterLevelNode.setProperty("gallons").send(String(water_level));
+    if (Homie.isConnected()) {
+      waterLevelNode.setProperty("gallons").send(String(water_level));
+    }
   }
 
-  bool is_overheating = air_temp_f > GrowSettings.get_air_temp_high();
-  Notifier.setOverheat(is_overheating);
-
-
-  if (water_level < 4.5) {
-    Notifier.setWaterLevelLow(true);
-  } else {
-    Notifier.setWaterLevelLow(false);
-  }
+  // bool is_overheating = air_temp_f > AIR_TEMP_OVERHEAT;
+  // Notifier.setOverheat(is_overheating);
+  //
+  //
+  // if (water_level < 4.5) {
+  //   Notifier.setWaterLevelLow(true);
+  // } else {
+  //   Notifier.setWaterLevelLow(false);
+  // }
 }
 
 

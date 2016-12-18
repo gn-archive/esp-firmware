@@ -26,3 +26,5 @@
 #define WATER_PUMP_PIN D7
 #define WATER_LEVEL_PIN D8
 #define WATER_LEVEL_MIN 4.5
+
+#define AIR_TEMP_OVERHEAT 77.0

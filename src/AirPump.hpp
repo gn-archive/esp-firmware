@@ -8,7 +8,7 @@ class AirPump
 	public:
 		void setup();
     AirPump();
-
+		void sendCurrentState();
   private:
     HomieNode airPumpNode;
     bool airPumpOn;

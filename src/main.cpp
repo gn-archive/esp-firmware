@@ -1,16 +1,15 @@
-#include "Arduino.h"
-#include <Homie.h>
-
-#include <NtpManager.hpp>
-#include <GrowManager.hpp>
-// #include <Led.cpp>
-// D0 = NodeMCU LED
-// D4 = ESP8266 LED
-
-// Led test_led(D0);
+#include <main.h>
 
 NtpManager ntp_manager;
-GrowManager grow_manager;
+GrowProgram grow_program;
+
+void onSystemEvent(const HomieEvent& event) {
+  switch(event.type) {
+    case HomieEventType::MQTT_CONNECTED:
+      grow_program.sendCurrentState();
+    break;
+  }
+}
 
 void setup()
 {
@@ -26,23 +25,23 @@ void setup()
   // test_led.setMode(4);
   	Homie_setFirmware("node-os", "1.0.0"); // The "_" is not a typo! See Magic bytes
     Homie_setBrand("Grow Nodes"); // before Homie.setup()
-
-    ntp_manager.setup();
-    SensorManager.setup();
-
+    Homie.onEvent(onSystemEvent);
     Homie.setup();
-
-    GrowSettings.setup();
+    ntp_manager.setup();
+    grow_program.setup();
 }
 
 void loop()
 {
+    Homie.loop();
     ntp_manager.loop();
 
-    if (Homie.isConnected()) {
-      SensorManager.loop();
-      grow_manager.loop();
+    if ( GrowSettings.get_aborted() ) {
+      grow_program.setState(GrowProgram::STOPPED);
+    } else {
+      grow_program.setState(GrowProgram::RUNNING);
     }
 
-    Homie.loop();
+    grow_program.loop();
+
 }
