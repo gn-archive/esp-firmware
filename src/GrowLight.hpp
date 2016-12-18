@@ -19,7 +19,7 @@ class GrowLight
 		void setup();
 		void loop();
 		void setState(State state);
-
+		void sendCurrentState();
   private:
 		State _state;
     HomieNode _growLightNode;

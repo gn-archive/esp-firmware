@@ -5,10 +5,6 @@
 GrowSettingsClass::GrowSettingsClass():
 h_aborted("aborted", "True = stop growing"),
 h_settings_id("settings_id", "UUID of this setting"),
-h_air_temp_high("air_temp_high", "Maximum air temp"),
-h_air_temp_low("air_temp_low", "Minimum air temp"),
-h_water_temp_high("water_temp_high", "Maximum water temp"),
-h_water_temp_low("water_temp_low", "Minimum air temp"),
 h_light_on_at("light_on_at", "light turns on at"),
 h_light_off_at("light_off_at", "light turns off at")
 {
@@ -20,10 +16,6 @@ GrowSettingsClass GrowSettings;
 void GrowSettingsClass::setup() {
   aborted = h_aborted.get();
   settings_id = h_settings_id.get();
-  air_temp_high = h_air_temp_high.get();
-  air_temp_low = h_air_temp_low.get();
-  water_temp_high = h_water_temp_high.get();
-  water_temp_low = h_water_temp_low.get();
   light_on_at = h_light_on_at.get();
   light_off_at = h_light_off_at.get();
 }
@@ -34,22 +26,6 @@ bool GrowSettingsClass::get_aborted() {
 
 const char* GrowSettingsClass::get_settings_id() {
   return settings_id;
-}
-
-int GrowSettingsClass::get_air_temp_high() {
-  return air_temp_high;
-}
-
-int GrowSettingsClass::get_air_temp_low() {
-  return air_temp_low;
-}
-
-int GrowSettingsClass::get_water_temp_high() {
-  return water_temp_high;
-}
-
-int GrowSettingsClass::get_water_temp_low() {
-  return water_temp_low;
 }
 
 int GrowSettingsClass::get_light_on_at() {

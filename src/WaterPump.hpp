@@ -9,6 +9,7 @@ class WaterPump
 		void setup();
     void loop();
     WaterPump();
+		void sendCurrentState();
 
   private:
     HomieNode waterPumpNode;

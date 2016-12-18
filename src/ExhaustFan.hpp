@@ -11,10 +11,9 @@ class ExhaustFan
 		void setup();
     void loop();
     ExhaustFan();
-
+		void sendCurrentState();
   private:
 		HomieNode fanNode;
 		void ensureOn(bool yes);
-
 		bool fanOn;
 };

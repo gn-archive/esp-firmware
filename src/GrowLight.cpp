@@ -15,14 +15,29 @@ _growLightNode("grow_light", "switch")
 		setState(OFF);		// Setting state to OFF will change it out of the DISABLED state.
 	}
 
+void GrowLight::sendCurrentState() {
+	if (!Homie.isConnected()) {
+		return;
+	}
+	switch (_state) {
+		case ON:
+			_growLightNode.setProperty("on").send("true");
+		break;
 
+		case OFF:
+		case OVERHEAT:
+		case DISABLED:
+			_growLightNode.setProperty("on").send("false");
+		break;
+	}
+}
 
 	void GrowLight::loop() {
 		if (_state == DISABLED) {
 			return;
 		}
 
-		if (SensorManager.getAirTempF() >= (float)GrowSettings.get_air_temp_high() ) {
+		if (SensorManager.getAirTempF() >= AIR_TEMP_OVERHEAT ) {
 			setState(OVERHEAT);
 			return;
 		}
@@ -43,17 +58,16 @@ _growLightNode("grow_light", "switch")
 		}
 
 		_state = state;
+		sendCurrentState();
 
 		switch (_state) {
 			case ON:
 				Serial << "Time: " << second() << " Grow light turning ON" << endl;
-				_growLightNode.setProperty("on").send("true");
 				digitalWrite(GROW_LIGHT_PIN, HIGH);
 			break;
 
 			case OFF:
 				Serial << "Time: " << second() << " Grow light is turning OFF" << endl;
-				_growLightNode.setProperty("on").send("false");
 				digitalWrite(GROW_LIGHT_PIN, LOW);
 			break;
 
@@ -65,7 +79,6 @@ _growLightNode("grow_light", "switch")
 
 			case DISABLED:
 				Serial << "Time: " << second() << " Grow light is overheating, turning OFF" << endl;
-				_growLightNode.setProperty("on").send("false");
 				digitalWrite(GROW_LIGHT_PIN, LOW);
 			break;
 		}

@@ -6,7 +6,6 @@
 GrowProgram::GrowProgram() :
 grow_light(), exhaust_fan(), air_pump(), water_pump()
 {
-  _state = STOPPED;
 }
 
 void GrowProgram::setup() {
@@ -19,6 +18,13 @@ void GrowProgram::setup() {
   exhaust_fan.setup();
   air_pump.setup();
   water_pump.setup();
+}
+
+void GrowProgram::sendCurrentState() {
+  grow_light.sendCurrentState();
+  exhaust_fan.sendCurrentState();
+  air_pump.sendCurrentState();
+  water_pump.sendCurrentState();
 }
 
 void GrowProgram::loop() {
@@ -42,12 +48,12 @@ void GrowProgram::setState(State state) {
 
   switch (_state) {
     case STOPPED:
-      Serial << "Time: " << second() << " Grow Program is stopping." << endl;
+      Serial << "Time: " << second() << " Grow Program is stopped." << endl;
       grow_light.setState(GrowLight::DISABLED);
     break;
 
     case RUNNING:
-      Serial << "Time: " << second() << " Grow Program is starting." << endl;
+      Serial << "Time: " << second() << " Grow Program is running." << endl;
       grow_light.setState(GrowLight::OFF);  // Any state other than DISABLED will work
     break;
   }

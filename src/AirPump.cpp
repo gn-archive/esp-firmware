@@ -14,10 +14,20 @@ void AirPump::setup() {
 		if (value != "true" && value != "false") return false;
 		airPumpOn = (value == "true");
 		digitalWrite(AIR_PUMP_PIN, airPumpOn ? HIGH : LOW);
-		airPumpNode.setProperty("on").send(value);
 		return true;
 	});
-  airPumpNode.setProperty("on").send("true");
+}
+
+
+void AirPump::sendCurrentState() {
+	if (!Homie.isConnected()) {
+		return;
+	}
+	if (airPumpOn) {
+		airPumpNode.setProperty("on").send("true");
+	} else {
+		airPumpNode.setProperty("on").send("false");
+	}
 }
 
 

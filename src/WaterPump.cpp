@@ -17,10 +17,18 @@ void WaterPump::setup() {
 		waterPumpNode.setProperty("on").send(value);
 		return true;
 	});
-  waterPumpNode.setProperty("on").send("false");
 }
 
-
+void WaterPump::sendCurrentState() {
+	if (!Homie.isConnected()) {
+		return;
+	}
+	if (waterPumpOn) {
+		waterPumpNode.setProperty("on").send("true");
+	} else {
+		waterPumpNode.setProperty("on").send("false");
+	}
+}
 
 // void WaterPump::loop(GrowSettings grow_settings, SensorManager sensors) {
 //

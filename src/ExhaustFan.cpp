@@ -11,27 +11,32 @@ fanNode("fan", "switch")
 		digitalWrite(FAN_PIN, LOW);
 		fanOn = false;
 		fanNode.advertise("on");
-		fanNode.setProperty("on").send("false");
 	}
 
-
-	// Turn the fan on if the temperature is below the minimum temperature.
+	void ExhaustFan::sendCurrentState() {
+		if (!Homie.isConnected()) {
+			return;
+		}
+		if (fanOn) {
+			fanNode.setProperty("on").send("true");
+		} else {
+			fanNode.setProperty("on").send("false");
+		}
+	}
 
 	void ExhaustFan::loop() {
 		// Control Fan
 		if (isnan(SensorManager.getAirTempF())) {
+			Serial << "fan is nan" << endl;
 			return;
 		}
 
-		if (SensorManager.getAirTempF() < (float)GrowSettings.get_air_temp_low() ) {
-			ensureOn(false);
-		} else if (SensorManager.getAirTempF() <= (float)GrowSettings.get_air_temp_high() ) {
-			// If the air temp is within tolerance. Aka above the low cutoff but less than the danger temp
-			ensureOn(true);
-		} else {
-			// If the air temp is above the danger temp
-				ensureOn(true);
-		}
+		ensureOn(true);
+		// if (SensorManager.getAirTempF() < AIR_TEMP_OVERHEAT ) {
+		// } else {
+		// 	// If the air temp is above the danger temp
+		// 		ensureOn(true);
+		// }
 	}
 
 
@@ -40,13 +45,13 @@ fanNode("fan", "switch")
 			// turn on the fan if it is not already on
 			Serial << " Fan is " << (fanOn ? "on" : "off") << ", turning ON" << endl;
 			fanOn = true;
-			fanNode.setProperty("on").send("true");
+			sendCurrentState();
 			digitalWrite(FAN_PIN, HIGH);
 		}
 		if (!yes && fanOn) {
 			Serial << " Fan is " << (fanOn ? "on" : "off") << ", turning OFF" << endl;
 			fanOn = false;
-			fanNode.setProperty("on").send("false");
+			sendCurrentState();
 			digitalWrite(FAN_PIN, LOW);
 		}
 	}
