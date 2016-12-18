@@ -39,15 +39,15 @@ void SensorManagerClass::loop() {
     }
   }
 
-  // bool is_overheating = air_temp_f > AIR_TEMP_OVERHEAT;
-  // Notifier.setOverheat(is_overheating);
-  //
-  //
-  // if (water_level < 4.5) {
-  //   Notifier.setWaterLevelLow(true);
-  // } else {
-  //   Notifier.setWaterLevelLow(false);
-  // }
+  bool is_overheating = air_temp_f > AIR_TEMP_OVERHEAT;
+  Notifier.setOverheat(is_overheating);
+
+
+  if (water_level < 4.5) {
+    Notifier.setWaterLevelLow(true);
+  } else {
+    Notifier.setWaterLevelLow(false);
+  }
 }
 
 

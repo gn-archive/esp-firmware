@@ -1,4 +1,6 @@
 #pragma once
+#ifndef NOTIFIER_H
+#define NOTIFIER_H
 
 #include "Arduino.h"
 #include <Homie.h>
@@ -22,3 +24,6 @@ class NotifierClass
 };
 
 extern NotifierClass Notifier;
+
+
+#endif
