@@ -1,3 +1,4 @@
+#pragma once
 #include "Arduino.h"
 #include <Notifier.hpp>
 #include <SensorManager.hpp>
@@ -10,6 +11,7 @@ class GrowErrors
 
     void sendCurrentState();
 
+    bool getOverheat();
 
   private:
     bool _overheating;

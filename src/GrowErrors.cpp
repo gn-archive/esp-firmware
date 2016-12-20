@@ -41,6 +41,10 @@ void GrowErrors::setOverheat(bool overheating) {
 	}
 }
 
+bool GrowErrors::getOverheat() {
+  return _overheating;
+}
+
 void GrowErrors::setWaterLevelLow(bool water_level_low) {
 	if (_water_level_low == water_level_low) {
 		return;

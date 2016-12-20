@@ -37,7 +37,7 @@ void GrowProgram::loop() {
   SensorManager.loop();
   grow_errors.loop();
 
-  grow_light.loop();
+  grow_light.loop(grow_errors);
   exhaust_fan.loop();
 }
 

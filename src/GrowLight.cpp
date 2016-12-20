@@ -32,12 +32,12 @@ void GrowLight::sendCurrentState() {
 	}
 }
 
-	void GrowLight::loop() {
+	void GrowLight::loop(GrowErrors grow_errors) {
 		if (_state == DISABLED) {
 			return;
 		}
 
-		if (SensorManager.getAirTempF() >= AIR_TEMP_OVERHEAT ) {
+		if (grow_errors.getOverheat() ) {
 			setState(OVERHEAT);
 			return;
 		}

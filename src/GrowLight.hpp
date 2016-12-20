@@ -5,6 +5,7 @@
 #include <Timelib.h>
 #include <GrowSettings.hpp>
 #include <SensorManager.hpp>
+#include <GrowErrors.hpp>
 
 class GrowLight
 {
@@ -17,7 +18,7 @@ class GrowLight
 		};
 		GrowLight();
 		void setup();
-		void loop();
+		void loop(GrowErrors grow_errors);
 		void setState(State state);
 		void sendCurrentState();
   private:
