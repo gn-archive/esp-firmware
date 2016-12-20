@@ -25,12 +25,6 @@ fanNode("fan", "switch")
 	}
 
 	void ExhaustFan::loop() {
-		// Control Fan
-		if (isnan(SensorManager.getAirTempF())) {
-			Serial << "fan is nan" << endl;
-			return;
-		}
-
 		ensureOn(true);
 		// if (SensorManager.getAirTempF() < AIR_TEMP_OVERHEAT ) {
 		// } else {

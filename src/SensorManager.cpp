@@ -43,7 +43,9 @@ void SensorManagerClass::loop() {
 
 
 float SensorManagerClass::getAirTempF() {
-  return air_temp_f;
+  if (isnan(air_temp_f)) {
+    return 030;
+  }
 }
 
 float SensorManagerClass::getWaterLevel() {
