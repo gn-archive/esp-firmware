@@ -13,6 +13,8 @@ void NotifierClass::setup() {
 }
 
 void NotifierClass::send(const char* body) {
-    Serial << "Sending notification: " << body << endl;
+	if (Homie.isConnected()) {
+		Serial << "Sending notification: " << body << endl;
 		notifierNode.setProperty("send").send(body);
+	}
 }
