@@ -8,7 +8,6 @@
 #include <DHT.h>
 #include <constants.h>
 #include <GrowSettings.hpp>
-#include <Notifier.hpp>
 
 class SensorManagerClass
 {

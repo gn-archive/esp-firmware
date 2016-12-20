@@ -16,7 +16,7 @@ void setup()
   delay(200);
   Serial.begin(74880);
 
-  Serial << endl << endl <<
+  Serial << endl << endl;
   Serial << "==============================================================================" << endl;
   Serial << "                               Welcome to NodeOS!" << endl;
   Serial << "==============================================================================" << endl;

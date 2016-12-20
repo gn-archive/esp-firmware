@@ -5,12 +5,12 @@
 #include <ArduinoJson.h>
 
 #include <GrowSettings.hpp>
+#include <GrowErrors.hpp>
 
 #include <GrowLight.hpp>
 #include <ExhaustFan.hpp>
 #include <AirPump.hpp>
 #include <WaterPump.hpp>
-
 
 class GrowProgram
 {
@@ -26,7 +26,7 @@ public:
 	void sendCurrentState();
 private:
 		State _state;
-
+		GrowErrors grow_errors;
 		GrowLight grow_light;
 		ExhaustFan exhaust_fan;
 		AirPump air_pump;
