@@ -1,7 +1,7 @@
 #include <ExhaustFan.hpp>
 
 ExhaustFan::ExhaustFan():
-fanNode("fan", "switch")
+fanNode("fan", "relay")
 {}
 
 

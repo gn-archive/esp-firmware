@@ -1,7 +1,7 @@
 #include <GrowErrors.hpp>
 
 GrowErrors::GrowErrors() :
-growErrorsNode("grow_errors", "Grow Errors")
+growErrorsNode("grow_errors", "grow errors")
 {
   _overheat_at = 0;
   growErrorsNode.advertise("overheat");

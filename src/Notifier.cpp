@@ -1,7 +1,7 @@
 #include <Notifier.hpp>
 
 NotifierClass::NotifierClass():
-notifierNode("notification", "send")
+notifierNode("notification", "pushed to app")
 {
 }
 // Initialize Notifier global/extern

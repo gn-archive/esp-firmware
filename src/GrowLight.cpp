@@ -1,7 +1,7 @@
 #include <GrowLight.hpp>
 
 GrowLight::GrowLight():
-_growLightNode("grow_light", "switch")
+_growLightNode("grow_light", "relay")
 {
 	_state = DISABLED;
 }

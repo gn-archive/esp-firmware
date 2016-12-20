@@ -1,8 +1,8 @@
 #include <SensorManager.hpp>
 
 SensorManagerClass::SensorManagerClass() :
-waterLevelNode("waterlevel", "waterlevel"),
-airTempNode("temperature", "temperature"),
+waterLevelNode("waterlevel", "gallons"),
+airTempNode("temperature", "degrees F"),
 air_temp_sensor(AIR_SENSOR_DHT_PIN, AIR_SENSOR_DHT)
 {
   dataLastSentAt = 0;
