@@ -1,15 +1,5 @@
 #include <main.h>
 
-NtpManager ntp_manager;
-GrowProgram grow_program;
-
-void onSystemEvent(const HomieEvent& event) {
-  switch(event.type) {
-    case HomieEventType::MQTT_CONNECTED:
-      grow_program.sendCurrentState();
-    break;
-  }
-}
 
 void setup()
 {
@@ -22,13 +12,16 @@ void setup()
   Serial << "==============================================================================" << endl;
 
   Homie.setLedPin(HOMIE_STATUS_PIN, LOW);
-  // test_led.setMode(4);
-  	Homie_setFirmware("node-os", "1.0.0"); // The "_" is not a typo! See Magic bytes
-    Homie_setBrand("Grow Nodes"); // before Homie.setup()
-    Homie.onEvent(onSystemEvent);
-    Homie.setup();
-    ntp_manager.setup();
-    grow_program.setup();
+	Homie_setFirmware("node-os", "1.0.0"); // The "_" is not a typo! See Magic bytes
+  Homie_setBrand("Grow Nodes"); // before Homie.setup()
+  Homie.onEvent(onSystemEvent);
+  Homie.setup();
+  ntp_manager.setup();
+  grow_program.setup();
+
+  bus.strategy.set_pin(COM_BUS_PIN);
+  bus.begin();
+  bus.set_receiver(receiver_function);
 }
 
 void loop()
@@ -36,6 +29,8 @@ void loop()
     Homie.loop();
     ntp_manager.loop();
 
+    bus.receive(1000);
+    
     if ( GrowSettings.get_aborted() ) {
       grow_program.setState(GrowProgram::STOPPED);
     } else {
@@ -43,5 +38,4 @@ void loop()
     }
 
     grow_program.loop();
-
 }
