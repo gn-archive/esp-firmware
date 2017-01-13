@@ -16,7 +16,7 @@ void onPjonPacket(uint8_t *payload, uint16_t length, const PacketInfo &packet_in
     Serial.print(" bytes: ");
     Serial.println(payload_str);
 
-    // payload_router(payload_str.c_str());
+    SensorManager.handle_incoming(payload_str);
 }
 
 
@@ -48,6 +48,8 @@ void setup()
   MCUBus.strategy.set_pin(MCU_BUS_PIN);
   MCUBus.begin();
   MCUBus.set_receiver(onPjonPacket);
+  MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "air_temp_f", 10, 6000000);
+  MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "water_level", 11, 5000000);
 
   ntp_manager.setup();
   grow_program.setup();
