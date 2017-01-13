@@ -1,7 +1,24 @@
 #include <main.h>
 
+PJON<SoftwareBitBang> ComBus(COM_BUS_THIS_ID); // <Strategy name> bus(selected device id)
+
 NtpManager ntp_manager;
 GrowProgram grow_program;
+
+void onPjonPacket(uint8_t *payload, uint16_t length, const PacketInfo &packet_info) {
+
+    String payload_str;
+     for(uint16_t i = 0; i < length; ++i)
+        payload_str += (char)payload[i];
+
+    Serial.print("Received ");
+    Serial.print(length);
+    Serial.print(" bytes: ");
+    Serial.println(payload_str);
+
+    // payload_router(payload_str.c_str());
+}
+
 
 void onSystemEvent(const HomieEvent& event) {
   switch(event.type) {
@@ -22,13 +39,16 @@ void setup()
   Serial << "                               Welcome to NodeOS!" << endl;
   Serial << "==============================================================================" << endl;
 
-  ComBus.setup();
-
   Homie.setLedPin(HOMIE_STATUS_PIN, LOW);
-	Homie_setFirmware("node-os", "1.0.0"); // The "_" is not a typo! See Magic bytes
+  Homie_setFirmware("node-os", "1.0.0"); // The "_" is not a typo! See Magic bytes
   Homie_setBrand("Grow Nodes"); // before Homie.setup()
   Homie.onEvent(onSystemEvent);
   Homie.setup();
+
+  ComBus.strategy.set_pin(COM_BUS_PIN);
+  ComBus.begin();
+  ComBus.set_receiver(onPjonPacket);
+
   ntp_manager.setup();
   grow_program.setup();
 
@@ -37,9 +57,11 @@ void setup()
 void loop()
 {
     Homie.loop();
-    ntp_manager.loop();
 
-    ComBus.loop();
+    ComBus.update();
+    ComBus.receive(1000);
+
+    ntp_manager.loop();
 
     if ( GrowSettings.get_aborted() ) {
       grow_program.setState(GrowProgram::STOPPED);

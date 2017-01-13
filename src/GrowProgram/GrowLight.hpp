@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "ComBus.hpp"
+#include "ComBus.h"
 #include <Homie.h>
 
 #include <constants.h>
@@ -7,7 +7,7 @@
 #include "SensorManager.hpp"
 #include "GrowSettings.hpp"
 #include "GrowErrors.hpp"
-
+#include "ComBus.h"
 class GrowLight
 {
 	public:

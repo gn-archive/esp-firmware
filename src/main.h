@@ -1,5 +1,7 @@
 #include <Arduino.h>
-#include "ComBus.hpp"
+
+#include <ComBus.h>
+
 #include <ESP8266WiFi.h>
 #include <Homie.h>
 #include <NtpManager.hpp>
