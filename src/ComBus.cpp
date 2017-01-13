@@ -14,11 +14,17 @@ void ComBusClass::setup() {
   bus.strategy.set_pin(COM_BUS_PIN);
   bus.begin();
   bus.set_receiver([](uint8_t *payload, uint16_t length, const PacketInfo &packet_info) {
-    Serial.print("Received: ");
-    for(uint8_t i = 0; i < length; i++) {
-      Serial.print((char)payload[i]);
-    }
-    Serial.println("");
+
+      String payload_str;
+       for(uint16_t i = 0; i < length; ++i)
+          payload_str += (char)payload[i];
+
+      Serial.print("Received ");
+      Serial.print(length);
+      Serial.print(" bytes: ");
+      Serial.println(payload_str);
+
+      // payload_router(payload_str.c_str());
   });
 }
 
