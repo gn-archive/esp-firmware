@@ -1,4 +1,4 @@
-#include <ComBus.hpp>
+#include "ComBus.hpp"
 
 // Constructor - creates a ComBusClass
 // and initializes the member variables and state

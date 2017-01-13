@@ -1,10 +1,10 @@
-#include "Arduino.h"
+#include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <Homie.h>
 #include <constants.h>
 #include <Timelib.h>
-#include <GrowSettings.hpp>
-#include <SensorManager.hpp>
+#include "GrowSettings.hpp"
+#include "SensorManager.hpp"
 class ExhaustFan
 {
 	public:

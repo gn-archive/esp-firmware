@@ -1,13 +1,13 @@
-#pragma once
+
 #ifndef SENSOR_MANAGER_H
 #define SENSOR_MANAGER_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <Homie.h>
 #include <DHT.h>
 #include <constants.h>
-#include <GrowSettings.hpp>
+#include "GrowSettings.hpp"
 
 class SensorManagerClass
 {

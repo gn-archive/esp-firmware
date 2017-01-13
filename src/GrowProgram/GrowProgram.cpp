@@ -1,5 +1,5 @@
 // Central starting point for all Grow subsystems.
-#include <GrowProgram.hpp>
+#include "GrowProgram.hpp"
 
 // Constructor - creates a GrowProgram
 // and initializes the member variables and state

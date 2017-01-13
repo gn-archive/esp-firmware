@@ -1,4 +1,4 @@
-#include <GrowSettings.hpp>
+#include "GrowSettings.hpp"
 
 // Constructor - creates a GrowSettingsClass
 // and initializes the member variables and state

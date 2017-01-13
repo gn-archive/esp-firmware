@@ -1,4 +1,4 @@
-#include <Notifier.hpp>
+#include "Notifier.hpp"
 
 NotifierClass::NotifierClass():
 notifierNode("notification", "pushed to app")

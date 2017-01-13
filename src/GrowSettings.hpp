@@ -1,9 +1,9 @@
 #ifndef GROW_SETTINGS_H
 #define GROW_SETTINGS_H
 
-#pragma once
 
-#include "Arduino.h"
+
+#include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <Homie.h>
 #include <constants.h>

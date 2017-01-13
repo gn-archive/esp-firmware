@@ -1,12 +1,12 @@
-#include "Arduino.h"
-#include <ComBus.hpp>
+#include <Arduino.h>
+#include "ComBus.hpp"
 #include <Homie.h>
 
 #include <constants.h>
 #include <Timelib.h>
-#include <GrowSettings.hpp>
-#include <SensorManager.hpp>
-#include <GrowErrors.hpp>
+#include "SensorManager.hpp"
+#include "GrowSettings.hpp"
+#include "GrowErrors.hpp"
 
 class GrowLight
 {

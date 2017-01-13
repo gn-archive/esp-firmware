@@ -1,4 +1,4 @@
-#include <ExhaustFan.hpp>
+#include "ExhaustFan.hpp"
 
 ExhaustFan::ExhaustFan():
 fanNode("fan", "relay")
