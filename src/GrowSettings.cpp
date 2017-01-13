@@ -4,7 +4,6 @@
 // and initializes the member variables and state
 GrowSettingsClass::GrowSettingsClass():
 h_aborted("aborted", "True = stop growing"),
-h_settings_id("settings_id", "UUID of this setting"),
 h_light_on_at("light_on_at", "light turns on at"),
 h_light_off_at("light_off_at", "light turns off at")
 {

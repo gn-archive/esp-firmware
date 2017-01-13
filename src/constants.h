@@ -16,15 +16,15 @@
 #define MCU_BUS_ARDUINO_ID 45
 
 // #define AIR_SENSOR_DHT_PIN D0
-#define FAN_PIN D1
-#define GROW_LIGHT_PIN D2
+#define MCU_BUS_PIN D0
+#define I2C_SDA D1
+#define I2C_SCL D2
 #define AIR_PUMP_PIN D3
 #define HOMIE_STATUS_PIN D4
 #define WATER_PUMP_PIN D5
-#define WATER_LEVEL_PIN D6
-#define MCU_BUS_PIN D7
-
-#define AIR_SENSOR_DHT DHT11
+#define FAN_PIN D6
+// #define xxxx D7
+// #define xxxx D8
 
 #define SEND_STATS_INTERVAL 10*1000
 #define WATER_LEVEL_MIN 4.5
