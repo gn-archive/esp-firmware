@@ -13,8 +13,6 @@ SensorManagerClass SensorManager;
 void SensorManagerClass::setup() {
   airTempNode.advertise("degrees");
   waterLevelNode.advertise("gallons");
-
-  pinMode(WATER_LEVEL_PIN, INPUT);
 }
 
 void SensorManagerClass::loop() {
