@@ -27,8 +27,8 @@ class NtpManager
 {
 	private:
 		RtcDS1307<TwoWire> Rtc;
-		bool messageSent;
 
+		unsigned long lastRtcSet;
 		unsigned long lastSerialClockMillis;
 		void printDateTime();
 		void printDigits(int digits);
