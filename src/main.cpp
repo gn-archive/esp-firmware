@@ -1,6 +1,6 @@
 #include <main.h>
 
-PJON<SoftwareBitBang> ComBus(COM_BUS_THIS_ID); // <Strategy name> bus(selected device id)
+PJON<SoftwareBitBang> MCUBus(COM_BUS_THIS_ID); // <Strategy name> bus(selected device id)
 
 NtpManager ntp_manager;
 GrowProgram grow_program;
@@ -45,9 +45,9 @@ void setup()
   Homie.onEvent(onSystemEvent);
   Homie.setup();
 
-  ComBus.strategy.set_pin(COM_BUS_PIN);
-  ComBus.begin();
-  ComBus.set_receiver(onPjonPacket);
+  MCUBus.strategy.set_pin(COM_BUS_PIN);
+  MCUBus.begin();
+  MCUBus.set_receiver(onPjonPacket);
 
   ntp_manager.setup();
   grow_program.setup();
@@ -58,8 +58,8 @@ void loop()
 {
     Homie.loop();
 
-    ComBus.update();
-    ComBus.receive(1000);
+    MCUBus.update();
+    MCUBus.receive(1000);
 
     ntp_manager.loop();
 

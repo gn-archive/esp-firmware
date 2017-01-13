@@ -2,4 +2,4 @@
 #include <SPI.h>
 #include <PJON.h>
 
-extern PJON<SoftwareBitBang> ComBus;
+extern PJON<SoftwareBitBang> MCUBus;
