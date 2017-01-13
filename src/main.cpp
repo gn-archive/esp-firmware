@@ -1,6 +1,6 @@
 #include <main.h>
 
-PJON<SoftwareBitBang> MCUBus(COM_BUS_THIS_ID); // <Strategy name> bus(selected device id)
+PJON<SoftwareBitBang> MCUBus(MCU_BUS_DEVICE_ID); // <Strategy name> bus(selected device id)
 
 NtpManager ntp_manager;
 GrowProgram grow_program;
@@ -45,7 +45,7 @@ void setup()
   Homie.onEvent(onSystemEvent);
   Homie.setup();
 
-  MCUBus.strategy.set_pin(COM_BUS_PIN);
+  MCUBus.strategy.set_pin(MCU_BUS_PIN);
   MCUBus.begin();
   MCUBus.set_receiver(onPjonPacket);
 

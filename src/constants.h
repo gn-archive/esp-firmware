@@ -12,8 +12,8 @@
 // SD1 (GPIO 9)
 
 
-#define COM_BUS_THIS_ID 44
-#define COM_BUS_ARDUINO_ID 45
+#define MCU_BUS_DEVICE_ID 44
+#define MCU_BUS_ARDUINO_ID 45
 
 #define AIR_SENSOR_DHT_PIN D0
 #define FAN_PIN D1
@@ -22,7 +22,7 @@
 #define HOMIE_STATUS_PIN D4
 #define WATER_PUMP_PIN D5
 #define WATER_LEVEL_PIN D6
-#define COM_BUS_PIN D7
+#define MCU_BUS_PIN D7
 
 #define AIR_SENSOR_DHT DHT11
 
