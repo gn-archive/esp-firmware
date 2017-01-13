@@ -64,26 +64,26 @@ void GrowLight::sendCurrentState() {
 			case ON:
 				Serial << "Time: " << second() << " Grow light turning ON" << endl;
 				// digitalWrite(GROW_LIGHT_PIN, HIGH);
-				// bus.send(45, "grow_light_on", 13);
+				ComBus.send(COM_BUS_ARDUINO_ID, "grow_light_on");
 			break;
 
 			case OFF:
 				Serial << "Time: " << second() << " Grow light is turning OFF" << endl;
 				// digitalWrite(GROW_LIGHT_PIN, LOW);
-				// bus.send(45, "grow_light_off", 14);
+				ComBus.send(COM_BUS_ARDUINO_ID, "grow_light_off");
 			break;
 
 			case OVERHEAT:
 				Serial << "Time: " << second() << " Grow light is overheating, turning OFF" << endl;
 				_growLightNode.setProperty("on").send("false");
 				// digitalWrite(GROW_LIGHT_PIN, LOW);
-				// bus.send(45, "grow_light_off", 14);
+				ComBus.send(COM_BUS_ARDUINO_ID, "grow_light_off");
 			break;
 
 			case DISABLED:
 				Serial << "Time: " << second() << " Grow light is overheating, turning OFF" << endl;
 				// digitalWrite(GROW_LIGHT_PIN, LOW);
-				// bus.send(45, "grow_light_off", 14);
+				ComBus.send(COM_BUS_ARDUINO_ID, "grow_light_off");
 			break;
 		}
 	}

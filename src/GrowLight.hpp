@@ -1,6 +1,7 @@
 #include "Arduino.h"
-#include <ESP8266WiFi.h>
+#include <ComBus.hpp>
 #include <Homie.h>
+
 #include <constants.h>
 #include <Timelib.h>
 #include <GrowSettings.hpp>

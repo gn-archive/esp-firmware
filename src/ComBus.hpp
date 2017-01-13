@@ -19,6 +19,8 @@ class ComBusClass
     ComBusClass();
 		void setup();
 		void loop();
+
+		void send(int to_device_id, String string_to_send);
 };
 
 

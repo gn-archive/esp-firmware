@@ -12,7 +12,8 @@
 // SD1 (GPIO 9)
 
 
-#define COM_BUS_DEVICE_ID 44
+#define COM_BUS_THIS_ID 44
+#define COM_BUS_ARDUINO_ID 45
 
 #define AIR_SENSOR_DHT_PIN D0
 #define FAN_PIN D1
