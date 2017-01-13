@@ -1,7 +1,7 @@
 #include <AirPump.hpp>
 
 AirPump::AirPump():
-airPumpNode("air_pump", "switch")
+airPumpNode("air_pump", "relay")
 {}
 
 

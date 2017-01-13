@@ -1,7 +1,7 @@
 #include <GrowLight.hpp>
 
 GrowLight::GrowLight():
-_growLightNode("grow_light", "switch")
+_growLightNode("grow_light", "relay")
 {
 	_state = DISABLED;
 }
@@ -9,7 +9,7 @@ _growLightNode("grow_light", "switch")
 
 	void GrowLight::setup() {
 		Serial << "GrowLight::setup()" << endl;
-		pinMode(GROW_LIGHT_PIN, OUTPUT);
+		// pinMode(GROW_LIGHT_PIN, OUTPUT);
 		_growLightNode.advertise("on");
 
 		setState(OFF);		// Setting state to OFF will change it out of the DISABLED state.
@@ -32,12 +32,12 @@ void GrowLight::sendCurrentState() {
 	}
 }
 
-	void GrowLight::loop() {
+	void GrowLight::loop(GrowErrors grow_errors) {
 		if (_state == DISABLED) {
 			return;
 		}
 
-		if (SensorManager.getAirTempF() >= AIR_TEMP_OVERHEAT ) {
+		if (grow_errors.getOverheat() ) {
 			setState(OVERHEAT);
 			return;
 		}
@@ -63,23 +63,27 @@ void GrowLight::sendCurrentState() {
 		switch (_state) {
 			case ON:
 				Serial << "Time: " << second() << " Grow light turning ON" << endl;
-				digitalWrite(GROW_LIGHT_PIN, HIGH);
+				// digitalWrite(GROW_LIGHT_PIN, HIGH);
+				ComBus.send(COM_BUS_ARDUINO_ID, "grow_light_on");
 			break;
 
 			case OFF:
 				Serial << "Time: " << second() << " Grow light is turning OFF" << endl;
-				digitalWrite(GROW_LIGHT_PIN, LOW);
+				// digitalWrite(GROW_LIGHT_PIN, LOW);
+				ComBus.send(COM_BUS_ARDUINO_ID, "grow_light_off");
 			break;
 
 			case OVERHEAT:
 				Serial << "Time: " << second() << " Grow light is overheating, turning OFF" << endl;
 				_growLightNode.setProperty("on").send("false");
-				digitalWrite(GROW_LIGHT_PIN, LOW);
+				// digitalWrite(GROW_LIGHT_PIN, LOW);
+				ComBus.send(COM_BUS_ARDUINO_ID, "grow_light_off");
 			break;
 
 			case DISABLED:
 				Serial << "Time: " << second() << " Grow light is overheating, turning OFF" << endl;
-				digitalWrite(GROW_LIGHT_PIN, LOW);
+				// digitalWrite(GROW_LIGHT_PIN, LOW);
+				ComBus.send(COM_BUS_ARDUINO_ID, "grow_light_off");
 			break;
 		}
 	}

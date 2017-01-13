@@ -1,7 +1,7 @@
 #include <WaterPump.hpp>
 
 WaterPump::WaterPump():
-waterPumpNode("water_pump", "switch")
+waterPumpNode("water_pump", "relay")
 {}
 
 

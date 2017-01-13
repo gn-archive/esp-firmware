@@ -1,10 +1,12 @@
 #include "Arduino.h"
-#include <ESP8266WiFi.h>
+#include <ComBus.hpp>
 #include <Homie.h>
+
 #include <constants.h>
 #include <Timelib.h>
 #include <GrowSettings.hpp>
 #include <SensorManager.hpp>
+#include <GrowErrors.hpp>
 
 class GrowLight
 {
@@ -17,7 +19,7 @@ class GrowLight
 		};
 		GrowLight();
 		void setup();
-		void loop();
+		void loop(GrowErrors grow_errors);
 		void setState(State state);
 		void sendCurrentState();
   private:

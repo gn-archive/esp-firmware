@@ -1,8 +1,8 @@
 #include <SensorManager.hpp>
 
 SensorManagerClass::SensorManagerClass() :
-waterLevelNode("waterlevel", "waterlevel"),
-airTempNode("temperature", "temperature"),
+waterLevelNode("waterlevel", "gallons"),
+airTempNode("temperature", "degrees F"),
 air_temp_sensor(AIR_SENSOR_DHT_PIN, AIR_SENSOR_DHT)
 {
   dataLastSentAt = 0;
@@ -39,20 +39,13 @@ void SensorManagerClass::loop() {
     }
   }
 
-  // bool is_overheating = air_temp_f > AIR_TEMP_OVERHEAT;
-  // Notifier.setOverheat(is_overheating);
-  //
-  //
-  // if (water_level < 4.5) {
-  //   Notifier.setWaterLevelLow(true);
-  // } else {
-  //   Notifier.setWaterLevelLow(false);
-  // }
 }
 
 
 float SensorManagerClass::getAirTempF() {
-  return air_temp_f;
+  if (isnan(air_temp_f)) {
+    return 030;
+  }
 }
 
 float SensorManagerClass::getWaterLevel() {
