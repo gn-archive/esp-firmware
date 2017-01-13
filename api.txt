@@ -1,0 +1,7 @@
+Request                   Response
+
+air_temp_f                75.1
+fan1_percent=100          none
+fan2_percent=70           none
+air_pump=on               none
+water_pump=on             none
