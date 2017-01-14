@@ -19,11 +19,11 @@
 #define MCU_BUS_PIN D0
 #define I2C_SDA D1
 #define I2C_SCL D2
-#define AIR_PUMP_PIN D3
+// D3 is ESP8266 Reset pin (GPIO0). Ground to reset
 #define HOMIE_STATUS_PIN D4
 #define WATER_PUMP_PIN D5
 #define FAN_PIN D6
-// #define xxxx D7
+#define AIR_PUMP_PIN D7
 // #define xxxx D8
 
 #define SEND_STATS_INTERVAL 10*1000

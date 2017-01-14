@@ -10,17 +10,13 @@
 #include <avr/pgmspace.h>
 #endif
 #define countof(a) (sizeof(a) / sizeof(a[0]))
-/* for software wire use below
-#include <SoftwareWire.h>  // must be included here so that Arduino library object file references work
-#include <RtcDS1307.h>
-SoftwareWire myWire(SDA, SCL);
-RtcDS1307<SoftwareWire> Rtc(myWire);
- for software wire use above */
+
 
 /* for normal hardware wire use below */
 #include <Wire.h> // must be included here so that Arduino library object file references work
 #include <RtcDS1307.h>
 #include <NtpClientLib.h>
+#include <constants.h>
 #include <Homie.h>
 
 class NtpManager
@@ -28,10 +24,9 @@ class NtpManager
 	private:
 		RtcDS1307<TwoWire> Rtc;
 
-		unsigned long lastRtcSet;
-		unsigned long lastSerialClockMillis;
-		void printDateTime();
-		void printDigits(int digits);
+		unsigned long lastSerialPrintMillis;
+		// void printDateTime();
+		// void printDigits(int digits);
   public:
     NtpManager();
     void loop();

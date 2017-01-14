@@ -6,8 +6,7 @@
 //
 NtpManager::NtpManager() :
 Rtc(Wire) {
-  lastSerialClockMillis = 0;
-  lastRtcSet = 0;
+  lastSerialPrintMillis = 0;
 }
 //
 void NtpManager::setup() {
@@ -29,21 +28,9 @@ void NtpManager::setup() {
   }
 
   RtcDateTime rtc_now = Rtc.GetDateTime();
-  Serial << "RTC Time: "
-          << rtc_now.Year()
-          << "-"
-          << rtc_now.Month()
-          << "-"
-          << rtc_now.Day()
-          << " "
-          << rtc_now.Hour()
-          << ":"
-          << rtc_now.Minute()
-          << ":"
-          << rtc_now.Second()
-          << endl;
-
-
+  Serial << "RTC Time: " << NTP.getTimeDateString(rtc_now.Epoch32Time()) << endl; // using NTP time string formatter to print RTC time
+  setTime(rtc_now.Epoch32Time());
+  Serial << "✔ Set system time from RTC: " << NTP.getTimeDateString(now()) << endl;
 
   NTP.onNTPSyncEvent([&](NTPSyncEvent_t error) {
       if (error) {
@@ -54,9 +41,12 @@ void NtpManager::setup() {
               Serial << "Invalid NTP server address" << endl;
       }
       else {
-        Serial << "✔ Synced NTP time: " << now() << ", ";
+        Serial << "✔ Synced NTP time: ";
         Serial << NTP.getTimeDateString(NTP.getLastNTPSync()) << endl;
 
+        RtcDateTime rtcdt_from_ntp(NTP.getLastNTPSync()-946684800);   // RTC set time takes seconds since Jan 1 2000. NTP tracks in seconds since epoch time.
+        Rtc.SetDateTime(rtcdt_from_ntp);
+        Serial << "✔ Set RTC using NTP time: " << NTP.getTimeDateString(now()) << endl;
 
       }
   });
@@ -65,47 +55,16 @@ void NtpManager::setup() {
 }
 //
 void NtpManager::loop() {
-  // if (millis() - lastSerialClockMillis >= 1000) {
-  //   lastSerialClockMillis = millis();
-  //   printDateTime();
-  // }
-
-
-  if (timeStatus() == timeSet && (now() - lastRtcSet >= 5000)) {
-    lastRtcSet = now();
-    RtcDateTime time_to_set(now()-946684800);
-    Rtc.SetDateTime(time_to_set);
-
-    RtcDateTime rtc_now = Rtc.GetDateTime();
-
-    Serial << "✔ Synced RTC time: " << now() << ", "
-            << rtc_now.Year()
-            << "-"
-            << rtc_now.Month()
-            << "-"
-            << rtc_now.Day()
-            << " "
-            << rtc_now.Hour()
-            << ":"
-            << rtc_now.Minute()
-            << ":"
-            << rtc_now.Second()
-            << endl;
+  if (millis() - lastSerialPrintMillis >= 1000) {
+    lastSerialPrintMillis = millis();
+    Serial << NTP.getTimeDateString(now()) << endl;
   }
 
-}
 
+  // if (lastNTPSync != NTP.getLastNTPSync()) {
+  //   lastNTPSync = NTP.getLastNTPSync();
+  //
+  //
+  // }
 
-void NtpManager::printDateTime () {
-  // digital clock display of the time
-  Serial << now();
-   Serial << endl;
-}
-
-void NtpManager::printDigits(int digits){
-  // utility function for digital clock display: prints preceding colon and leading 0
-  Serial.print(":");
-  if(digits < 10)
-    Serial.print('0');
-  Serial.print(digits);
 }
