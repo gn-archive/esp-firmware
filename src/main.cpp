@@ -2,7 +2,7 @@
 
 PJON<SoftwareBitBang> MCUBus(MCU_BUS_DEVICE_ID); // <Strategy name> bus(selected device id)
 
-NtpManager ntp_manager;
+TimeManager time_manager;
 GrowProgram grow_program;
 
 void onPjonPacket(uint8_t *payload, uint16_t length, const PacketInfo &packet_info) {
@@ -51,7 +51,7 @@ void setup()
   MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "air_temp_f", 10, 6000000);
   MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "water_level", 11, 5000000);
 
-  ntp_manager.setup();
+  time_manager.setup();
   grow_program.setup();
 
 }
@@ -63,7 +63,7 @@ void loop()
     MCUBus.update();
     MCUBus.receive(1000);
 
-    ntp_manager.loop();
+    time_manager.loop();
 
     if ( GrowSettings.get_aborted() ) {
       grow_program.setState(GrowProgram::STOPPED);

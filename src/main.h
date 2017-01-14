@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #include <MCUBus.h>
-#include <NtpManager.hpp>
+#include <TimeManager.hpp>
 #include <SensorManager.hpp>
 #include <ESP8266WiFi.h>
 #include <Homie.h>
