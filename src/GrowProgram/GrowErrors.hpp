@@ -1,7 +1,8 @@
 #pragma once
-#include "Arduino.h"
-#include <Notifier.hpp>
-#include <SensorManager.hpp>
+
+#include <Arduino.h>
+#include "Notifier.hpp"
+#include "SensorManager.hpp"
 #include <constants.h>
 class GrowErrors
 {

@@ -1,7 +1,24 @@
 #include <main.h>
 
-NtpManager ntp_manager;
+PJON<SoftwareBitBang> MCUBus(MCU_BUS_DEVICE_ID); // <Strategy name> bus(selected device id)
+
+TimeManager time_manager;
 GrowProgram grow_program;
+
+void onPjonPacket(uint8_t *payload, uint16_t length, const PacketInfo &packet_info) {
+
+    String payload_str;
+     for(uint16_t i = 0; i < length; ++i)
+        payload_str += (char)payload[i];
+
+    Serial.print("Received ");
+    Serial.print(length);
+    Serial.print(" bytes: ");
+    Serial.println(payload_str);
+
+    SensorManager.handle_incoming(payload_str);
+}
+
 
 void onSystemEvent(const HomieEvent& event) {
   switch(event.type) {
@@ -22,14 +39,19 @@ void setup()
   Serial << "                               Welcome to NodeOS!" << endl;
   Serial << "==============================================================================" << endl;
 
-  ComBus.setup();
-
   Homie.setLedPin(HOMIE_STATUS_PIN, LOW);
-	Homie_setFirmware("node-os", "1.0.0"); // The "_" is not a typo! See Magic bytes
+  Homie_setFirmware("node-os", "1.0.0"); // The "_" is not a typo! See Magic bytes
   Homie_setBrand("Grow Nodes"); // before Homie.setup()
   Homie.onEvent(onSystemEvent);
   Homie.setup();
-  ntp_manager.setup();
+
+  MCUBus.strategy.set_pin(MCU_BUS_PIN);
+  MCUBus.begin();
+  MCUBus.set_receiver(onPjonPacket);
+  MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "air_temp_f", 10, 6000000);
+  MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "water_level", 11, 5000000);
+
+  time_manager.setup();
   grow_program.setup();
 
 }
@@ -37,9 +59,11 @@ void setup()
 void loop()
 {
     Homie.loop();
-    ntp_manager.loop();
 
-    ComBus.loop();
+    MCUBus.update();
+    MCUBus.receive(1000);
+
+    time_manager.loop();
 
     if ( GrowSettings.get_aborted() ) {
       grow_program.setState(GrowProgram::STOPPED);

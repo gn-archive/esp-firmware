@@ -1,7 +1,9 @@
-#include "Arduino.h"
-#include <ComBus.hpp>
+#include <Arduino.h>
+
+#include <MCUBus.h>
+#include <TimeManager.hpp>
+#include <SensorManager.hpp>
 #include <ESP8266WiFi.h>
 #include <Homie.h>
-#include <NtpManager.hpp>
-#include <GrowProgram.hpp>
-#include <Notifier.hpp>
+#include "GrowProgram/GrowProgram.hpp"
+#include "Notifier.hpp"

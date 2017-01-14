@@ -1,8 +1,8 @@
-#pragma once
+
 #ifndef NOTIFIER_H
 #define NOTIFIER_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include <Homie.h>
 
 
