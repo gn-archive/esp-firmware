@@ -43,6 +43,7 @@ void GrowLight::sendCurrentState() {
 
 		//  Control Grow Light
 		if (second() >= GrowSettings.get_light_on_at() && second() < GrowSettings.get_light_off_at()) {
+		// if (second() % 2 == 0) {
 			setState(ON);
 		} else {
 			setState(OFF);
@@ -55,30 +56,31 @@ void GrowLight::sendCurrentState() {
 		if (state == _state) {
 			return;
 		}
+		MCUBus.remove(mcu_bus_ref);
 
 		_state = state;
 		sendCurrentState();
 
 		switch (_state) {
 			case ON:
-				Serial << "Time: " << second() << " Grow light turning ON" << endl;
-				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light_on", 13);
+				Serial << "Time: " << hour() << " Grow light turning ON" << endl;
+				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_on", 13, 1000000);
 			break;
 
 			case OFF:
-				Serial << "Time: " << second() << " Grow light is turning OFF" << endl;
-				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light_off", 14);
+				Serial << "Time: " << hour() << " Grow light is turning OFF" << endl;
+				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_off", 14, 1000000);
 			break;
 
 			case OVERHEAT:
-				Serial << "Time: " << second() << " Grow light is overheating, turning OFF" << endl;
+				Serial << "Time: " << hour() << " Grow light is overheating, turning OFF" << endl;
 				_growLightNode.setProperty("on").send("false");
-				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light_off", 14);
+				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_off", 14, 1000000);
 			break;
 
 			case DISABLED:
-				Serial << "Time: " << second() << " Grow light is overheating, turning OFF" << endl;
-				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light_off", 14);
+				Serial << "Time: " << hour() << " Grow light is overheating, turning OFF" << endl;
+				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_off", 14, 1000000);
 			break;
 		}
 	}
