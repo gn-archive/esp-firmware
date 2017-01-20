@@ -1,4 +1,4 @@
-#include "WaterPump.hpp"
+#include "GrowProgram/WaterPump.hpp"
 
 WaterPump::WaterPump():
 waterPumpNode("water_pump", "relay")
@@ -6,7 +6,7 @@ waterPumpNode("water_pump", "relay")
 
 
 void WaterPump::setup() {
-	Serial << "WaterPump::setup()" << endl;
+	Homie.getLogger() << F("WaterPump::setup()") << endl;
 	pinMode(WATER_PUMP_PIN, OUTPUT);
   digitalWrite(WATER_PUMP_PIN, HIGH);
   waterPumpOn = true;

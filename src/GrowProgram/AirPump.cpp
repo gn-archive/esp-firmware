@@ -1,4 +1,4 @@
-#include "AirPump.hpp"
+#include "GrowProgram/AirPump.hpp"
 
 AirPump::AirPump():
 airPumpNode("air_pump", "relay")
@@ -6,7 +6,7 @@ airPumpNode("air_pump", "relay")
 
 
 void AirPump::setup() {
-	Serial << "AirPump::setup()" << endl;
+	Homie.getLogger() << F("AirPump::setup()") << endl;
 	pinMode(AIR_PUMP_PIN, OUTPUT);
   digitalWrite(AIR_PUMP_PIN, HIGH);
   airPumpOn = true;

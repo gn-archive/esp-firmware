@@ -1,4 +1,4 @@
-#include "ExhaustFan.hpp"
+#include "GrowProgram/ExhaustFan.hpp"
 
 ExhaustFan::ExhaustFan():
 fanNode("fan", "relay")
@@ -6,7 +6,7 @@ fanNode("fan", "relay")
 
 
 	void ExhaustFan::setup() {
-		Serial << "ExhaustFan::setup()" << endl;
+		Homie.getLogger() << F("ExhaustFan::setup()") << endl;
 		pinMode(FAN_PIN, OUTPUT);
 		digitalWrite(FAN_PIN, LOW);
 		fanOn = false;
@@ -37,13 +37,13 @@ fanNode("fan", "relay")
 	void ExhaustFan::ensureOn(bool yes) {
 		if (yes && !fanOn) {
 			// turn on the fan if it is not already on
-			Serial << " Fan is " << (fanOn ? "on" : "off") << ", turning ON" << endl;
+			Homie.getLogger() << F(" Fan is ") << (fanOn ? "on" : "off") << F(", turning ON") << endl;
 			fanOn = true;
 			sendCurrentState();
 			digitalWrite(FAN_PIN, HIGH);
 		}
 		if (!yes && fanOn) {
-			Serial << " Fan is " << (fanOn ? "on" : "off") << ", turning OFF" << endl;
+			Homie.getLogger() << F(" Fan is ") << (fanOn ? "on" : "off") << F(", turning OFF") << endl;
 			fanOn = false;
 			sendCurrentState();
 			digitalWrite(FAN_PIN, LOW);

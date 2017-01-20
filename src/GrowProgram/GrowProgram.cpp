@@ -1,5 +1,5 @@
 // Central starting point for all Grow subsystems.
-#include "GrowProgram.hpp"
+#include "GrowProgram/GrowProgram.hpp"
 
 // Constructor - creates a GrowProgram
 // and initializes the member variables and state
@@ -9,7 +9,7 @@ grow_errors(), grow_light(), exhaust_fan(), air_pump(), water_pump()
 }
 
 void GrowProgram::setup() {
-  Serial << "GrowProgram::setup()" << endl;
+  Homie.getLogger() << F("GrowProgram::setup()") << endl;
   setState(RUNNING);
 
   GrowSettings.setup();
@@ -51,12 +51,12 @@ void GrowProgram::setState(State state) {
 
   switch (_state) {
     case STOPPED:
-      Serial << "Time: " << second() << " Grow Program is stopped." << endl;
+      Homie.getLogger() << F("Time: ") << second() << F(" Grow Program is stopped.") << endl;
       grow_light.setState(GrowLight::DISABLED);
     break;
 
     case RUNNING:
-      Serial << "Time: " << second() << " Grow Program is running." << endl;
+      Homie.getLogger() << F("Time: ") << second() << F(" Grow Program is running.") << endl;
       grow_light.setState(GrowLight::OFF);  // Any state other than DISABLED will work
     break;
   }

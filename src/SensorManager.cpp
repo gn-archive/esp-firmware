@@ -44,7 +44,7 @@ void SensorManagerClass::handle_incoming(String payload) {
 void SensorManagerClass::update_air_temp_f(float new_air_temp_f) {
     air_temp_f = new_air_temp_f;
 
-    Serial << "Temperature: " << air_temp_f << " °F" << endl;
+    Homie.getLogger() << F("Temperature: ") << air_temp_f << F(" °F") << endl;
     if (Homie.isConnected()) {
       airTempNode.setProperty("degrees").send(String(air_temp_f));
     }

@@ -1,4 +1,4 @@
-#include "GrowLight.hpp"
+#include "GrowProgram/GrowLight.hpp"
 
 GrowLight::GrowLight():
 _growLightNode("grow_light", "relay")
@@ -8,7 +8,7 @@ _growLightNode("grow_light", "relay")
 
 
 	void GrowLight::setup() {
-		Serial << "GrowLight::setup()" << endl;
+		Homie.getLogger() << F("GrowLight::setup()") << endl;
 		_growLightNode.advertise("on");
 
 		setState(OFF);		// Setting state to OFF will change it out of the DISABLED state.
@@ -63,23 +63,23 @@ void GrowLight::sendCurrentState() {
 
 		switch (_state) {
 			case ON:
-				Serial << "Time: " << hour() << " Grow light turning ON" << endl;
+				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light turning ON") << endl;
 				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_on", 13, 1000000);
 			break;
 
 			case OFF:
-				Serial << "Time: " << hour() << " Grow light is turning OFF" << endl;
+				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light is turning OFF") << endl;
 				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_off", 14, 1000000);
 			break;
 
 			case OVERHEAT:
-				Serial << "Time: " << hour() << " Grow light is overheating, turning OFF" << endl;
+				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light is overheating, turning OFF") << endl;
 				_growLightNode.setProperty("on").send("false");
 				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_off", 14, 1000000);
 			break;
 
 			case DISABLED:
-				Serial << "Time: " << hour() << " Grow light is overheating, turning OFF" << endl;
+				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light is overheating, turning OFF") << endl;
 				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_off", 14, 1000000);
 			break;
 		}

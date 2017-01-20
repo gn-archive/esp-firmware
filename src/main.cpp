@@ -11,10 +11,7 @@ void onPjonPacket(uint8_t *payload, uint16_t length, const PacketInfo &packet_in
      for(uint16_t i = 0; i < length; ++i)
         payload_str += (char)payload[i];
 
-    Serial.print("Received ");
-    Serial.print(length);
-    Serial.print(" bytes: ");
-    Serial.println(payload_str);
+    Homie.getLogger() << F("Received ") << length << F(" bytes: ") << payload_str << endl;
 
     SensorManager.handle_incoming(payload_str);
 }
@@ -34,10 +31,10 @@ void setup()
   delay(200);
   Serial.begin(74880);
 
-  Serial << endl << endl;
-  Serial << "==============================================================================" << endl;
-  Serial << "                               Welcome to NodeOS!" << endl;
-  Serial << "==============================================================================" << endl;
+  Homie.getLogger() << endl << endl;
+  Homie.getLogger() << F("==============================================================================") << endl;
+  Homie.getLogger() << F("                               Welcome to NodeOS!") << endl;
+  Homie.getLogger() << F("==============================================================================") << endl;
 
   Homie.setLedPin(HOMIE_STATUS_PIN, LOW);
   Homie_setFirmware("node-os", "1.0.0"); // The "_" is not a typo! See Magic bytes
