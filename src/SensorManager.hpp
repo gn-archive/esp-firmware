@@ -26,7 +26,7 @@ class SensorManagerClass
     void loop();
 		float getAirTempF();
 		float getWaterLevel();
-		void handle_incoming(String payload);
+		void handle_incoming(const char* payload);
 };
 
 extern SensorManagerClass SensorManager;

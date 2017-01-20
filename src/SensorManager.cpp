@@ -28,15 +28,15 @@ float SensorManagerClass::getWaterLevel() {
   return water_level;
 }
 
-void SensorManagerClass::handle_incoming(String payload) {
-  if (strncmp(payload.c_str(), "air_temp_f=", 11) == 0) {
-    payload.remove(0, 11);
-    update_air_temp_f(payload.toFloat());
+void SensorManagerClass::handle_incoming(const char* payload) {
+  if (strncmp(payload, "air_temp_f=", 11) == 0) {
+    const char * payload_trimmed = payload + 11;
+    update_air_temp_f(atof(payload_trimmed));
   }
 
-  if (strncmp(payload.c_str(), "water_level=", 11) == 0) {
-    payload.remove(0, 11);
-    update_water_level(payload.toFloat());
+  if (strncmp(payload, "water_level=", 12) == 0) {
+    const char * payload_trimmed = payload + 12;
+    update_water_level(atof(payload_trimmed));
   }
 }
 
@@ -53,6 +53,8 @@ void SensorManagerClass::update_air_temp_f(float new_air_temp_f) {
 
 void SensorManagerClass::update_water_level(float new_water_level) {
   water_level = new_water_level;
+  Homie.getLogger() << F("Water level: ") << water_level << F(" gallons") << endl;
+
   if (Homie.isConnected()) {
     waterLevelNode.setProperty("gallons").send(String(water_level));
   }
