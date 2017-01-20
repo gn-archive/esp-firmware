@@ -25,6 +25,4 @@ class GrowLight
   private:
 		State _state;
     HomieNode _growLightNode;
-
-		uint16_t mcu_bus_ref;
 };

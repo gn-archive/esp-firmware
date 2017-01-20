@@ -56,7 +56,6 @@ void GrowLight::sendCurrentState() {
 		if (state == _state) {
 			return;
 		}
-		MCUBus.remove(mcu_bus_ref);
 
 		_state = state;
 		sendCurrentState();
@@ -64,23 +63,23 @@ void GrowLight::sendCurrentState() {
 		switch (_state) {
 			case ON:
 				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light turning ON") << endl;
-				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_on", 13, 1000000);
+				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=on", 13);
 			break;
 
 			case OFF:
 				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light is turning OFF") << endl;
-				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_off", 14, 1000000);
+				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
 			break;
 
 			case OVERHEAT:
 				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light is overheating, turning OFF") << endl;
 				_growLightNode.setProperty("on").send("false");
-				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_off", 14, 1000000);
+				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
 			break;
 
 			case DISABLED:
 				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light is overheating, turning OFF") << endl;
-				mcu_bus_ref = MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "grow_light_off", 14, 1000000);
+				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
 			break;
 		}
 	}
