@@ -3,7 +3,6 @@
 GrowLight::GrowLight():
 _growLightNode("grow_light", "relay")
 {
-	_state = DISABLED;
 }
 
 
@@ -11,75 +10,64 @@ _growLightNode("grow_light", "relay")
 		Homie.getLogger() << F("GrowLight::setup()") << endl;
 		_growLightNode.advertise("on");
 
-		setState(OFF);		// Setting state to OFF will change it out of the DISABLED state.
 	}
 
 void GrowLight::uploadCurrentState() {
 	if (!Homie.isConnected()) {
 		return;
 	}
-	switch (_state) {
-		case ON:
-			_growLightNode.setProperty("on").send("true");
-		break;
-
-		case OFF:
-		case OVERHEAT:
-		case DISABLED:
-			_growLightNode.setProperty("on").send("false");
-		break;
+	if (is_on) {
+		_growLightNode.setProperty("on").send("true");
+	} else {
+		_growLightNode.setProperty("on").send("false");
 	}
 }
 
 	void GrowLight::loop(GrowErrors grow_errors) {
-		if (_state == DISABLED) {
+		if (!is_running) {
 			return;
 		}
 
 		if (grow_errors.getOverheat() ) {
-			setState(OVERHEAT);
+			setState(false, PSTR("Grow light is overheating, turning OFF"));
 			return;
 		}
 
 		//  Control Grow Light
-		if (hour() >= GrowSettings.get_light_on_at() && hour() < GrowSettings.get_light_off_at()) {
-		// if (second() % 2 == 0) {
-			setState(ON);
+		// if (hour() >= GrowSettings.get_light_on_at() && hour() < GrowSettings.get_light_off_at()) {
+		if (second() % 2 == 0) {
+			setState(true, "Grow light is turning ON");
 		} else {
-			setState(OFF);
+			setState(false, "Grow light is turning OFF");
 		}
 	}
 
 
 
-	void GrowLight::setState(State state) {
-		if (state == _state) {
+	void GrowLight::setState(bool set_on, const char* message) {
+		if (set_on == is_on) {
 			return;
 		}
 
-		_state = state;
+		is_on = set_on;
 		uploadCurrentState();
 
-		switch (_state) {
-			case ON:
-				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light turning ON") << endl;
-				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=on", 13);
-			break;
-
-			case OFF:
-				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light is turning OFF") << endl;
-				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
-			break;
-
-			case OVERHEAT:
-				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light is overheating, turning OFF") << endl;
-				_growLightNode.setProperty("on").send("false");
-				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
-			break;
-
-			case DISABLED:
-				Homie.getLogger() << F("Time: ") << hour() << F(" Grow light is overheating, turning OFF") << endl;
-				MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
-			break;
+		if (set_on) {
+			Homie.getLogger() << F("Time: ") << hour() << F(" ") << message << endl;
+			MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=on", 13);
+		} else {
+			Homie.getLogger() << F("Time: ") << hour() << F(" ") << message << endl;
+			MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
 		}
 	}
+
+
+void GrowLight::start() {
+	Homie.getLogger() << F("Time: ") << hour() << F(" Grow light is running...") << endl;
+	is_running = true;
+}
+
+void GrowLight::stop() {
+	is_running = false;
+	setState(false, PSTR("Grow light is not running, turning OFF"));
+}

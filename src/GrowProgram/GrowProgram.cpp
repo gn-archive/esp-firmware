@@ -52,12 +52,12 @@ void GrowProgram::setState(State state) {
   switch (_state) {
     case STOPPED:
       Homie.getLogger() << F("Time: ") << second() << F(" Grow Program is stopped.") << endl;
-      grow_light.setState(GrowLight::DISABLED);
+      grow_light.stop();
     break;
 
     case RUNNING:
       Homie.getLogger() << F("Time: ") << second() << F(" Grow Program is running.") << endl;
-      grow_light.setState(GrowLight::OFF);  // Any state other than DISABLED will work
+      grow_light.start();
     break;
   }
 }

@@ -2,13 +2,13 @@
 #include <Timelib.h>
 #include <ArduinoJson.h>
 
-#include "GrowLight.hpp"
-#include "ExhaustFan.hpp"
-#include "AirPump.hpp"
-#include "WaterPump.hpp"
+#include "GrowProgram/GrowLight.hpp"
+#include "GrowProgram/ExhaustFan.hpp"
+#include "GrowProgram/AirPump.hpp"
+#include "GrowProgram/WaterPump.hpp"
 
 #include "GrowSettings.hpp"
-#include "GrowErrors.hpp"
+#include "GrowProgram/GrowErrors.hpp"
 
 class GrowProgram
 {
