@@ -42,7 +42,7 @@ void GrowLight::sendCurrentState() {
 		}
 
 		//  Control Grow Light
-		if (second() >= GrowSettings.get_light_on_at() && second() < GrowSettings.get_light_off_at()) {
+		if (hour() >= GrowSettings.get_light_on_at() && hour() < GrowSettings.get_light_off_at()) {
 		// if (second() % 2 == 0) {
 			setState(ON);
 		} else {
