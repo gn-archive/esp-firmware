@@ -21,7 +21,7 @@ void onPjonPacket(uint8_t *payload, uint16_t length, const PacketInfo &packet_in
 void onSystemEvent(const HomieEvent& event) {
   switch(event.type) {
     case HomieEventType::MQTT_CONNECTED:
-      grow_program.sendCurrentState();
+      grow_program.uploadCurrentState();
     break;
   }
 }

@@ -20,13 +20,13 @@ void GrowProgram::setup() {
   water_pump.setup();
 }
 
-void GrowProgram::sendCurrentState() {
-  grow_errors.sendCurrentState();
+void GrowProgram::uploadCurrentState() {
+  grow_errors.uploadCurrentState();
 
-  grow_light.sendCurrentState();
-  exhaust_fan.sendCurrentState();
-  air_pump.sendCurrentState();
-  water_pump.sendCurrentState();
+  grow_light.uploadCurrentState();
+  exhaust_fan.uploadCurrentState();
+  air_pump.uploadCurrentState();
+  water_pump.uploadCurrentState();
 }
 
 void GrowProgram::loop() {

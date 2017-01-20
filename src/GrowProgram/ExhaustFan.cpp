@@ -13,7 +13,7 @@ fanNode("fan", "relay")
 		fanNode.advertise("on");
 	}
 
-	void ExhaustFan::sendCurrentState() {
+	void ExhaustFan::uploadCurrentState() {
 		if (!Homie.isConnected()) {
 			return;
 		}
@@ -39,13 +39,13 @@ fanNode("fan", "relay")
 			// turn on the fan if it is not already on
 			Homie.getLogger() << F(" Fan is ") << (fanOn ? "on" : "off") << F(", turning ON") << endl;
 			fanOn = true;
-			sendCurrentState();
+			uploadCurrentState();
 			digitalWrite(FAN_PIN, HIGH);
 		}
 		if (!yes && fanOn) {
 			Homie.getLogger() << F(" Fan is ") << (fanOn ? "on" : "off") << F(", turning OFF") << endl;
 			fanOn = false;
-			sendCurrentState();
+			uploadCurrentState();
 			digitalWrite(FAN_PIN, LOW);
 		}
 	}

@@ -19,7 +19,7 @@ void WaterPump::setup() {
 	});
 }
 
-void WaterPump::sendCurrentState() {
+void WaterPump::uploadCurrentState() {
 	if (!Homie.isConnected()) {
 		return;
 	}

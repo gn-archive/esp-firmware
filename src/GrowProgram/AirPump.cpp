@@ -19,7 +19,7 @@ void AirPump::setup() {
 }
 
 
-void AirPump::sendCurrentState() {
+void AirPump::uploadCurrentState() {
 	if (!Homie.isConnected()) {
 		return;
 	}

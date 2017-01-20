@@ -10,7 +10,7 @@ class GrowErrors
     GrowErrors();
     void loop();
 
-    void sendCurrentState();
+    void uploadCurrentState();
 
     bool getOverheat();
 

@@ -21,7 +21,7 @@ public:
 	void setup();
 	void loop();
 	void setState(State state);
-	void sendCurrentState();
+	void uploadCurrentState();
 private:
 		State _state;
 		GrowErrors grow_errors;

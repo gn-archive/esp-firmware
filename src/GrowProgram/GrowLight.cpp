@@ -14,7 +14,7 @@ _growLightNode("grow_light", "relay")
 		setState(OFF);		// Setting state to OFF will change it out of the DISABLED state.
 	}
 
-void GrowLight::sendCurrentState() {
+void GrowLight::uploadCurrentState() {
 	if (!Homie.isConnected()) {
 		return;
 	}
@@ -58,7 +58,7 @@ void GrowLight::sendCurrentState() {
 		}
 
 		_state = state;
-		sendCurrentState();
+		uploadCurrentState();
 
 		switch (_state) {
 			case ON:

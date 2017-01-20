@@ -21,7 +21,7 @@ void GrowErrors::loop() {
 }
 
 
-void GrowErrors::sendCurrentState() {
+void GrowErrors::uploadCurrentState() {
   if (!Homie.isConnected()) {
     return;
   }
@@ -46,7 +46,7 @@ void GrowErrors::setOverheat(bool overheat) {
 	_overheat = overheat;
 	_overheat_at = 0;  // Will be zero if not overheat
 
-  sendCurrentState();
+  uploadCurrentState();
 
   if (_overheat) {
 		_overheat_at = millis();
@@ -64,5 +64,5 @@ void GrowErrors::setWaterLevelLow(bool water_level_low) {
 
 	_water_level_low = water_level_low;
 
-  sendCurrentState();
+  uploadCurrentState();
 }

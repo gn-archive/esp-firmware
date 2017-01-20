@@ -21,7 +21,7 @@ class GrowLight
 		void setup();
 		void loop(GrowErrors grow_errors);
 		void setState(State state);
-		void sendCurrentState();
+		void uploadCurrentState();
   private:
 		State _state;
     HomieNode _growLightNode;
