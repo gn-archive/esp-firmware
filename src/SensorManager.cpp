@@ -31,17 +31,17 @@ float SensorManagerClass::getWaterLevel() {
 void SensorManagerClass::handle_incoming(const char* payload) {
   if (strncmp(payload, "air_temp_f=", 11) == 0) {
     const char * payload_trimmed = payload + 11;
-    update_air_temp_f(atof(payload_trimmed));
+    update_local_air_temp_f(atof(payload_trimmed));
   }
 
   if (strncmp(payload, "water_level=", 12) == 0) {
     const char * payload_trimmed = payload + 12;
-    update_water_level(atof(payload_trimmed));
+    update_local_water_level(atof(payload_trimmed));
   }
 }
 
 
-void SensorManagerClass::update_air_temp_f(float new_air_temp_f) {
+void SensorManagerClass::update_local_air_temp_f(float new_air_temp_f) {
     air_temp_f = new_air_temp_f;
 
     Homie.getLogger() << F("Temperature: ") << air_temp_f << F(" °F") << endl;
@@ -51,7 +51,7 @@ void SensorManagerClass::update_air_temp_f(float new_air_temp_f) {
 }
 
 
-void SensorManagerClass::update_water_level(float new_water_level) {
+void SensorManagerClass::update_local_water_level(float new_water_level) {
   water_level = new_water_level;
   Homie.getLogger() << F("Water level: ") << water_level << F(" gallons") << endl;
 

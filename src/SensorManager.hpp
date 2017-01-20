@@ -14,11 +14,11 @@ class SensorManagerClass
 		unsigned long dataLastSentAt;
 		HomieNode airTempNode;
 		float air_temp_f;
-		void update_air_temp_f(float new_air_temp_f);
+		void update_local_air_temp_f(float new_air_temp_f);
 
 		HomieNode waterLevelNode;
 		float water_level;
-		void update_water_level(float new_water_level);
+		void update_local_water_level(float new_water_level);
 
   public:
     SensorManagerClass();
