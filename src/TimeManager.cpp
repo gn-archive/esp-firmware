@@ -19,11 +19,11 @@ void TimeManager::setup() {
   Wire.begin(D1, D2); // SDA, SCL
 
   if (!Rtc.IsDateTimeValid()) {
-    Homie.getLogger() << F("RTC not configured or low battery!");
+    Homie.getLogger() << F("RTC not configured or low battery!") << endl;
   }
 
   if (!Rtc.GetIsRunning()) {
-      Homie.getLogger() << F("RTC was not actively running, starting now");
+      Homie.getLogger() << F("RTC was not actively running, starting now") << endl;
       Rtc.SetIsRunning(true);
   }
 
