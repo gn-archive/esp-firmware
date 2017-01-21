@@ -34,8 +34,8 @@ void GrowLight::uploadCurrentState() {
 		}
 
 		//  Control Grow Light
-		// if (hour() >= GrowSettings.get_light_on_at() && hour() < GrowSettings.get_light_off_at()) {
-		if (second() % 2 == 0) {
+		if (hour() >= GrowSettings.get_light_on_at() && hour() < GrowSettings.get_light_off_at()) {
+		// if (second() % 2 == 0) {
 			setState(true, "Grow light is turning ON");
 		} else {
 			setState(false, "Grow light is turning OFF");

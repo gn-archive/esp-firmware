@@ -39,8 +39,11 @@ void TimeManager::setup() {
           Homie.getLogger() << F("✖ Time Sync error: ");
           if (error == noResponse)
               Homie.getLogger() << F("NTP server not reachable") << endl;
-          else if (error == invalidAddress)
+          if (error == invalidAddress)
               Homie.getLogger() << F("Invalid NTP server address") << endl;
+
+          setTime(rtc_now.Epoch32Time());
+          Homie.getLogger() << F("✔ Set system time from RTC: ") << NTP.getTimeDateString(now()) << endl;
       }
       else {
         Homie.getLogger() << F("✔ Synced NTP time: ");
