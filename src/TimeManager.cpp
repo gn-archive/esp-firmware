@@ -46,7 +46,7 @@ void TimeManager::setup() {
           Homie.getLogger() << F("✔ Set system time from RTC: ") << NTP.getTimeDateString(now()) << endl;
       }
       else {
-        Homie.getLogger() << F("✔ Synced NTP time: ");
+        Homie.getLogger() << F("↕ Synced NTP time: ");
         Homie.getLogger() << NTP.getTimeDateString(NTP.getLastNTPSync()) << endl;
 
         // Set RTC from NTP time.
