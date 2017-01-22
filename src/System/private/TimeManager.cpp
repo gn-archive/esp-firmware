@@ -2,7 +2,7 @@
 // // no more calls to library are needed.
 // // Update frequency is higher (every 15 seconds as default) until 1st successful sync is achieved.
 // // Since then, your own (or default 1800 seconds) adjusted period applies.
-#include <System/TimeManager.hpp>
+#include <System/private/TimeManager.hpp>
 //
 TimeManager::TimeManager() :
 rtc(Wire) {

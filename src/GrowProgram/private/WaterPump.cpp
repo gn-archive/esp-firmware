@@ -1,4 +1,4 @@
-#include "GrowProgram/WaterPump.hpp"
+#include "GrowProgram/private/WaterPump.hpp"
 
 // ************************************************************************
 // IF PYTHAGOREAN CUP EBB/FLOW METHODD IS IMPLEMENTED, RUN PUMP CONTINUOUSLY UNLESS WATER LEVEL IS LOW

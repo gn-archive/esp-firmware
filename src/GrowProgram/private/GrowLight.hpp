@@ -5,7 +5,7 @@
 #include <constants.h>
 #include <Timelib.h>
 #include "System/System.hpp"
-#include "GrowProgram/GrowErrors.hpp"
+#include "GrowProgram/private/GrowErrors.hpp"
 
 class GrowLight
 {

@@ -2,13 +2,13 @@
 #include <Timelib.h>
 #include <ArduinoJson.h>
 
-#include "GrowProgram/GrowLight.hpp"
-#include "GrowProgram/ExhaustFan.hpp"
-#include "GrowProgram/AirPump.hpp"
-#include "GrowProgram/WaterPump.hpp"
+#include "GrowProgram/private/GrowLight.hpp"
+#include "GrowProgram/private/ExhaustFan.hpp"
+#include "GrowProgram/private/AirPump.hpp"
+#include "GrowProgram/private/WaterPump.hpp"
 
-#include "System/Settings.hpp"
-#include "GrowProgram/GrowErrors.hpp"
+#include "System/public/Settings.hpp"
+#include "GrowProgram/private/GrowErrors.hpp"
 
 class GrowProgram
 {
@@ -24,7 +24,7 @@ public:
 	void uploadCurrentState();
 
 	SensorManager sensors;
-	
+
 private:
 		State _state;
 		GrowErrors grow_errors;

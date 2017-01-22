@@ -1,4 +1,4 @@
-#include "GrowProgram/GrowLight.hpp"
+#include "GrowProgram/private/GrowLight.hpp"
 
 GrowLight::GrowLight():
 _growLightNode("grow_light", "relay")

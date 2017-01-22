@@ -1,4 +1,4 @@
-#include "GrowProgram/AirPump.hpp"
+#include "GrowProgram/private/AirPump.hpp"
 
 AirPump::AirPump():
 airPumpNode("air_pump", "relay")

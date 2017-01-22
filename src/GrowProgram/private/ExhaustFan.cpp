@@ -1,4 +1,4 @@
-#include "GrowProgram/ExhaustFan.hpp"
+#include "GrowProgram/private/ExhaustFan.hpp"
 
 ExhaustFan::ExhaustFan():
 fanNode("fan", "relay")

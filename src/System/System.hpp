@@ -2,8 +2,8 @@
 
 #include <Arduino.h>
 
-#include <System/TimeManager.hpp>
-#include <System/Settings.hpp>
+#include <System/private/TimeManager.hpp>
+#include <System/public/Settings.hpp>
 
 class SystemClass
 {
