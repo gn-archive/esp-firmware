@@ -13,8 +13,12 @@ class SensorManagerClass
 	private:
 		unsigned long dataLastSentAt;
 		HomieNode airTempNode;
-		float air_temp_f;
-		void update_local_air_temp_f(float new_air_temp_f);
+		float air_temp;
+		void update_local_air_temp(float new_air_temp);
+
+		HomieNode waterTempNode;
+		float water_temp;
+		void update_local_water_temp(float new_water_temp);
 
 		HomieNode waterLevelNode;
 		float water_level;
@@ -24,7 +28,8 @@ class SensorManagerClass
     SensorManagerClass();
 		void setup();
     void loop();
-		float getAirTempF();
+		float getAirTemp();
+		float getWaterTemp();
 		float getWaterLevel();
 		void handle_incoming(const char* payload);
 };
