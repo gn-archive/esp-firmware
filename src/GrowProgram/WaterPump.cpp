@@ -10,16 +10,10 @@ waterPumpNode("water_pump", "relay")
 
 void WaterPump::setup() {
 	Homie.getLogger() << F("WaterPump::setup()") << endl;
+	waterPumpNode.advertise("on");
+
 	pinMode(WATER_PUMP_PIN, OUTPUT);
 	setState(false);
-
-  waterPumpNode.advertise("on").settable([&](const HomieRange& range, const String& value) {
-		if (value != "true" && value != "false") return false;
-
-		setState((value == "true"));
-
-		return true;
-	});
 }
 
 void WaterPump::uploadCurrentState() {
