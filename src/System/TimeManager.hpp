@@ -12,7 +12,7 @@
 #include <Wire.h> // must be included here so that Arduino library object file references work
 #include <RtcDS1307.h>
 #include <NtpClientLib.h>
-#include <Timezone.h>
+// #include <Timezone.h>
 #include <constants.h>
 #include <Homie.h>
 

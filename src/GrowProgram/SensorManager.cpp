@@ -1,6 +1,6 @@
 #include "GrowProgram/SensorManager.hpp"
 
-SensorManagerClass::SensorManagerClass() :
+SensorManager::SensorManager() :
 waterLevelNode("water_level", "gallons"),
 airTempNode("air_temp", "degrees F"),
 waterTempNode("water_temp", "degrees F")
@@ -10,26 +10,26 @@ waterTempNode("water_temp", "degrees F")
   air_temp = 0.0;
 }
 
-void SensorManagerClass::setup() {
+void SensorManager::setup() {
   airTempNode.advertise("degrees");
   waterLevelNode.advertise("gallons");
   waterTempNode.advertise("degrees");
 }
 
-void SensorManagerClass::loop() {
+void SensorManager::loop() {
   // Sensor readings are requested by MCUBus in main.cpp
 }
 
 
-float SensorManagerClass::getAirTemp() {
+float SensorManager::getAirTemp() {
   return air_temp;
 }
 
-float SensorManagerClass::getWaterLevel() {
+float SensorManager::getWaterLevel() {
   return water_level;
 }
 
-void SensorManagerClass::handle_incoming(const char* payload) {
+void SensorManager::handle_incoming(const char* payload) {
   if (strncmp(payload, "air_temp=", 9) == 0) {
     const char * payload_trimmed = payload + 9;
     update_local_air_temp(atof(payload_trimmed));
@@ -47,7 +47,7 @@ void SensorManagerClass::handle_incoming(const char* payload) {
 }
 
 
-void SensorManagerClass::update_local_air_temp(float new_air_temp) {
+void SensorManager::update_local_air_temp(float new_air_temp) {
     air_temp = new_air_temp;
 
     Homie.getLogger() << F("Temperature: ") << air_temp << F(" °F") << endl;
@@ -57,7 +57,7 @@ void SensorManagerClass::update_local_air_temp(float new_air_temp) {
 }
 
 
-void SensorManagerClass::update_local_water_temp(float new_water_temp) {
+void SensorManager::update_local_water_temp(float new_water_temp) {
   water_temp = new_water_temp;
   Homie.getLogger() << F("Water temp: ") << water_temp << F(" °F") << endl;
 
@@ -66,7 +66,7 @@ void SensorManagerClass::update_local_water_temp(float new_water_temp) {
   }
 }
 
-void SensorManagerClass::update_local_water_level(float new_water_level) {
+void SensorManager::update_local_water_level(float new_water_level) {
   water_level = new_water_level;
   Homie.getLogger() << F("Water level: ") << water_level << F(" gallons") << endl;
 

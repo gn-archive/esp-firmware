@@ -3,7 +3,6 @@
 #include <Homie.h>
 #include <constants.h>
 #include <Timelib.h>
-#include "GrowSettings.hpp"
 
 class ExhaustFan
 {

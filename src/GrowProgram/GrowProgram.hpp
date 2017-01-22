@@ -7,7 +7,7 @@
 #include "GrowProgram/AirPump.hpp"
 #include "GrowProgram/WaterPump.hpp"
 
-#include "GrowSettings.hpp"
+#include "System/Settings.hpp"
 #include "GrowProgram/GrowErrors.hpp"
 
 class GrowProgram
@@ -23,7 +23,7 @@ public:
 	void setState(State state);
 	void uploadCurrentState();
 
-	SensorManagerClass sensors;
+	SensorManager sensors;
 	
 private:
 		State _state;

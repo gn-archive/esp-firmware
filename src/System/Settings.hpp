@@ -1,14 +1,11 @@
-#ifndef GROW_SETTINGS_H
-#define GROW_SETTINGS_H
-
-
+#pragma once
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <Homie.h>
 #include <constants.h>
 
-class GrowSettingsClass
+class Settings
 {
 	private:
 		// void setup();
@@ -24,7 +21,7 @@ class GrowSettingsClass
 		// const char* timezone_id;
 
 	public:
-    GrowSettingsClass();
+    Settings();
 		void setup();
 
 		bool get_aborted();
@@ -32,8 +29,3 @@ class GrowSettingsClass
 		int get_light_off_at();
 		// const char* get_timezone_id();
 };
-
-
-extern GrowSettingsClass GrowSettings;
-
-#endif

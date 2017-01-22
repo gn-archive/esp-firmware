@@ -4,7 +4,7 @@
 
 #include <constants.h>
 #include <Timelib.h>
-#include "GrowSettings.hpp"
+#include "System/System.hpp"
 #include "GrowProgram/GrowErrors.hpp"
 #include "MCUBus.h"
 class GrowLight

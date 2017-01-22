@@ -4,11 +4,12 @@
 #include "Notifier.hpp"
 #include "GrowProgram/SensorManager.hpp"
 #include <constants.h>
+
 class GrowErrors
 {
 	public:
     GrowErrors();
-    void loop(SensorManagerClass sensors);
+    void loop(SensorManager sensors);
 
     void uploadCurrentState();
 

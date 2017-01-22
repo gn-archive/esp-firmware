@@ -8,7 +8,7 @@ growErrorsNode("grow_errors", "grow errors")
   growErrorsNode.advertise("water_level_low");
 }
 
-void GrowErrors::loop(SensorManagerClass sensors) {
+void GrowErrors::loop(SensorManager sensors) {
   bool is_overheat = sensors.getAirTemp() > AIR_TEMP_OVERHEAT;
   setOverheat(is_overheat);
 

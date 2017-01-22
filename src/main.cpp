@@ -49,6 +49,7 @@ void setup()
   MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "water_level", 11, 5000000);
   MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "water_temp", 10, 5000000);
 
+  System.setup();
   grow_program.setup();
 
 }
@@ -60,11 +61,12 @@ void loop()
     MCUBus.update();
     MCUBus.receive(1000);
 
-    if ( GrowSettings.get_aborted() ) {
+    if ( System.settings.get_aborted() ) {
       grow_program.setState(GrowProgram::STOPPED);
     } else {
       grow_program.setState(GrowProgram::RUNNING);
     }
 
+    System.loop();
     grow_program.loop();
 }

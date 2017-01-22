@@ -3,7 +3,7 @@
 #include <Arduino.h>
 
 #include <System/TimeManager.hpp>
-
+#include <System/Settings.hpp>
 
 class SystemClass
 {
@@ -11,7 +11,7 @@ class SystemClass
     SystemClass();
 		void setup();
     void loop();
-
+		Settings settings;
   private:
     TimeManager time_manager;
 };

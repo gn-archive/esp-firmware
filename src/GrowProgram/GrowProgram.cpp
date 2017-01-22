@@ -12,7 +12,6 @@ void GrowProgram::setup() {
   Homie.getLogger() << F("GrowProgram::setup()") << endl;
   setState(RUNNING);
 
-  GrowSettings.setup();
   sensors.setup();
   grow_light.setup();
   exhaust_fan.setup();

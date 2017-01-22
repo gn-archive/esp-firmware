@@ -32,6 +32,6 @@ void AirPump::uploadCurrentState() {
 
 
 
-// void AirPump::loop(GrowSettings grow_settings, SensorManager sensors) {
+// void AirPump::loop(settings grow_settings, SensorManager sensors) {
 //
 // }

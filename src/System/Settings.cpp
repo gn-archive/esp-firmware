@@ -1,8 +1,8 @@
-#include "GrowSettings.hpp"
+#include "System/Settings.hpp"
 
-// Constructor - creates a GrowSettingsClass
+// Constructor - creates a Settings
 // and initializes the member variables and state
-GrowSettingsClass::GrowSettingsClass():
+Settings::Settings():
 h_aborted("aborted", "True = stop growing"),
 h_light_on_at("light_on_at", "light turns on at"),
 h_light_off_at("light_off_at", "light turns off at")
@@ -14,10 +14,7 @@ h_light_off_at("light_off_at", "light turns off at")
   // timezone_id = DEFAULT_TIMEZONE_ID;
 }
 
-GrowSettingsClass GrowSettings;
-
-
-void GrowSettingsClass::setup() {
+void Settings::setup() {
   if (Homie.isConfigured()) {
     aborted = h_aborted.get();
     light_on_at = h_light_on_at.get() ;
@@ -25,19 +22,19 @@ void GrowSettingsClass::setup() {
   }
 }
 
-bool GrowSettingsClass::get_aborted() {
+bool Settings::get_aborted() {
   return aborted;
 }
 
-int GrowSettingsClass::get_light_on_at() {
+int Settings::get_light_on_at() {
   return light_on_at;
 }
 
-int GrowSettingsClass::get_light_off_at() {
+int Settings::get_light_off_at() {
   return light_off_at;
 }
 
 
-// const char* GrowSettingsClass::get_timezone_id() {
+// const char* Settings::get_timezone_id() {
 //   return timezone_id;
 // }

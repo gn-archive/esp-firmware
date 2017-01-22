@@ -1,14 +1,11 @@
-
-#ifndef SENSOR_MANAGER_H
-#define SENSOR_MANAGER_H
+#pragma once
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <Homie.h>
 #include <constants.h>
-#include "GrowSettings.hpp"
 
-class SensorManagerClass
+class SensorManager
 {
 	private:
 		unsigned long dataLastSentAt;
@@ -25,7 +22,7 @@ class SensorManagerClass
 		void update_local_water_level(float new_water_level);
 
   public:
-    SensorManagerClass();
+    SensorManager();
 		void setup();
     void loop();
 		float getAirTemp();
@@ -33,5 +30,3 @@ class SensorManagerClass
 		float getWaterLevel();
 		void handle_incoming(const char* payload);
 };
-
-#endif
