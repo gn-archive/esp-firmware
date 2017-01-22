@@ -16,10 +16,12 @@ class GrowSettingsClass
 		HomieSetting<bool> h_aborted;
 		HomieSetting<long>  h_light_on_at;
 		HomieSetting<long>  h_light_off_at;
+		// HomieSetting<const char*>  h_timezone_id;
 
 		bool aborted;
 		int light_on_at;
 		int light_off_at;
+		// const char* timezone_id;
 
 	public:
     GrowSettingsClass();
@@ -28,6 +30,7 @@ class GrowSettingsClass
 		bool get_aborted();
 		int get_light_on_at();
 		int get_light_off_at();
+		// const char* get_timezone_id();
 };
 
 
