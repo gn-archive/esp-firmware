@@ -1,5 +1,9 @@
 #include "GrowProgram/WaterPump.hpp"
 
+// ************************************************************************
+// IF PYTHAGOREAN CUP EBB/FLOW METHODD IS IMPLEMENTED, RUN PUMP CONTINUOUSLY UNLESS WATER LEVEL IS LOW
+// ************************************************************************
+
 WaterPump::WaterPump():
 waterPumpNode("water_pump", "relay")
 {
