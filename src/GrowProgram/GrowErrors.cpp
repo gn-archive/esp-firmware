@@ -1,4 +1,4 @@
-#include "GrowErrors.hpp"
+#include "GrowProgram/GrowErrors.hpp"
 
 GrowErrors::GrowErrors() :
 growErrorsNode("grow_errors", "grow errors")
@@ -8,12 +8,12 @@ growErrorsNode("grow_errors", "grow errors")
   growErrorsNode.advertise("water_level_low");
 }
 
-void GrowErrors::loop() {
-  bool is_overheat = SensorManager.getAirTemp() > AIR_TEMP_OVERHEAT;
+void GrowErrors::loop(SensorManagerClass sensors) {
+  bool is_overheat = sensors.getAirTemp() > AIR_TEMP_OVERHEAT;
   setOverheat(is_overheat);
 
 
-  if (SensorManager.getWaterLevel() < 4.5) {
+  if (sensors.getWaterLevel() < 4.5) {
     setWaterLevelLow(true);
   } else {
     setWaterLevelLow(false);

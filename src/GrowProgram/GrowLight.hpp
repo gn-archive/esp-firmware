@@ -4,7 +4,6 @@
 
 #include <constants.h>
 #include <Timelib.h>
-#include "SensorManager.hpp"
 #include "GrowSettings.hpp"
 #include "GrowProgram/GrowErrors.hpp"
 #include "MCUBus.h"

@@ -22,6 +22,9 @@ public:
 	void loop();
 	void setState(State state);
 	void uploadCurrentState();
+
+	SensorManagerClass sensors;
+	
 private:
 		State _state;
 		GrowErrors grow_errors;

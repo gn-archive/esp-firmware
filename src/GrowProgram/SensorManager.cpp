@@ -1,4 +1,4 @@
-#include "SensorManager.hpp"
+#include "GrowProgram/SensorManager.hpp"
 
 SensorManagerClass::SensorManagerClass() :
 waterLevelNode("water_level", "gallons"),
@@ -9,8 +9,6 @@ waterTempNode("water_temp", "degrees F")
   water_temp = 0.0;
   air_temp = 0.0;
 }
-
-SensorManagerClass SensorManager;
 
 void SensorManagerClass::setup() {
   airTempNode.advertise("degrees");

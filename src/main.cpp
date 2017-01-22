@@ -14,7 +14,7 @@ void onPjonPacket(uint8_t *payload, uint16_t length, const PacketInfo &packet_in
     payload_str[length] = '\0';
     Homie.getLogger() << F("Received ") << length << F(" bytes: ") << payload_str << endl;
 
-    SensorManager.handle_incoming(payload_str);
+    grow_program.sensors.handle_incoming(payload_str);
 }
 
 

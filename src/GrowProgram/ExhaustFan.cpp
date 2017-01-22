@@ -26,11 +26,6 @@ fanNode("fan", "relay")
 
 	void ExhaustFan::loop() {
 		ensureOn(true);
-		// if (SensorManager.getAirTemp() < AIR_TEMP_OVERHEAT ) {
-		// } else {
-		// 	// If the air temp is above the danger temp
-		// 		ensureOn(true);
-		// }
 	}
 
 

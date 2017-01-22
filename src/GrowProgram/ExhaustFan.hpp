@@ -4,7 +4,7 @@
 #include <constants.h>
 #include <Timelib.h>
 #include "GrowSettings.hpp"
-#include "SensorManager.hpp"
+
 class ExhaustFan
 {
 	public:

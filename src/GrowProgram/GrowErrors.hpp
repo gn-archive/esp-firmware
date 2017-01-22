@@ -2,13 +2,13 @@
 
 #include <Arduino.h>
 #include "Notifier.hpp"
-#include "SensorManager.hpp"
+#include "GrowProgram/SensorManager.hpp"
 #include <constants.h>
 class GrowErrors
 {
 	public:
     GrowErrors();
-    void loop();
+    void loop(SensorManagerClass sensors);
 
     void uploadCurrentState();
 

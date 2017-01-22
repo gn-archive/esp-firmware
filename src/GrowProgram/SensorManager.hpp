@@ -34,6 +34,4 @@ class SensorManagerClass
 		void handle_incoming(const char* payload);
 };
 
-extern SensorManagerClass SensorManager;
-
 #endif
