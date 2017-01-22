@@ -40,7 +40,7 @@ void TimeManager::setup() {
 
 
   // Start NTP sync
-  NTP.begin("pool.ntp.org", 1, true);
+  NTP.begin("pool.ntp.org", 0, true);
   NTP.setInterval(1800);  // seconds between sync attempt
 }
 //
