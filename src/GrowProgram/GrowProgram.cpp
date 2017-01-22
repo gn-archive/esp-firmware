@@ -39,6 +39,7 @@ void GrowProgram::loop() {
 
   grow_light.loop(grow_errors);
   exhaust_fan.loop();
+  water_pump.loop();
 }
 
 
