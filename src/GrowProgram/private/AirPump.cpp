@@ -6,7 +6,6 @@ airPumpNode("air_pump", "relay")
 
 
 void AirPump::setup() {
-	Homie.getLogger() << F("AirPump::setup()") << endl;
 	pinMode(AIR_PUMP_PIN, OUTPUT);
 
 	digitalWrite(AIR_PUMP_PIN, HIGH);

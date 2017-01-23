@@ -13,7 +13,6 @@ waterPumpNode("water_pump", "relay")
 
 
 void WaterPump::setup() {
-	Homie.getLogger() << F("WaterPump::setup()") << endl;
 	waterPumpNode.advertise("on");
 
 	pinMode(WATER_PUMP_PIN, OUTPUT);
@@ -57,10 +56,10 @@ void WaterPump::setState(bool set_on) {
 	uploadCurrentState();
 
 	if (set_on) {
-		Homie.getLogger() << F("Time: ") << hour() << F(" Water pump is turning ON") << endl;
+		Homie.getLogger() << F("Water pump is turning ON") << endl;
 		MCUBus.send(MCU_BUS_ARDUINO_ID, "water_pump=on", 13);
 	} else {
-		Homie.getLogger() << F("Time: ") << hour() << F(" Water pump is turning OFF") << endl;
+		Homie.getLogger() << F("Water pump is turning OFF") << endl;
 		MCUBus.send(MCU_BUS_ARDUINO_ID, "water_pump=off", 14);
 	}
 }

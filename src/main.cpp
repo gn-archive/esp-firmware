@@ -40,6 +40,7 @@ void setup()
   Homie_setFirmware("node-os", "1.0.0"); // The "_" is not a typo! See Magic bytes
   Homie_setBrand("Grow Nodes"); // before Homie.setup()
   Homie.onEvent(onSystemEvent);
+
   Homie.setup();
 
   MCUBus.strategy.set_pin(MCU_BUS_PIN);

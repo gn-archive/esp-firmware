@@ -9,14 +9,13 @@ sensors(), grow_errors(), grow_light(), exhaust_fan(), air_pump(), water_pump()
 }
 
 void GrowProgram::setup() {
-  Homie.getLogger() << F("GrowProgram::setup()") << endl;
-  setState(RUNNING);
-
   sensors.setup();
   grow_light.setup();
   exhaust_fan.setup();
   air_pump.setup();
   water_pump.setup();
+
+  setState(RUNNING);
 }
 
 void GrowProgram::uploadCurrentState() {
@@ -51,12 +50,12 @@ void GrowProgram::setState(State state) {
 
   switch (_state) {
     case STOPPED:
-      Homie.getLogger() << F("Time: ") << second() << F(" Grow Program is stopped.") << endl;
       grow_light.stop();
+      Homie.getLogger() << F("Grow Program is not running") << endl;
     break;
 
     case RUNNING:
-      Homie.getLogger() << F("Time: ") << second() << F(" Grow Program is running.") << endl;
+      Homie.getLogger() << F("Grow Program is running.") << endl;
       grow_light.start();
     break;
   }

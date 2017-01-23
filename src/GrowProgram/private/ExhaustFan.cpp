@@ -8,7 +8,6 @@ fanNode("fan", "relay")
 
 
 void ExhaustFan::setup() {
-	Homie.getLogger() << F("ExhaustFan::setup()") << endl;
 	fanNode.advertise("on");
 
 	setState(true);
@@ -38,10 +37,10 @@ void ExhaustFan::setState(bool new_state) {
 	uploadCurrentState();
 
 	if (new_state) {
-		Homie.getLogger() << F("Fan is ") << (fanOn ? "on" : "off") << F(", turning ON") << endl;
+		Homie.getLogger() << F("Exhaust fan is turning ON") << endl;
 		MCUBus.send(MCU_BUS_ARDUINO_ID, "exhaust_fan=on", 13);
 	} else {
-		Homie.getLogger() << F("Fan is ") << (fanOn ? "on" : "off") << F(", turning OFF") << endl;
+		Homie.getLogger() << F("Exhaust fan is turning OFF") << endl;
 		MCUBus.send(MCU_BUS_ARDUINO_ID, "exhaust_fan=off", 14);
 	}
 }

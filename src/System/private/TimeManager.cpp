@@ -13,8 +13,6 @@ rtc(Wire) {
 
 
 void TimeManager::setup() {
-  Homie.getLogger() << F("TimeManager...") << endl;
-
   Homie.getLogger() << F("Compiled at ") << __DATE__ << " " << __TIME__ << endl;
   Homie.getLogger() << F("Timezone offset is UTC") << (timezone_offset > 0 ? "+" : "") << timezone_offset << " hours" << endl;
   //--------RTC SETUP ------------

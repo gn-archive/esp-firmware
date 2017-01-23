@@ -7,7 +7,6 @@ _growLightNode("grow_light", "relay")
 
 
 	void GrowLight::setup() {
-		Homie.getLogger() << F("GrowLight::setup()") << endl;
 		_growLightNode.advertise("on");
 
 	}
@@ -53,21 +52,21 @@ void GrowLight::uploadCurrentState() {
 		uploadCurrentState();
 
 		if (set_on) {
-			Homie.getLogger() << F("Time: ") << hour() << F(" ") << message << endl;
+			Homie.getLogger() << message << endl;
 			MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=on", 13);
 		} else {
-			Homie.getLogger() << F("Time: ") << hour() << F(" ") << message << endl;
+			Homie.getLogger() << message << endl;
 			MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
 		}
 	}
 
 
 void GrowLight::start() {
-	Homie.getLogger() << F(" Grow light is enabled...") << endl;
+	Homie.getLogger() << F("Grow light is enabled") << endl;
 	is_enabled = true;
 }
 
 void GrowLight::stop() {
 	is_enabled = false;
-	setState(false, PSTR("Grow light is not running, turning OFF"));
+	setState(false, PSTR("Grow light is disabled, turning OFF"));
 }
