@@ -2,7 +2,7 @@
 
 SensorManager::SensorManager() :
 waterLevelNode("water_level", "gallons"),
-airTempNode("air_temp", "degrees F"),
+airSensorNode("air_sensor", "temperature F and RH"),
 waterTempNode("water_temp", "degrees F")
 {
   water_level = 0.0;
@@ -11,7 +11,8 @@ waterTempNode("water_temp", "degrees F")
 }
 
 void SensorManager::setup() {
-  airTempNode.advertise("degrees");
+  airSensorNode.advertise("temperature");
+  airSensorNode.advertise("humidity");
   waterLevelNode.advertise("gallons");
   waterTempNode.advertise("degrees");
 }
@@ -35,6 +36,11 @@ void SensorManager::handle_incoming(const char* payload) {
     update_local_air_temp(atof(payload_trimmed));
   }
 
+  if (strncmp(payload, "air_humidity=", 13) == 0) {
+    const char * payload_trimmed = payload + 13;
+    update_local_air_humidity(atof(payload_trimmed));
+  }
+
   if (strncmp(payload, "water_temp=", 11) == 0) {
     const char * payload_trimmed = payload + 11;
     update_local_water_temp(atof(payload_trimmed));
@@ -50,9 +56,18 @@ void SensorManager::handle_incoming(const char* payload) {
 void SensorManager::update_local_air_temp(float new_air_temp) {
     air_temp = new_air_temp;
 
-    Homie.getLogger() << F("Temperature: ") << air_temp << F(" °F") << endl;
+    Homie.getLogger() << F("Air Temperature: ") << air_temp << F(" °F") << endl;
     if (Homie.isConnected()) {
-      airTempNode.setProperty("degrees").send(String(air_temp));
+      airSensorNode.setProperty("temperature").send(String(air_temp));
+    }
+}
+
+void SensorManager::update_local_air_humidity(float new_air_humidity) {
+    air_humidity = new_air_humidity;
+
+    Homie.getLogger() << F("Air Humidity: ") << air_humidity << F(" % RH") << endl;
+    if (Homie.isConnected()) {
+      airSensorNode.setProperty("humidity").send(String(air_humidity));
     }
 }
 

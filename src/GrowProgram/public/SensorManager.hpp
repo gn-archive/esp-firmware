@@ -9,9 +9,11 @@ class SensorManager
 {
 	private:
 		unsigned long dataLastSentAt;
-		HomieNode airTempNode;
+		HomieNode airSensorNode;
 		float air_temp;
+		float air_humidity;
 		void update_local_air_temp(float new_air_temp);
+		void update_local_air_humidity(float new_air_temp);
 
 		HomieNode waterTempNode;
 		float water_temp;

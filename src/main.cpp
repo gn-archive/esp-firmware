@@ -45,7 +45,7 @@ void setup()
   MCUBus.strategy.set_pin(MCU_BUS_PIN);
   MCUBus.begin();
   MCUBus.set_receiver(onPjonPacket);
-  MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "air_temp", 10, 5000000);
+  MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "air_sensor", 10, 5000000);
   MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "water_level", 11, 5000000);
   MCUBus.send_repeatedly(MCU_BUS_ARDUINO_ID, "water_temp", 10, 5000000);
 
