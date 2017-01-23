@@ -56,7 +56,7 @@ void TimeManager::loop() {
   // Print time every second
   if (millis() - lastSerialPrintMillis >= 1000) {
     lastSerialPrintMillis = millis();
-    Homie.getLogger() << NTP.getTimeDateString(now()) << endl;
+    Homie.getLogger() << NTP.getTimeDateString(now()) << F(", free heap: ") << ESP.getFreeHeap() << endl;
   }
 }
 

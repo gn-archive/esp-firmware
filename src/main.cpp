@@ -61,12 +61,6 @@ void loop()
     MCUBus.update();
     MCUBus.receive(1000);
 
-    if ( System.settings.get_aborted() ) {
-      grow_program.setState(GrowProgram::STOPPED);
-    } else {
-      grow_program.setState(GrowProgram::RUNNING);
-    }
-
     System.loop();
     grow_program.loop();
 }

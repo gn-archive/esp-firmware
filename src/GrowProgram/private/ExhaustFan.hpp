@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
+#include <MCUBus.h>
 #include <Homie.h>
 #include <constants.h>
 #include <Timelib.h>
@@ -13,6 +14,6 @@ class ExhaustFan
 		void uploadCurrentState();
   private:
 		HomieNode fanNode;
-		void ensureOn(bool yes);
+		void setState(bool new_state);
 		bool fanOn;
 };

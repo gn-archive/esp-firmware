@@ -2,45 +2,46 @@
 
 ExhaustFan::ExhaustFan():
 fanNode("fan", "relay")
-{}
+{
+	fanOn = false;
+}
 
 
-	void ExhaustFan::setup() {
-		Homie.getLogger() << F("ExhaustFan::setup()") << endl;
-		pinMode(FAN_PIN, OUTPUT);
-		digitalWrite(FAN_PIN, LOW);
-		fanOn = false;
-		fanNode.advertise("on");
+void ExhaustFan::setup() {
+	Homie.getLogger() << F("ExhaustFan::setup()") << endl;
+	fanNode.advertise("on");
+
+	setState(true);
+}
+
+void ExhaustFan::uploadCurrentState() {
+	if (!Homie.isConnected()) {
+		return;
+	}
+	if (fanOn) {
+		fanNode.setProperty("on").send("true");
+	} else {
+		fanNode.setProperty("on").send("false");
+	}
+}
+
+void ExhaustFan::loop() {
+	setState(true);
+}
+
+void ExhaustFan::setState(bool new_state) {
+	if (fanOn == new_state) {
+		return;
 	}
 
-	void ExhaustFan::uploadCurrentState() {
-		if (!Homie.isConnected()) {
-			return;
-		}
-		if (fanOn) {
-			fanNode.setProperty("on").send("true");
-		} else {
-			fanNode.setProperty("on").send("false");
-		}
-	}
+	fanOn = new_state;
+	uploadCurrentState();
 
-	void ExhaustFan::loop() {
-		ensureOn(true);
+	if (new_state) {
+		Homie.getLogger() << F("Fan is ") << (fanOn ? "on" : "off") << F(", turning ON") << endl;
+		MCUBus.send(MCU_BUS_ARDUINO_ID, "exhaust_fan=on", 13);
+	} else {
+		Homie.getLogger() << F("Fan is ") << (fanOn ? "on" : "off") << F(", turning OFF") << endl;
+		MCUBus.send(MCU_BUS_ARDUINO_ID, "exhaust_fan=off", 14);
 	}
-
-
-	void ExhaustFan::ensureOn(bool yes) {
-		if (yes && !fanOn) {
-			// turn on the fan if it is not already on
-			Homie.getLogger() << F(" Fan is ") << (fanOn ? "on" : "off") << F(", turning ON") << endl;
-			fanOn = true;
-			uploadCurrentState();
-			digitalWrite(FAN_PIN, HIGH);
-		}
-		if (!yes && fanOn) {
-			Homie.getLogger() << F(" Fan is ") << (fanOn ? "on" : "off") << F(", turning OFF") << endl;
-			fanOn = false;
-			uploadCurrentState();
-			digitalWrite(FAN_PIN, LOW);
-		}
-	}
+}

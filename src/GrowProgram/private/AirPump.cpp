@@ -32,9 +32,3 @@ void AirPump::uploadCurrentState() {
 		airPumpNode.setProperty("on").send("false");
 	}
 }
-
-
-
-// void AirPump::loop(settings grow_settings, SensorManager sensors) {
-//
-// }

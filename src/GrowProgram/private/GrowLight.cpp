@@ -24,7 +24,7 @@ void GrowLight::uploadCurrentState() {
 }
 
 	void GrowLight::loop(GrowErrors grow_errors) {
-		if (!is_running) {
+		if (!is_enabled) {
 			return;
 		}
 
@@ -63,11 +63,11 @@ void GrowLight::uploadCurrentState() {
 
 
 void GrowLight::start() {
-	Homie.getLogger() << F("Time: ") << hour() << F(" Grow light is running...") << endl;
-	is_running = true;
+	Homie.getLogger() << F(" Grow light is enabled...") << endl;
+	is_enabled = true;
 }
 
 void GrowLight::stop() {
-	is_running = false;
+	is_enabled = false;
 	setState(false, PSTR("Grow light is not running, turning OFF"));
 }
