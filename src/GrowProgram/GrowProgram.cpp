@@ -1,32 +1,30 @@
 // Central starting point for all Grow subsystems.
-#include "GrowProgram.hpp"
+#include "GrowProgram/GrowProgram.hpp"
 
 // Constructor - creates a GrowProgram
 // and initializes the member variables and state
 GrowProgram::GrowProgram() :
-grow_errors(), grow_light(), exhaust_fan(), air_pump(), water_pump()
+sensors(), grow_errors(), grow_light(), exhaust_fan(), air_pump(), water_pump()
 {
 }
 
 void GrowProgram::setup() {
-  Serial << "GrowProgram::setup()" << endl;
-  setState(RUNNING);
-
-  GrowSettings.setup();
-  SensorManager.setup();
+  sensors.setup();
   grow_light.setup();
   exhaust_fan.setup();
   air_pump.setup();
   water_pump.setup();
+
+  setState(RUNNING);
 }
 
-void GrowProgram::sendCurrentState() {
-  grow_errors.sendCurrentState();
+void GrowProgram::uploadCurrentState() {
+  grow_errors.uploadCurrentState();
 
-  grow_light.sendCurrentState();
-  exhaust_fan.sendCurrentState();
-  air_pump.sendCurrentState();
-  water_pump.sendCurrentState();
+  grow_light.uploadCurrentState();
+  exhaust_fan.uploadCurrentState();
+  air_pump.uploadCurrentState();
+  water_pump.uploadCurrentState();
 }
 
 void GrowProgram::loop() {
@@ -34,11 +32,12 @@ void GrowProgram::loop() {
     return;
   }
 
-  SensorManager.loop();
-  grow_errors.loop();
+  sensors.loop();
+  grow_errors.loop(sensors);
 
   grow_light.loop(grow_errors);
   exhaust_fan.loop();
+  water_pump.loop();
 }
 
 
@@ -51,13 +50,13 @@ void GrowProgram::setState(State state) {
 
   switch (_state) {
     case STOPPED:
-      Serial << "Time: " << second() << " Grow Program is stopped." << endl;
-      grow_light.setState(GrowLight::DISABLED);
+      grow_light.stop();
+      Homie.getLogger() << F("Grow Program is not running") << endl;
     break;
 
     case RUNNING:
-      Serial << "Time: " << second() << " Grow Program is running." << endl;
-      grow_light.setState(GrowLight::OFF);  // Any state other than DISABLED will work
+      Homie.getLogger() << F("Grow Program is running.") << endl;
+      grow_light.start();
     break;
   }
 }

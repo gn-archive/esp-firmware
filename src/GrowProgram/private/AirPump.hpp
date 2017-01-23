@@ -3,15 +3,13 @@
 #include <Homie.h>
 #include <constants.h>
 
-class WaterPump
+class AirPump
 {
 	public:
 		void setup();
-    void loop();
-    WaterPump();
-		void sendCurrentState();
-
+    AirPump();
+		void uploadCurrentState();
   private:
-    HomieNode waterPumpNode;
-    bool waterPumpOn;
+    HomieNode airPumpNode;
+    bool airPumpOn;
 };

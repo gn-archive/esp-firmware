@@ -1,4 +1,4 @@
-#include "GrowErrors.hpp"
+#include "GrowProgram/private/GrowErrors.hpp"
 
 GrowErrors::GrowErrors() :
 growErrorsNode("grow_errors", "grow errors")
@@ -8,12 +8,12 @@ growErrorsNode("grow_errors", "grow errors")
   growErrorsNode.advertise("water_level_low");
 }
 
-void GrowErrors::loop() {
-  bool is_overheat = SensorManager.getAirTempF() > AIR_TEMP_OVERHEAT;
+void GrowErrors::loop(SensorManager sensors) {
+  bool is_overheat = sensors.getAirTemp() > AIR_TEMP_OVERHEAT;
   setOverheat(is_overheat);
 
 
-  if (SensorManager.getWaterLevel() < 4.5) {
+  if (sensors.getWaterLevel() < 4.5) {
     setWaterLevelLow(true);
   } else {
     setWaterLevelLow(false);
@@ -21,7 +21,7 @@ void GrowErrors::loop() {
 }
 
 
-void GrowErrors::sendCurrentState() {
+void GrowErrors::uploadCurrentState() {
   if (!Homie.isConnected()) {
     return;
   }
@@ -46,7 +46,7 @@ void GrowErrors::setOverheat(bool overheat) {
 	_overheat = overheat;
 	_overheat_at = 0;  // Will be zero if not overheat
 
-  sendCurrentState();
+  uploadCurrentState();
 
   if (_overheat) {
 		_overheat_at = millis();
@@ -64,5 +64,5 @@ void GrowErrors::setWaterLevelLow(bool water_level_low) {
 
 	_water_level_low = water_level_low;
 
-  sendCurrentState();
+  uploadCurrentState();
 }
