@@ -5,6 +5,7 @@
 #include <System/private/TimeManager.hpp>
 //
 TimeManager::TimeManager() :
+timeNode("current_time", "string"),
 rtc(Wire) {
   lastSerialPrintMillis = 0;
   timezone_offset = -8;    // Default to PST
@@ -13,6 +14,7 @@ rtc(Wire) {
 
 
 void TimeManager::setup() {
+  timeNode.advertise("time_string");
   Homie.getLogger() << F("Compiled at ") << __DATE__ << " " << __TIME__ << endl;
   Homie.getLogger() << F("Timezone offset is UTC") << (timezone_offset > 0 ? "+" : "") << timezone_offset << " hours" << endl;
   //--------RTC SETUP ------------
@@ -42,7 +44,9 @@ void TimeManager::setup() {
   NTP.setInterval(1800);  // seconds between sync attempt
 }
 //
-
+void TimeManager::uploadCurrentState() {
+  timeNode.setProperty("time_string").send(NTP.getTimeDateString(now()));
+}
 
 void TimeManager::loop() {
 
@@ -53,6 +57,7 @@ void TimeManager::loop() {
 
   // Print time every second
   if (millis() - lastSerialPrintMillis >= 1000) {
+    uploadCurrentState();
     lastSerialPrintMillis = millis();
     Homie.getLogger() << NTP.getTimeDateString(now()) << F(", free heap: ") << ESP.getFreeHeap() << endl;
   }

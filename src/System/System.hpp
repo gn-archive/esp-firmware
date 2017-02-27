@@ -11,6 +11,7 @@ class SystemClass
     SystemClass();
 		void setup();
     void loop();
+		void uploadCurrentState();
 		Settings settings;
   private:
     TimeManager time_manager;

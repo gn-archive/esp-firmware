@@ -24,11 +24,13 @@ class TimeManager
 		bool syncEventTriggered;
 		NTPSyncEvent_t ntpEvent; // Last triggered event
 
-		int timezone_offset;
+		HomieNode timeNode;
 
+		int timezone_offset;
 		void processSyncEvent(NTPSyncEvent_t error);
 		void setLocalSystemTimeFromRTC();
   public:
+		void uploadCurrentState();
     TimeManager();
     void loop();
 		void setup();
