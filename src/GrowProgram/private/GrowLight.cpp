@@ -3,12 +3,13 @@
 GrowLight::GrowLight():
 _growLightNode("grow_light", "relay")
 {
+	is_on = true; // initialize to true, will be set to false in setup() when setState is called
 }
 
 
 	void GrowLight::setup() {
 		_growLightNode.advertise("on");
-
+		setState(false, "Grow light is initializing to OFF");
 	}
 
 void GrowLight::uploadCurrentState() {
