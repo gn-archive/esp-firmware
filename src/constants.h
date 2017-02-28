@@ -12,19 +12,11 @@
 // SD1 (GPIO 9)
 
 
-#define MCU_BUS_DEVICE_ID 44
-#define MCU_BUS_ARDUINO_ID 45
-
 // #define AIR_SENSOR_DHT_PIN D0
-#define MCU_BUS_PIN D0
 #define I2C_SDA D1
 #define I2C_SCL D2
 // D3 is ESP8266 Reset pin (GPIO0). Ground to reset
 #define HOMIE_STATUS_PIN D4
-#define WATER_PUMP_PIN D5
-#define FAN_PIN D6
-#define AIR_PUMP_PIN D7
-// #define xxxx D8
 
 #define SEND_STATS_INTERVAL 10*1000
 #define WATER_LEVEL_MIN 4.5

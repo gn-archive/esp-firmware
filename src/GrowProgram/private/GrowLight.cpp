@@ -54,10 +54,10 @@ void GrowLight::uploadCurrentState() {
 
 		if (set_on) {
 			Homie.getLogger() << message << endl;
-			MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=on", 13);
+			// MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=on", 13);
 		} else {
 			Homie.getLogger() << message << endl;
-			MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
+			// MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
 		}
 	}
 

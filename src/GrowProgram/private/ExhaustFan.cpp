@@ -38,9 +38,9 @@ void ExhaustFan::setState(bool new_state) {
 
 	if (new_state) {
 		Homie.getLogger() << F("Exhaust fan is turning ON") << endl;
-		MCUBus.send(MCU_BUS_ARDUINO_ID, "exhaust_fan=on", 13);
+		// MCUBus.send(MCU_BUS_ARDUINO_ID, "exhaust_fan=on", 13);
 	} else {
 		Homie.getLogger() << F("Exhaust fan is turning OFF") << endl;
-		MCUBus.send(MCU_BUS_ARDUINO_ID, "exhaust_fan=off", 14);
+		// MCUBus.send(MCU_BUS_ARDUINO_ID, "exhaust_fan=off", 14);
 	}
 }
