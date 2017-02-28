@@ -3,8 +3,8 @@
 #include <ArduinoJson.h>
 
 #include "GrowProgram/private/GrowLight.hpp"
-#include "GrowProgram/private/ExhaustFan.hpp"
-#include "GrowProgram/private/AirPump.hpp"
+// #include "GrowProgram/private/ExhaustFan.hpp"
+// #include "GrowProgram/private/AirPump.hpp"
 #include "GrowProgram/private/WaterPump.hpp"
 
 #include "System/public/Settings.hpp"
@@ -29,8 +29,8 @@ private:
 		State _state;
 		GrowErrors grow_errors;
 		GrowLight grow_light;
-		ExhaustFan exhaust_fan;
-		AirPump air_pump;
+		// ExhaustFan exhaust_fan;
+		// AirPump air_pump;
 		WaterPump water_pump;
 
 
