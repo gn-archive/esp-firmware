@@ -1,6 +1,7 @@
 #include <main.h>
 
 GrowProgram grow_program;
+Shifty ShiftReg;
 
 void onSystemEvent(const HomieEvent& event) {
   switch(event.type) {
