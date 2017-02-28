@@ -3,12 +3,7 @@
 #include <Homie.h>
 #include <constants.h>
 #include <TimeLib.h>
-
-#define WATER_PUMP_ON_DURATION_MS 60 * 60*1000
-#define WATER_PUMP_OFF_DURATION_MS 15 * 60*1000
-
-// #define WATER_PUMP_ON_DURATION_MS 2000
-// #define WATER_PUMP_OFF_DURATION_MS 1000
+#include "eShiftReg.hpp"
 
 class WaterPump
 {

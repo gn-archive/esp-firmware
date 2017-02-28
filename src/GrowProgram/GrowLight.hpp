@@ -3,6 +3,7 @@
 
 #include <constants.h>
 #include <Timelib.h>
+#include "eShiftReg.hpp"
 #include "System/System.hpp"
 #include "GrowProgram/GrowErrors.hpp"
 
