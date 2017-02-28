@@ -23,8 +23,6 @@ public:
 	void setState(State state);
 	void uploadCurrentState();
 
-	SensorManager sensors;
-
 private:
 		State _state;
 		GrowErrors grow_errors;

@@ -4,7 +4,6 @@
 // Constructor - creates a GrowProgram
 // and initializes the member variables and state
 GrowProgram::GrowProgram() :
-sensors(),
 grow_errors(),
 grow_light(),
 // exhaust_fan(),
@@ -14,7 +13,6 @@ water_pump()
 }
 
 void GrowProgram::setup() {
-  sensors.setup();
   grow_light.setup();
   // exhaust_fan.setup();
   // air_pump.setup();
@@ -37,8 +35,7 @@ void GrowProgram::loop() {
     return;
   }
 
-  sensors.loop();
-  grow_errors.loop(sensors);
+  grow_errors.loop();
 
   grow_light.loop(grow_errors);
   // exhaust_fan.loop();

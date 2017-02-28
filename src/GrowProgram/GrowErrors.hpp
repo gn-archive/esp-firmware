@@ -9,7 +9,7 @@ class GrowErrors
 {
 	public:
     GrowErrors();
-    void loop(SensorManager sensors);
+    void loop();
 
     void uploadCurrentState();
 

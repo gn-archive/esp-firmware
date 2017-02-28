@@ -35,6 +35,7 @@ void setup()
   Homie.setup();
 
   System.setup();
+  Sensors.setup();
   grow_program.setup();
 
 }
@@ -44,5 +45,6 @@ void loop()
     Homie.loop();
 
     System.loop();
+    Sensors.loop();
     grow_program.loop();
 }

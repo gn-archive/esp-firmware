@@ -1,3 +1,4 @@
+#define AIR_SENSOR_TYPE DHT22
 // ESP8266 connections
 #define AIR_SENSOR_PIN D0
 #define I2C_SDA D1
