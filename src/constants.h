@@ -1,4 +1,4 @@
-#define AIR_SENSOR_TYPE DHT11
+#define AIR_SENSOR_TYPE DHT22
 // ESP8266 connections
 #define SHIFT_CLOCK_PIN D0
 #define I2C_SDA D1
