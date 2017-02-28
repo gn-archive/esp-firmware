@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 #include "eNotifier.hpp"
-#include "GrowProgram/eSensorManager.hpp"
+#include "Sensors/Sensors.hpp"
 #include <constants.h>
 
 class GrowErrors
