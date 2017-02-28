@@ -15,11 +15,11 @@ void AirSensor::loop() {
   }
 }
 
-float AirSensor::getAirTemp() {
+float AirSensor::getTemp() {
   return isnan(air_temp) ? 0.0 : air_temp;
 }
 
-float AirSensor::getAirHumidity() {
+float AirSensor::getHumidity() {
   return isnan(air_humidity) ? 0.0 : air_humidity;
 }
 
@@ -32,6 +32,5 @@ void AirSensor::readSensor() {
   } else {
     air_temp = new_air_temp;
     air_humidity = new_air_humidity;
-    Serial << "Temperature: " << air_temp << " °F, Humidity: " << air_humidity << "% RH" << endl;
   }
 }

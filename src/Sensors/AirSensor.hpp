@@ -13,8 +13,8 @@ class AirSensor {
   public:
     AirSensor();
     void loop();
-    float getAirTemp();
-    float getAirHumidity();
+    float getTemp();
+    float getHumidity();
 
   private:
     void readSensor();

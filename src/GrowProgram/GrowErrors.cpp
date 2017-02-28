@@ -9,7 +9,7 @@ growErrorsNode("grow_errors", "grow errors")
 }
 
 void GrowErrors::loop() {
-  // bool is_overheat = Sensors.getAirTemp() > AIR_TEMP_OVERHEAT;
+  // bool is_overheat = Sensors.getTemp() > AIR_TEMP_OVERHEAT;
   // setOverheat(is_overheat);
   //
   //
