@@ -7,7 +7,6 @@ void onSystemEvent(const HomieEvent& event) {
   switch(event.type) {
     case HomieEventType::MQTT_CONNECTED:
       grow_program.uploadCurrentState();
-      System.uploadCurrentState();
     break;
   }
 }

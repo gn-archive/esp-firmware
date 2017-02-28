@@ -26,7 +26,6 @@ class TimeManager
 
 		HomieNode timeNode;
 
-		int timezone_offset;
 		void processSyncEvent(NTPSyncEvent_t error);
 		void setLocalSystemTimeFromRTC();
   public:

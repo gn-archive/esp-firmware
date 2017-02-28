@@ -8,7 +8,6 @@ TimeManager::TimeManager() :
 timeNode("current_time", "string"),
 rtc(Wire) {
   lastSerialPrintMillis = 0;
-  timezone_offset = -8;    // Default to PST
   boolean syncEventTriggered = false; // True if a time even has been triggered
 }
 
@@ -16,7 +15,7 @@ rtc(Wire) {
 void TimeManager::setup() {
   timeNode.advertise("time_string");
   Homie.getLogger() << F("Compiled at ") << __DATE__ << " " << __TIME__ << endl;
-  Homie.getLogger() << F("Timezone offset is UTC") << (timezone_offset > 0 ? "+" : "") << timezone_offset << " hours" << endl;
+  Homie.getLogger() << F("Timezone offset is UTC") << (TIMEZONE_OFFSET > 0 ? "+" : "") << TIMEZONE_OFFSET << " hours" << endl;
   //--------RTC SETUP ------------
   rtc.Begin();
   Wire.begin(I2C_SDA, I2C_SCL); // SDA, SCL
@@ -45,6 +44,9 @@ void TimeManager::setup() {
 }
 //
 void TimeManager::uploadCurrentState() {
+  if (!Homie.isConnected()) {
+		return;
+	}
   timeNode.setProperty("time_string").send(NTP.getTimeDateString(now()));
 }
 
@@ -67,7 +69,7 @@ void TimeManager::setLocalSystemTimeFromRTC() {
   // Set system time from RTC
   RtcDateTime rtc_now = rtc.GetDateTime();
   Homie.getLogger() << F("RTC Time (UTC): ") << NTP.getTimeDateString(rtc_now.Epoch32Time()) << endl; // using NTP time string formatter to print RTC time
-  setTime(rtc_now.Epoch32Time() + timezone_offset*60*60);
+  setTime(rtc_now.Epoch32Time() + TIMEZONE_OFFSET*60*60);
   Homie.getLogger() << F("✔ Set local system time from RTC ") << NTP.getTimeDateString(now()) << endl;
 }
 
@@ -89,7 +91,7 @@ void TimeManager::processSyncEvent(NTPSyncEvent_t error) {
       RtcDateTime rtc_now = rtc.GetDateTime();
       Homie.getLogger() << F("↕ Synced RTC using NTP time: ") << NTP.getTimeDateString(rtc_now.Epoch32Time()) << endl;
 
-      setTime(now() + timezone_offset*60*60);
+      setTime(now() + TIMEZONE_OFFSET*60*60);
 
     }
 };
