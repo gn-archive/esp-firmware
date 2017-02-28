@@ -5,6 +5,7 @@
 #include <Homie.h>
 #include <constants.h>
 #include "Sensors/AirSensor.hpp"
+#include "Sensors/WaterTempSensor.hpp"
 
 class SensorsClass
 {
@@ -19,8 +20,9 @@ class SensorsClass
 		void setup();
     void loop();
 		void uploadCurrentState();
-		
+
 		AirSensor air_sensor;
+		WaterTempSensor water_temp_sensor;
 };
 
 extern SensorsClass Sensors;

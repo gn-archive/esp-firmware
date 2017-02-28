@@ -5,7 +5,7 @@
 #define I2C_SCL D2
 // D3 is factory reset pin. Ground for 5 seconds to clear flash.
 #define HOMIE_STATUS_PIN D4
-#define WATER_TEMP_PIN D5
+#define ONE_WIRE_BUS D5
 
 #define SHIFT_DATA_PIN D6
 #define AIR_SENSOR_PIN D7

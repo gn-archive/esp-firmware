@@ -4,7 +4,8 @@ SensorsClass::SensorsClass():
 waterLevelNode("water_level", "gallons"),
 airSensorNode("air_sensor", "temperature F and RH"),
 waterTempNode("water_temp", "degrees F"),
-air_sensor()
+air_sensor(),
+water_temp_sensor()
 {
   dataLastSentAt = 0;
 }
@@ -15,10 +16,13 @@ void SensorsClass::setup() {
   airSensorNode.advertise("humidity");
   waterLevelNode.advertise("gallons");
   waterTempNode.advertise("degrees");
+
+  water_temp_sensor.setup();
 }
 
 void SensorsClass::loop() {
   air_sensor.loop();
+  water_temp_sensor.loop();
 
   if (millis() - dataLastSentAt > SEND_SENSOR_DATA_INTERVAL) {
     dataLastSentAt = millis();
@@ -29,11 +33,15 @@ void SensorsClass::loop() {
 
 void SensorsClass::uploadCurrentState() {
   Homie.getLogger()
-  << "Temperature: "
+  << "Air temperature: "
   << air_sensor.getTemp()
-  << " °F, Humidity: "
+  << " °F, humidity: "
   << air_sensor.getHumidity()
   << "% RH"
+  << endl
+  << "Water temperature: "
+  << water_temp_sensor.getTemp()
+  << " °F"
   << endl;
 
   if (!Homie.isConnected()) {
