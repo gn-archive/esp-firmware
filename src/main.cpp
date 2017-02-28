@@ -14,6 +14,11 @@ void onSystemEvent(const HomieEvent& event) {
 
 void setup()
 {
+  ShiftReg.setBitCount(8);
+  // data, clock, latch
+  ShiftReg.setPins(SHIFT_DATA_PIN, SHIFT_CLOCK_PIN, SHIFT_LATCH_PIN);
+  // All outputs default to low
+
   delay(200);
   Serial.begin(74880);
 

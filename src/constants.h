@@ -17,6 +17,12 @@
 #define I2C_SCL D2
 // D3 is ESP8266 Reset pin (GPIO0). Ground to reset
 #define HOMIE_STATUS_PIN D4
+#define WATER_TEMP_PIN D5
+
+#define SHIFT_DATA_PIN D6
+#define SHIFT_CLOCK_PIN D7
+#define SHIFT_LATCH_PIN D8
+
 
 #define SEND_STATS_INTERVAL 10*1000
 #define WATER_LEVEL_MIN 4.5
