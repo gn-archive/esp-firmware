@@ -18,7 +18,8 @@ class SensorsClass
     SensorsClass();
 		void setup();
     void loop();
-
+		void uploadCurrentState();
+		
 		AirSensor air_sensor;
 };
 

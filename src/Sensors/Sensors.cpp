@@ -19,3 +19,11 @@ void SensorsClass::setup() {
 void SensorsClass::loop() {
   air_sensor.loop();
 }
+
+
+void SensorsClass::uploadCurrentState() {
+  if (!Homie.isConnected()) {
+		return;
+	}
+  airSensorNode.setProperty("temperature").send(String(air_sensor.getAirTemp()));
+}

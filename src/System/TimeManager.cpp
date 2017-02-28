@@ -61,7 +61,7 @@ void TimeManager::loop() {
   if (millis() - lastSerialPrintMillis >= 1000) {
     uploadCurrentState();
     lastSerialPrintMillis = millis();
-    Homie.getLogger() << NTP.getTimeDateString(now()) << F(", free heap: ") << ESP.getFreeHeap() << endl;
+    // Homie.getLogger() << NTP.getTimeDateString(now()) << F(", free heap: ") << ESP.getFreeHeap() << endl;
   }
 }
 
