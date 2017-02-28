@@ -1,4 +1,4 @@
-#include "GrowProgram/private/GrowErrors.hpp"
+#include "GrowProgram/GrowErrors.hpp"
 
 GrowErrors::GrowErrors() :
 growErrorsNode("grow_errors", "grow errors")

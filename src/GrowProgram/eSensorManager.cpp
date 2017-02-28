@@ -1,4 +1,4 @@
-#include "GrowProgram/public/SensorManager.hpp"
+#include "GrowProgram/eSensorManager.hpp"
 
 SensorManager::SensorManager() :
 waterLevelNode("water_level", "gallons"),

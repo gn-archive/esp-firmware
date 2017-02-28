@@ -1,8 +1,8 @@
 #pragma once
 
 #include <Arduino.h>
-#include "Notifier.hpp"
-#include "GrowProgram/public/SensorManager.hpp"
+#include "eNotifier.hpp"
+#include "GrowProgram/eSensorManager.hpp"
 #include <constants.h>
 
 class GrowErrors
