@@ -3,7 +3,7 @@
 WaterPump::WaterPump():
 waterPumpNode("water_pump", "relay")
 {
-	waterPumpOn = true; // initialize to true, will be set to false in setup() when setState is called
+	waterPumpOn = false; // initialize to false, will be set to true in setup() when setState is called
 	waterPumpOnChangedAt = 0;
 }
 
@@ -11,7 +11,7 @@ waterPumpNode("water_pump", "relay")
 void WaterPump::setup() {
 	waterPumpNode.advertise("on");
 
-	setState(false);
+	setState(true);
 }
 
 void WaterPump::uploadCurrentState() {
