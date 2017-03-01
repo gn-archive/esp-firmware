@@ -15,7 +15,7 @@ void SensorsClass::setup() {
   airSensorNode.advertise("temperature");
   airSensorNode.advertise("humidity");
   waterLevelNode.advertise("gallons");
-  waterTempNode.advertise("degrees");
+  waterTempNode.advertise("temperature");
 
   water_temp_sensor.setup();
 }
@@ -49,5 +49,6 @@ void SensorsClass::uploadCurrentState() {
 	}
   airSensorNode.setProperty("temperature").send(String(air_sensor.getTemp()));
   airSensorNode.setProperty("humidity").send(String(air_sensor.getHumidity()));
+  waterTempNode.setProperty("temperature").send(String(water_temp_sensor.getTemp()));
 
 }
