@@ -5,8 +5,6 @@
 // DS1307 GND --> GND
 #include <Arduino.h>
 #include <pgmspace.h>
-#define countof(a) (sizeof(a) / sizeof(a[0]))
-
 
 /* for normal hardware wire use below */
 #include <Wire.h> // must be included here so that Arduino library object file references work
@@ -26,7 +24,6 @@ class TimeManager
 
 		HomieNode timeNode;
 
-		int timezone_offset;
 		void processSyncEvent(NTPSyncEvent_t error);
 		void setLocalSystemTimeFromRTC();
   public:

@@ -2,8 +2,8 @@
 
 #include <Arduino.h>
 
-#include <System/private/TimeManager.hpp>
-#include <System/public/Settings.hpp>
+#include <System/TimeManager.hpp>
+#include <System/Settings.hpp>
 
 class SystemClass
 {
@@ -11,7 +11,6 @@ class SystemClass
     SystemClass();
 		void setup();
     void loop();
-		void uploadCurrentState();
 		Settings settings;
   private:
     TimeManager time_manager;

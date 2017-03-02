@@ -1,4 +1,4 @@
-#include "System/public/Settings.hpp"
+#include "System/Settings.hpp"
 
 // Constructor - creates a Settings
 // and initializes the member variables and state

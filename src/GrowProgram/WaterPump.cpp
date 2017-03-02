@@ -1,13 +1,9 @@
-#include "GrowProgram/private/WaterPump.hpp"
-
-// ************************************************************************
-// IF PYTHAGOREAN CUP EBB/FLOW METHODD IS IMPLEMENTED, RUN PUMP CONTINUOUSLY UNLESS WATER LEVEL IS LOW
-// ************************************************************************
+#include "GrowProgram/WaterPump.hpp"
 
 WaterPump::WaterPump():
 waterPumpNode("water_pump", "relay")
 {
-	waterPumpOn = true; // initialize to true, will be set to false in setup() when setState is called
+	waterPumpOn = false; // initialize to false, will be set to true in setup() when setState is called
 	waterPumpOnChangedAt = 0;
 }
 
@@ -15,8 +11,7 @@ waterPumpNode("water_pump", "relay")
 void WaterPump::setup() {
 	waterPumpNode.advertise("on");
 
-	pinMode(WATER_PUMP_PIN, OUTPUT);
-	setState(false);
+	setState(true);
 }
 
 void WaterPump::uploadCurrentState() {
@@ -57,9 +52,9 @@ void WaterPump::setState(bool set_on) {
 
 	if (set_on) {
 		Homie.getLogger() << F("Water pump is turning ON") << endl;
-		MCUBus.send(MCU_BUS_ARDUINO_ID, "water_pump=on", 13);
+		ShiftReg.writeBit(WATER_PUMP_SR_PIN, LOW); // relay module is active low
 	} else {
 		Homie.getLogger() << F("Water pump is turning OFF") << endl;
-		MCUBus.send(MCU_BUS_ARDUINO_ID, "water_pump=off", 14);
+		ShiftReg.writeBit(WATER_PUMP_SR_PIN, HIGH); // relay module is active low
 	}
 }

@@ -1,15 +1,15 @@
 #pragma once
 
 #include <Arduino.h>
-#include "Notifier.hpp"
-#include "GrowProgram/public/SensorManager.hpp"
+#include "eNotifier.hpp"
+#include "Sensors/Sensors.hpp"
 #include <constants.h>
 
 class GrowErrors
 {
 	public:
     GrowErrors();
-    void loop(SensorManager sensors);
+    void loop();
 
     void uploadCurrentState();
 

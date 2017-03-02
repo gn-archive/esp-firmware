@@ -1,4 +1,4 @@
-#include "GrowProgram/private/GrowLight.hpp"
+#include "GrowProgram/GrowLight.hpp"
 
 GrowLight::GrowLight():
 _growLightNode("grow_light", "relay")
@@ -54,10 +54,10 @@ void GrowLight::uploadCurrentState() {
 
 		if (set_on) {
 			Homie.getLogger() << message << endl;
-			MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=on", 13);
+			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, LOW); // relay module is active low
 		} else {
 			Homie.getLogger() << message << endl;
-			MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
+			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, HIGH); // relay module is active low
 		}
 	}
 
