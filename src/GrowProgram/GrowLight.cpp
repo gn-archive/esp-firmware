@@ -1,14 +1,15 @@
-#include "GrowProgram/private/GrowLight.hpp"
+#include "GrowProgram/GrowLight.hpp"
 
 GrowLight::GrowLight():
 _growLightNode("grow_light", "relay")
 {
+	is_on = true; // initialize to true, will be set to false in setup() when setState is called
 }
 
 
 	void GrowLight::setup() {
 		_growLightNode.advertise("on");
-
+		setState(false, "Grow light is initializing to OFF");
 	}
 
 void GrowLight::uploadCurrentState() {
@@ -53,10 +54,10 @@ void GrowLight::uploadCurrentState() {
 
 		if (set_on) {
 			Homie.getLogger() << message << endl;
-			MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=on", 13);
+			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, LOW); // relay module is active low
 		} else {
 			Homie.getLogger() << message << endl;
-			MCUBus.send(MCU_BUS_ARDUINO_ID, "grow_light=off", 14);
+			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, HIGH); // relay module is active low
 		}
 	}
 
