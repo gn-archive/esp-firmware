@@ -5,7 +5,6 @@ bus(ONE_WIRE_BUS),
 sensors(&bus)
 {
   temperature = 0;
-  last_read = 0;
 }
 
 void WaterTempSensor::setup() {
@@ -14,8 +13,7 @@ void WaterTempSensor::setup() {
 }
 
 void WaterTempSensor::loop() {
-  if (millis() - last_read >= 4000) {
-    last_read = millis();
+  every(4000) {
     readSensor();
   }
 }

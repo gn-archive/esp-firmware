@@ -1,4 +1,5 @@
 #include <Homie.h>
+#include <everytime.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <constants.h>
@@ -8,8 +9,6 @@ class WaterTempSensor {
     OneWire bus;
     DallasTemperature sensors;
     float temperature;
-    unsigned long last_read;
-
 
   public:
     WaterTempSensor();

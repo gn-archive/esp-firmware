@@ -5,12 +5,12 @@
 // DS1307 GND --> GND
 #include <Arduino.h>
 #include <pgmspace.h>
-
 /* for normal hardware wire use below */
 #include <Wire.h> // must be included here so that Arduino library object file references work
 #include <RtcDS1307.h>
 #include <NtpClientLib.h>
 // #include <Timezone.h>
+#include <everytime.h>
 #include <constants.h>
 #include <Homie.h>
 
@@ -18,7 +18,6 @@ class TimeManager
 {
 	private:
 		RtcDS1307<TwoWire> rtc;
-		unsigned long lastSerialPrintMillis;
 		bool syncEventTriggered;
 		NTPSyncEvent_t ntpEvent; // Last triggered event
 

@@ -5,12 +5,10 @@ air_sensor(AIR_SENSOR_PIN, AIR_SENSOR_TYPE)
 {
   air_temp = 0;
   air_humidity = 0;
-  air_sensor_last_read = 0;
 }
 
 void AirSensor::loop() {
-  if (millis() - air_sensor_last_read >= 2000) {
-    air_sensor_last_read = millis();
+  every(2000) {
     readSensor();
   }
 }
