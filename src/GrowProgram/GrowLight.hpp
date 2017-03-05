@@ -17,8 +17,8 @@ class GrowLight
 		void start();
 		void stop();
   private:
-		bool is_on;
-		bool is_enabled;
+		bool _power_state;
+		bool _is_initialized;
 		void setState(bool set_on, const char* message);
     HomieNode _growLightNode;
 };

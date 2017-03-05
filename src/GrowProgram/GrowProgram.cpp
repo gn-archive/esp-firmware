@@ -17,13 +17,10 @@ void GrowProgram::setup() {
   // exhaust_fan.setup();
   // air_pump.setup();
   water_pump.setup();
-
-  setState(RUNNING);
 }
 
 void GrowProgram::uploadCurrentState() {
   grow_errors.uploadCurrentState();
-
   grow_light.uploadCurrentState();
   // exhaust_fan.uploadCurrentState();
   // air_pump.uploadCurrentState();
@@ -31,34 +28,8 @@ void GrowProgram::uploadCurrentState() {
 }
 
 void GrowProgram::loop() {
-  if (_state != RUNNING) {
-    return;
-  }
-
   grow_errors.loop();
-
   grow_light.loop(grow_errors);
   // exhaust_fan.loop();
   water_pump.loop();
-}
-
-
-void GrowProgram::setState(State state) {
-  if (state == _state) {
-    return;
-  }
-
-  _state = state;
-
-  switch (_state) {
-    case STOPPED:
-      grow_light.stop();
-      Homie.getLogger() << F("Grow Program is not running") << endl;
-    break;
-
-    case RUNNING:
-      Homie.getLogger() << F("Grow Program is running.") << endl;
-      grow_light.start();
-    break;
-  }
 }
