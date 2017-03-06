@@ -1,39 +1,37 @@
 #include "GrowProgram/WaterPump.hpp"
 
 WaterPump::WaterPump():
-waterPumpNode("water_pump", "relay")
+_waterPumpNode("water_pump", "relay")
 {
-	waterPumpOn = false; // initialize to false, will be set to true in setup() when setState is called
-	waterPumpOnChangedAt = 0;
+	_power_state = false; // initialize to false
+	_power_state_changed_at = 0;
 }
 
 
 void WaterPump::setup() {
-	waterPumpNode.advertise("on");
-
-	setState(true);
+	_waterPumpNode.advertise("on");
 }
 
 void WaterPump::uploadCurrentState() {
 	if (!Homie.isConnected()) {
 		return;
 	}
-	if (waterPumpOn) {
-		waterPumpNode.setProperty("on").send("true");
+	if (_power_state) {
+		_waterPumpNode.setProperty("on").send("true");
 	} else {
-		waterPumpNode.setProperty("on").send("false");
+		_waterPumpNode.setProperty("on").send("false");
 	}
 }
 
 void WaterPump::loop() {
-	if (waterPumpOn) {
+	if (_power_state) {
 		// Turn the pump off if it has been on for more than WATER_PUMP_ON_DURATION_MS
-		if (millis() - waterPumpOnChangedAt > WATER_PUMP_ON_DURATION_MS) {
+		if (millis() - _power_state_changed_at > WATER_PUMP_ON_DURATION_MS) {
 			setState(false);
 		}
 	} else {
 		// Turn the pump on if it has been off for more than WATER_PUMP_OFF_DURATION_MS
-		if (millis() - waterPumpOnChangedAt > WATER_PUMP_OFF_DURATION_MS) {
+		if (millis() - _power_state_changed_at > WATER_PUMP_OFF_DURATION_MS) {
 			setState(true);
 		}
 	}
@@ -42,12 +40,14 @@ void WaterPump::loop() {
 
 
 void WaterPump::setState(bool set_on) {
-	if (set_on == waterPumpOn) {
+	if (set_on == _power_state && _power_state_changed_at) {
+		// Return if water pump is already in the desired state
+		// AND the water pump has been changed once.
 		return;
 	}
 
-	waterPumpOn = set_on;
-	waterPumpOnChangedAt = millis();
+	_power_state = set_on;
+	_power_state_changed_at = millis();
 	uploadCurrentState();
 
 	if (set_on) {

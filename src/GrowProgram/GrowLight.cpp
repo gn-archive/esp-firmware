@@ -3,20 +3,20 @@
 GrowLight::GrowLight():
 _growLightNode("grow_light", "relay")
 {
-	is_on = true; // initialize to true, will be set to false in setup() when setState is called
+	_power_state = false; // initialize to false
+	_is_initialized = false;
 }
 
 
 	void GrowLight::setup() {
 		_growLightNode.advertise("on");
-		setState(false, "Grow light is initializing to OFF");
 	}
 
 void GrowLight::uploadCurrentState() {
 	if (!Homie.isConnected()) {
 		return;
 	}
-	if (is_on) {
+	if (_power_state) {
 		_growLightNode.setProperty("on").send("true");
 	} else {
 		_growLightNode.setProperty("on").send("false");
@@ -24,11 +24,8 @@ void GrowLight::uploadCurrentState() {
 }
 
 	void GrowLight::loop(GrowErrors grow_errors) {
-		if (!is_enabled) {
-			return;
-		}
 
-		if (grow_errors.getOverheat() ) {
+		if (grow_errors.overheat ) {
 			setState(false, PSTR("Grow light is overheating, turning OFF"));
 			return;
 		}
@@ -44,15 +41,16 @@ void GrowLight::uploadCurrentState() {
 
 
 
-	void GrowLight::setState(bool set_on, const char* message) {
-		if (set_on == is_on) {
+	void GrowLight::setState(bool new_power_state, const char* message) {
+		if (new_power_state == _power_state && _is_initialized) {
 			return;
 		}
 
-		is_on = set_on;
+		_is_initialized = true;
+		_power_state = new_power_state;
 		uploadCurrentState();
 
-		if (set_on) {
+		if (new_power_state) {
 			Homie.getLogger() << message << endl;
 			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, LOW); // relay module is active low
 		} else {
@@ -60,14 +58,3 @@ void GrowLight::uploadCurrentState() {
 			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, HIGH); // relay module is active low
 		}
 	}
-
-
-void GrowLight::start() {
-	Homie.getLogger() << F("Grow light is enabled") << endl;
-	is_enabled = true;
-}
-
-void GrowLight::stop() {
-	is_enabled = false;
-	setState(false, PSTR("Grow light is disabled, turning OFF"));
-}

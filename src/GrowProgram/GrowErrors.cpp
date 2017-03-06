@@ -1,23 +1,29 @@
 #include "GrowProgram/GrowErrors.hpp"
 
 GrowErrors::GrowErrors() :
-growErrorsNode("grow_errors", "grow errors")
+_growErrorsNode("grow_errors", "grow errors")
 {
-  _overheat_at = 0;
-  growErrorsNode.advertise("overheat");
-  growErrorsNode.advertise("water_level_low");
+  _last_state_uplodad = 0;
+  _growErrorsNode.advertise("overheat");
+  _growErrorsNode.advertise("water_level_low");
+
+  overheat = false;
+  water_level_low = false;
 }
 
 void GrowErrors::loop() {
-  // bool is_overheat = Sensors.getTemp() > AIR_TEMP_OVERHEAT;
-  // setOverheat(is_overheat);
-  //
-  //
-  // if (Sensors.getWaterLevel() < 4.5) {
-  //   setWaterLevelLow(true);
-  // } else {
-  //   setWaterLevelLow(false);
-  // }
+  bool old_overheat = overheat;
+  bool old_water_level_low = water_level_low;
+  overheat = Sensors.air_sensor.getTemp() > AIR_TEMP_OVERHEAT;
+  // water_level_low = Sensors.water_level.getGallons() < 1.4;
+
+
+
+  if (old_overheat == overheat && old_water_level_low == water_level_low) {
+    //Return if nothing changed
+    return;
+  }
+  uploadCurrentState();
 }
 
 
@@ -26,43 +32,14 @@ void GrowErrors::uploadCurrentState() {
     return;
   }
 
-  growErrorsNode.setProperty("overheat").send(_overheat ? "true" : "false");
-  growErrorsNode.setProperty("water_level_low").send(_water_level_low ? "true" : "false");
+  _growErrorsNode.setProperty("overheat").send(overheat ? "true" : "false");
+  _growErrorsNode.setProperty("water_level_low").send(water_level_low ? "true" : "false");
 
-  if (_overheat) {
+  if (overheat) {
     Notifier.send("Environment is too hot!");
   }
 
-  if (_water_level_low) {
+  if (water_level_low) {
     Notifier.send("Water level low!");
   }
-}
-
-void GrowErrors::setOverheat(bool overheat) {
-	if (_overheat == overheat && millis() - _overheat_at < 1000*60*60*6 ) {
-		return;	// only notify once every 6 hours
-	}
-
-	_overheat = overheat;
-	_overheat_at = 0;  // Will be zero if not overheat
-
-  uploadCurrentState();
-
-  if (_overheat) {
-		_overheat_at = millis();
-	}
-}
-
-bool GrowErrors::getOverheat() {
-  return _overheat;
-}
-
-void GrowErrors::setWaterLevelLow(bool water_level_low) {
-	if (_water_level_low == water_level_low) {
-		return;
-	}
-
-	_water_level_low = water_level_low;
-
-  uploadCurrentState();
 }

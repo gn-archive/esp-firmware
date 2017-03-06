@@ -13,15 +13,11 @@ class GrowErrors
 
     void uploadCurrentState();
 
-    bool getOverheat();
+    bool overheat;
+		bool water_level_low;
 
   private:
-    HomieNode growErrorsNode;
+    HomieNode _growErrorsNode;
 
-    bool _overheat;
-    unsigned long _overheat_at;
-    void setOverheat(bool overheat);
-
-    bool _water_level_low;
-    void setWaterLevelLow(bool water_level_low);
+    unsigned long _last_state_uplodad;
 };

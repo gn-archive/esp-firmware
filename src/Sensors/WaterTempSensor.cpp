@@ -1,38 +1,36 @@
 #include "Sensors/WaterTempSensor.hpp"
 
 WaterTempSensor::WaterTempSensor():
-bus(ONE_WIRE_BUS),
-sensors(&bus)
+_bus(ONE_WIRE_BUS),
+_temp_sensors(&_bus),
+_temperature(5) // RunningMedian with 5 samples
 {
-  temperature = 0;
-  last_read = 0;
 }
 
 void WaterTempSensor::setup() {
-  sensors.begin();
-  sensors.setWaitForConversion(false);  // makes it async
+  _temp_sensors.begin();
+  _temp_sensors.setWaitForConversion(false);  // makes it async
 }
 
 void WaterTempSensor::loop() {
-  if (millis() - last_read >= 4000) {
-    last_read = millis();
+  every(4000) {
     readSensor();
   }
 }
 
 float WaterTempSensor::getTemp() {
-  return temperature == -127.0 ? 0.0 : temperature * 9/5+32;
+  return _temperature.getMedian();
 }
 
 void WaterTempSensor::readSensor() {
 
-  sensors.requestTemperatures(); // Send the command to get temperatures
+  _temp_sensors.requestTemperatures(); // Send the command to get temperatures
   // We use the function ByIndex, and as an example get the temperature from the first sensor only.
-  float new_temperature = sensors.getTempCByIndex(0);
+  float new_temperature = _temp_sensors.getTempCByIndex(0);
 
   if (isnan(new_temperature)) {
     Serial.println("Failed to read water temp sensor!");
   } else {
-    temperature = new_temperature;
+    _temperature.add(new_temperature);
   }
 }
