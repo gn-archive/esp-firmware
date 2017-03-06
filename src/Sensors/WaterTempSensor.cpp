@@ -5,6 +5,7 @@ _bus(ONE_WIRE_BUS),
 _temp_sensors(&_bus),
 _temperature(5) // RunningMedian with 5 samples
 {
+  last_read = 0;
 }
 
 void WaterTempSensor::setup() {
@@ -13,7 +14,8 @@ void WaterTempSensor::setup() {
 }
 
 void WaterTempSensor::loop() {
-  every(4000) {
+  if (millis() - last_read >= 4000) {
+    last_read = millis();
     readSensor();
   }
 }

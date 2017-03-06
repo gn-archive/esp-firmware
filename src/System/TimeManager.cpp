@@ -7,6 +7,7 @@
 TimeManager::TimeManager() :
 timeNode("current_time", "string"),
 rtc(Wire) {
+  lastSerialPrintMillis = 0;
   bool syncEventTriggered = false; // True if a time even has been triggered
 }
 
@@ -57,8 +58,9 @@ void TimeManager::loop() {
   	}
 
   // Print time every second
-  every(1000) {
+  if (millis() - lastSerialPrintMillis >= 1000) {
     uploadCurrentState();
+    lastSerialPrintMillis = millis();
     // Homie.getLogger() << NTP.getTimeDateString(now()) << F(", free heap: ") << ESP.getFreeHeap() << endl;
   }
 }

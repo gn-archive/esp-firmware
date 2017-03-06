@@ -7,7 +7,7 @@ waterTempNode("water_temp", "degrees F"),
 air_sensor(),
 water_temp_sensor()
 {
-
+  dataLastSentAt = 0;
 }
 SensorsClass Sensors;
 
@@ -24,7 +24,8 @@ void SensorsClass::loop() {
   air_sensor.loop();
   water_temp_sensor.loop();
 
-  every(SEND_SENSOR_DATA_INTERVAL) {
+  if (millis() - dataLastSentAt > SEND_SENSOR_DATA_INTERVAL) {
+    dataLastSentAt = millis();
     uploadCurrentState();
   }
 }

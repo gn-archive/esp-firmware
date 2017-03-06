@@ -10,7 +10,6 @@
 #include <RtcDS1307.h>
 #include <NtpClientLib.h>
 // #include <Timezone.h>
-#include <everytime.h>
 #include <constants.h>
 #include <Homie.h>
 
@@ -18,9 +17,9 @@ class TimeManager
 {
 	private:
 		RtcDS1307<TwoWire> rtc;
+		unsigned long lastSerialPrintMillis;
 		bool syncEventTriggered;
 		NTPSyncEvent_t ntpEvent; // Last triggered event
-
 		HomieNode timeNode;
 
 		void processSyncEvent(NTPSyncEvent_t error);

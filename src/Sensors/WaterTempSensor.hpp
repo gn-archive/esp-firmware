@@ -1,5 +1,4 @@
 #include <Homie.h>
-#include <everytime.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <constants.h>
@@ -10,6 +9,7 @@ class WaterTempSensor {
     OneWire _bus;
     DallasTemperature _temp_sensors;
     RunningMedian _temperature;
+    unsigned long last_read;
     void readSensor();
 
   public:

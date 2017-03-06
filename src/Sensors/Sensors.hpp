@@ -3,7 +3,6 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <Homie.h>
-#include <everytime.h>
 #include <constants.h>
 #include "Sensors/AirSensor.hpp"
 #include "Sensors/WaterTempSensor.hpp"
@@ -11,6 +10,7 @@
 class SensorsClass
 {
 	private:
+		unsigned long dataLastSentAt;
 		HomieNode airSensorNode;
 		HomieNode waterTempNode;
 		HomieNode waterLevelNode;
