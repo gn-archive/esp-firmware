@@ -19,7 +19,7 @@ void WaterTempSensor::loop() {
 }
 
 float WaterTempSensor::getTemp() {
-  return _temperature.getMedian();
+  return _temperature.getMedian() * 9/5 + 32;
 }
 
 void WaterTempSensor::readSensor() {
