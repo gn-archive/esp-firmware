@@ -10,6 +10,7 @@ _waterPumpNode("water_pump", "relay")
 
 void WaterPump::setup() {
 	_waterPumpNode.advertise("on");
+	setState(true);
 }
 
 void WaterPump::uploadCurrentState() {
