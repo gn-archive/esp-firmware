@@ -8,7 +8,6 @@
 #include "GrowProgram/WaterPump.hpp"
 
 #include "System/Settings.hpp"
-#include "GrowProgram/GrowErrors.hpp"
 
 class GrowProgram
 {
@@ -19,7 +18,6 @@ public:
 	void uploadCurrentState();
 
 private:
-		GrowErrors grow_errors;
 		GrowLight grow_light;
 		// ExhaustFan exhaust_fan;
 		// AirPump air_pump;

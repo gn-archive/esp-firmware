@@ -24,7 +24,7 @@ void GrowLight::uploadCurrentState() {
 	}
 }
 
-	void GrowLight::loop(GrowErrors grow_errors) {
+	void GrowLight::loop() {
 
 		if (Sensors.air_sensor.getTemp() > AIR_TEMP_OVERHEAT) {
 			if (!_last_overheat) {

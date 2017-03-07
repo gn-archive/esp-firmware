@@ -4,15 +4,15 @@
 #include <constants.h>
 #include <Timelib.h>
 #include "eShiftReg.hpp"
+#include "Sensors/Sensors.hpp"
 #include "System/System.hpp"
-#include "GrowProgram/GrowErrors.hpp"
 
 class GrowLight
 {
 	public:
 		GrowLight();
 		void setup();
-		void loop(GrowErrors grow_errors);
+		void loop();
 		void uploadCurrentState();
 		void start();
 		void stop();
