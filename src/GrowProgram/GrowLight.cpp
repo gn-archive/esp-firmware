@@ -5,6 +5,7 @@ _growLightNode("grow_light", "relay")
 {
 	_power_state = false; // initialize to false
 	_is_initialized = false;
+	_last_overheat = 0;
 }
 
 
@@ -25,8 +26,12 @@ void GrowLight::uploadCurrentState() {
 
 	void GrowLight::loop(GrowErrors grow_errors) {
 
-		if (grow_errors.overheat ) {
-			setState(false, PSTR("Grow light is overheating, turning OFF"));
+		if (Sensors.air_sensor.getTemp() > AIR_TEMP_OVERHEAT) {
+			if (!_last_overheat) {
+				Serial.println(Sensors.air_sensor.getTemp());
+				_last_overheat = millis();
+				setState(false, "Grow light is overheating, turning OFF");
+			}
 			return;
 		}
 
