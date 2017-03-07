@@ -17,7 +17,7 @@ class GrowLight
 		void start();
 		void stop();
   private:
-		unsigned long _last_overheat;
+		bool _overheat;
 		bool _power_state;
 		bool _is_initialized;
 		void setState(bool set_on, const char* message);
