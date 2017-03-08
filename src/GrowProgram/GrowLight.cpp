@@ -40,8 +40,7 @@ void GrowLight::uploadCurrentState() {
 		light_on_at.setToStartOfDay();
 		light_on_at += Chronos::Span::Hours(System.settings.get_light_on_at());
 
-		Chronos::DateTime light_off_at = light_on_at += Chronos::Span::Hours(System.settings.get_light_on_at());
-		light_off_at += Chronos::Span::Hours(System.settings.get_light_on_duration());
+		Chronos::DateTime light_off_at = light_on_at + Chronos::Span::Hours(System.settings.get_light_on_duration());
 		//  Control Grow Light
 		if (Chronos::DateTime::now() >= light_on_at &&
 				Chronos::DateTime::now() < light_off_at
