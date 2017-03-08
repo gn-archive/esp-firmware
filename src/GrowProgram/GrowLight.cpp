@@ -28,7 +28,6 @@ void GrowLight::uploadCurrentState() {
 
 		if (Sensors.air_sensor.getTemp() > AIR_TEMP_OVERHEAT) {
 			if (!_overheat) {
-				Serial.println(Sensors.air_sensor.getTemp());
 				_overheat = true;
 				setState(false, "Grow light is overheating, turning OFF");
 			}
