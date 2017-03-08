@@ -5,6 +5,7 @@ _growLightNode("grow_light", "relay")
 {
 	_power_state = false; // initialize to false
 	_is_initialized = false;
+	_overheat = false;
 }
 
 
@@ -23,12 +24,16 @@ void GrowLight::uploadCurrentState() {
 	}
 }
 
-	void GrowLight::loop(GrowErrors grow_errors) {
+	void GrowLight::loop() {
 
-		if (grow_errors.overheat ) {
-			setState(false, PSTR("Grow light is overheating, turning OFF"));
+		if (Sensors.air_sensor.getTemp() > AIR_TEMP_OVERHEAT) {
+			if (!_overheat) {
+				_overheat = true;
+				setState(false, "Grow light is overheating, turning OFF");
+			}
 			return;
 		}
+		_overheat = false;
 
 		//  Control Grow Light
 		if (hour() >= System.settings.get_light_on_at() && hour() < System.settings.get_light_off_at()) {

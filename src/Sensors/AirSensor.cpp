@@ -28,7 +28,7 @@ void AirSensor::readSensor() {
   switch (chk)
   {
   case DHTLIB_OK:
-      _air_temp.add(_air_sensor.temperature * 9/5 +32);
+      _air_temp.add(_air_sensor.temperature);
       _air_humidity.add(_air_sensor.humidity);
       break;
   case DHTLIB_ERROR_CHECKSUM:
