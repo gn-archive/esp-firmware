@@ -11,16 +11,24 @@ _growLightNode("grow_light", "relay")
 
 	void GrowLight::setup() {
 		_growLightNode.advertise("on");
+		_growLightNode.advertise("status");
 	}
 
 void GrowLight::uploadCurrentState() {
 	if (!Homie.isConnected()) {
 		return;
 	}
+
 	if (_power_state) {
 		_growLightNode.setProperty("on").send("true");
 	} else {
 		_growLightNode.setProperty("on").send("false");
+	}
+
+	if (_overheat) {
+		_growLightNode.setProperty("status").send("overheating");
+	} else {
+		_growLightNode.setProperty("status").send("normal");
 	}
 }
 
