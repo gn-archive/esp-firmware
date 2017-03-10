@@ -18,9 +18,9 @@ void WaterPump::uploadCurrentState() {
 		return;
 	}
 	if (_power_state) {
-		_waterPumpNode.setProperty("on").send("true");
+		_waterPumpNode.setProperty("on").setRetained(false).send("true");
 	} else {
-		_waterPumpNode.setProperty("on").send("false");
+		_waterPumpNode.setProperty("on").setRetained(false).send("false");
 	}
 }
 

@@ -20,15 +20,15 @@ void GrowLight::uploadCurrentState() {
 	}
 
 	if (_power_state) {
-		_growLightNode.setProperty("on").send("true");
+		_growLightNode.setProperty("on").setRetained(false).send("true");
 	} else {
-		_growLightNode.setProperty("on").send("false");
+		_growLightNode.setProperty("on").setRetained(false).send("false");
 	}
 
 	if (_overheat) {
-		_growLightNode.setProperty("status").send("overheating");
+		_growLightNode.setProperty("status").setRetained(false).send("overheating");
 	} else {
-		_growLightNode.setProperty("status").send("normal");
+		_growLightNode.setProperty("status").setRetained(false).send("normal");
 	}
 }
 

@@ -47,8 +47,8 @@ void SensorsClass::uploadCurrentState() {
   if (!Homie.isConnected()) {
 		return;
 	}
-  airSensorNode.setProperty("temperature").send(String(air_sensor.getTemp()));
-  airSensorNode.setProperty("humidity").send(String(air_sensor.getHumidity()));
-  waterTempNode.setProperty("temperature").send(String(water_temp_sensor.getTemp()));
+  airSensorNode.setProperty("temperature").setRetained(false).send(String(air_sensor.getTemp()));
+  airSensorNode.setProperty("humidity").setRetained(false).send(String(air_sensor.getHumidity()));
+  waterTempNode.setProperty("temperature").setRetained(false).send(String(water_temp_sensor.getTemp()));
 
 }
