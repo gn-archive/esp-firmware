@@ -1,15 +1,24 @@
 #include "GrowProgram/WaterPump.hpp"
 
 WaterPump::WaterPump():
-_waterPumpNode("water_pump", "relay")
+_waterPumpNode("water_pump", "relay"),
+_waterPumpOverrideNode("water_pump_override", "virtual sw")
 {
 	_power_state = false; // initialize to false
 	_initialized = false;
+	_overrideEnabled = false;
 }
 
 
 void WaterPump::setup() {
 	_waterPumpNode.advertise("on");
+
+
+	_waterPumpOverrideNode.advertise("enabled").settable([&](const HomieRange& range, const String& value) {
+			if (value != "true" && value != "false") return false;
+			_overrideEnabled = value == "true";
+			return true;
+		});
 	setState(true);
 }
 
@@ -22,9 +31,20 @@ void WaterPump::uploadCurrentState() {
 	} else {
 		_waterPumpNode.setProperty("on").setRetained(false).send("false");
 	}
+
+	if (_overrideEnabled) {
+		_waterPumpOverrideNode.setProperty("enabled").setRetained(false).send("true");
+	} else {
+		_waterPumpOverrideNode.setProperty("enabled").setRetained(false).send("false");
+	}
 }
 
 void WaterPump::loop() {
+	if (_overrideEnabled) {
+		setState(true);
+		return;
+	}
+
 	if (
 		hour() == 2  ||
 		hour() == 5  ||
