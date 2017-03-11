@@ -17,6 +17,7 @@ void WaterPump::setup() {
 	_waterPumpOverrideNode.advertise("enabled").settable([&](const HomieRange& range, const String& value) {
 			if (value != "true" && value != "false") return false;
 			_overrideEnabled = value == "true";
+			uploadCurrentState();
 			return true;
 		});
 	setState(true);
@@ -41,7 +42,6 @@ void WaterPump::uploadCurrentState() {
 
 void WaterPump::loop() {
 	if (_overrideEnabled) {
-		setState(true);
 		return;
 	}
 
