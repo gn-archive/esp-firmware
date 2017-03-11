@@ -29,7 +29,7 @@ void setup()
   Homie.getLogger() << F("==============================================================================") << endl;
 
   Homie.setLedPin(HOMIE_STATUS_PIN, LOW);
-  Homie_setFirmware("node-os", "0.0.8"); // The "_" is not a typo! See Magic bytes
+  Homie_setFirmware("node-os", "0.0.9"); // The "_" is not a typo! See Magic bytes
   Homie_setBrand("Grow Nodes"); // before Homie.setup()
   Homie.onEvent(onSystemEvent);
 

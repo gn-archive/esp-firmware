@@ -20,6 +20,7 @@ void WaterPump::setup() {
 			uploadCurrentState();
 			return true;
 		});
+
 	setState(true);
 }
 
@@ -42,6 +43,7 @@ void WaterPump::uploadCurrentState() {
 
 void WaterPump::loop() {
 	if (_overrideEnabled) {
+		setState(true);
 		return;
 	}
 

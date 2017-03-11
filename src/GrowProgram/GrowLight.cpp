@@ -50,13 +50,14 @@ void GrowLight::uploadCurrentState() {
 
 		Chronos::DateTime light_off_at = light_on_at + Chronos::Span::Hours(System.settings.get_light_on_duration());
 		//  Control Grow Light
-		if (Chronos::DateTime::now() >= light_on_at &&
-				Chronos::DateTime::now() < light_off_at
+		if (
+			Chronos::DateTime::now() > light_off_at &&
+			Chronos::DateTime::now() < light_on_at
 		) {
 		// if (second() % 2 == 0) {
-			setState(true, "Grow light is turning ON");
-		} else {
 			setState(false, "Grow light is turning OFF");
+		} else {
+			setState(true, "Grow light is turning ON");
 		}
 	}
 
