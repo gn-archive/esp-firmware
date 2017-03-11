@@ -4,7 +4,7 @@ WaterPump::WaterPump():
 _waterPumpNode("water_pump", "relay")
 {
 	_power_state = false; // initialize to false
-	_power_state_changed_at = 0;
+	_initialized = false;
 }
 
 
@@ -25,30 +25,33 @@ void WaterPump::uploadCurrentState() {
 }
 
 void WaterPump::loop() {
-	if (_power_state) {
-		// Turn the pump off if it has been on for more than WATER_PUMP_ON_DURATION_MS
-		if (millis() - _power_state_changed_at > WATER_PUMP_ON_DURATION_MS) {
-			setState(false);
-		}
-	} else {
-		// Turn the pump on if it has been off for more than WATER_PUMP_OFF_DURATION_MS
-		if (millis() - _power_state_changed_at > WATER_PUMP_OFF_DURATION_MS) {
-			setState(true);
-		}
+	if (
+		hour() == 2  ||
+		hour() == 5  ||
+		hour() == 8  ||
+		hour() == 11 ||
+		hour() == 18 ||
+		hour() == 19 ||
+		hour() == 20 ||
+		hour() == 23
+	) {
+		setState(true);
+		return;
 	}
+	setState(false);
 }
 
 
 
 void WaterPump::setState(bool set_on) {
-	if (set_on == _power_state && _power_state_changed_at) {
+	if (set_on == _power_state && _initialized) {
 		// Return if water pump is already in the desired state
 		// AND the water pump has been changed once.
 		return;
 	}
 
 	_power_state = set_on;
-	_power_state_changed_at = millis();
+	_initialized = true;
 	uploadCurrentState();
 
 	if (set_on) {

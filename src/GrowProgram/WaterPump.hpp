@@ -16,6 +16,6 @@ class WaterPump
   private:
     HomieNode _waterPumpNode;
     bool _power_state;
-		unsigned long _power_state_changed_at;
+		bool _initialized;
 		void setState(bool set_on);
 };
