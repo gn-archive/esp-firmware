@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Homie.h>
+#include <Chronos.h>
 
 #include <constants.h>
 #include <Timelib.h>

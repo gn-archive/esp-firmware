@@ -43,8 +43,16 @@ void GrowLight::uploadCurrentState() {
 		}
 		_overheat = false;
 
+
+		Chronos::DateTime light_on_at = Chronos::DateTime::now();
+		light_on_at.setToStartOfDay();
+		light_on_at += Chronos::Span::Hours(System.settings.get_light_on_at());
+
+		Chronos::DateTime light_off_at = light_on_at + Chronos::Span::Hours(System.settings.get_light_on_duration());
 		//  Control Grow Light
-		if (hour() >= System.settings.get_light_on_at() && hour() < System.settings.get_light_off_at()) {
+		if (Chronos::DateTime::now() >= light_on_at &&
+				Chronos::DateTime::now() < light_off_at
+		) {
 		// if (second() % 2 == 0) {
 			setState(true, "Grow light is turning ON");
 		} else {
