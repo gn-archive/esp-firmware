@@ -8,24 +8,16 @@
 #include "GrowProgram/WaterPump.hpp"
 
 #include "System/Settings.hpp"
-#include "GrowProgram/GrowErrors.hpp"
 
 class GrowProgram
 {
 public:
-	enum State {
-		STOPPED,
-		RUNNING
-	};
 	GrowProgram();
 	void setup();
 	void loop();
-	void setState(State state);
 	void uploadCurrentState();
 
 private:
-		State _state;
-		GrowErrors grow_errors;
 		GrowLight grow_light;
 		// ExhaustFan exhaust_fan;
 		// AirPump air_pump;

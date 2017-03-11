@@ -3,38 +3,56 @@
 GrowLight::GrowLight():
 _growLightNode("grow_light", "relay")
 {
-	is_on = true; // initialize to true, will be set to false in setup() when setState is called
+	_power_state = false; // initialize to false
+	_is_initialized = false;
+	_overheat = false;
 }
 
 
 	void GrowLight::setup() {
 		_growLightNode.advertise("on");
-		setState(false, "Grow light is initializing to OFF");
+		_growLightNode.advertise("status");
 	}
 
 void GrowLight::uploadCurrentState() {
 	if (!Homie.isConnected()) {
 		return;
 	}
-	if (is_on) {
-		_growLightNode.setProperty("on").send("true");
+
+	if (_power_state) {
+		_growLightNode.setProperty("on").setRetained(false).send("true");
 	} else {
-		_growLightNode.setProperty("on").send("false");
+		_growLightNode.setProperty("on").setRetained(false).send("false");
+	}
+
+	if (_overheat) {
+		_growLightNode.setProperty("status").setRetained(false).send("overheating");
+	} else {
+		_growLightNode.setProperty("status").setRetained(false).send("normal");
 	}
 }
 
-	void GrowLight::loop(GrowErrors grow_errors) {
-		if (!is_enabled) {
+	void GrowLight::loop() {
+
+		if (Sensors.air_sensor.getTemp() > AIR_TEMP_OVERHEAT) {
+			if (!_overheat) {
+				_overheat = true;
+				setState(false, "Grow light is overheating, turning OFF");
+			}
 			return;
 		}
+		_overheat = false;
 
-		if (grow_errors.getOverheat() ) {
-			setState(false, PSTR("Grow light is overheating, turning OFF"));
-			return;
-		}
 
+		Chronos::DateTime light_on_at = Chronos::DateTime::now();
+		light_on_at.setToStartOfDay();
+		light_on_at += Chronos::Span::Hours(System.settings.get_light_on_at());
+
+		Chronos::DateTime light_off_at = light_on_at + Chronos::Span::Hours(System.settings.get_light_on_duration());
 		//  Control Grow Light
-		if (hour() >= System.settings.get_light_on_at() && hour() < System.settings.get_light_off_at()) {
+		if (Chronos::DateTime::now() >= light_on_at &&
+				Chronos::DateTime::now() < light_off_at
+		) {
 		// if (second() % 2 == 0) {
 			setState(true, "Grow light is turning ON");
 		} else {
@@ -44,15 +62,16 @@ void GrowLight::uploadCurrentState() {
 
 
 
-	void GrowLight::setState(bool set_on, const char* message) {
-		if (set_on == is_on) {
+	void GrowLight::setState(bool new_power_state, const char* message) {
+		if (new_power_state == _power_state && _is_initialized) {
 			return;
 		}
 
-		is_on = set_on;
+		_is_initialized = true;
+		_power_state = new_power_state;
 		uploadCurrentState();
 
-		if (set_on) {
+		if (new_power_state) {
 			Homie.getLogger() << message << endl;
 			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, LOW); // relay module is active low
 		} else {
@@ -60,14 +79,3 @@ void GrowLight::uploadCurrentState() {
 			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, HIGH); // relay module is active low
 		}
 	}
-
-
-void GrowLight::start() {
-	Homie.getLogger() << F("Grow light is enabled") << endl;
-	is_enabled = true;
-}
-
-void GrowLight::stop() {
-	is_enabled = false;
-	setState(false, PSTR("Grow light is disabled, turning OFF"));
-}

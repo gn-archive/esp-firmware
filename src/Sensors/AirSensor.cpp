@@ -1,10 +1,9 @@
 #include "Sensors/AirSensor.hpp"
 
 AirSensor::AirSensor():
-air_sensor(AIR_SENSOR_PIN, AIR_SENSOR_TYPE)
+_air_temp(5),
+_air_humidity(5)
 {
-  air_temp = 0;
-  air_humidity = 0;
   air_sensor_last_read = 0;
 }
 
@@ -16,21 +15,32 @@ void AirSensor::loop() {
 }
 
 float AirSensor::getTemp() {
-  return isnan(air_temp) ? 0.0 : air_temp;
+  return _air_temp.getMedian();
 }
 
 float AirSensor::getHumidity() {
-  return isnan(air_humidity) ? 0.0 : air_humidity;
+  return _air_humidity.getMedian();
 }
 
 void AirSensor::readSensor() {
-  float new_air_temp = air_sensor.readTemperature(true);
-  float new_air_humidity = air_sensor.readHumidity();
+  int chk = _air_sensor.read22(AIR_SENSOR_PIN);
 
-  if (isnan(new_air_temp)) {
-    Serial.println("Failed to read air_sensor!");
-  } else {
-    air_temp = new_air_temp;
-    air_humidity = new_air_humidity;
+  switch (chk)
+  {
+  case DHTLIB_OK:
+      _air_temp.add(_air_sensor.temperature * 1.8 + 32);
+      _air_humidity.add(_air_sensor.humidity);
+      break;
+  case DHTLIB_ERROR_CHECKSUM:
+      Serial.println("DHT checksum error");
+      break;
+  case DHTLIB_ERROR_TIMEOUT:
+      Serial.println("DHT time out error");
+      break;
+  default:
+      Serial.println("DHT unknown error");
+      break;
   }
+
+
 }

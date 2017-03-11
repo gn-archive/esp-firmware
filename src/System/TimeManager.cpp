@@ -8,7 +8,7 @@ TimeManager::TimeManager() :
 timeNode("current_time", "string"),
 rtc(Wire) {
   lastSerialPrintMillis = 0;
-  boolean syncEventTriggered = false; // True if a time even has been triggered
+  bool syncEventTriggered = false; // True if a time even has been triggered
 }
 
 

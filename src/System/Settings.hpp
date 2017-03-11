@@ -11,18 +11,18 @@ class Settings
 		// void setup();
 
 		HomieSetting<long>  h_light_on_at;
-		HomieSetting<long>  h_light_off_at;
+		HomieSetting<long>  h_light_on_duration;
 		// HomieSetting<const char*>  h_timezone_id;
 
-		int light_on_at;
-		int light_off_at;
 		// const char* timezone_id;
 
 	public:
     Settings();
 		void setup();
 
+		int light_on_at;
+		int light_on_duration;
 		int get_light_on_at();
-		int get_light_off_at();
+		int get_light_on_duration();
 		// const char* get_timezone_id();
 };

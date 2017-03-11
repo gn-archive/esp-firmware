@@ -1,16 +1,25 @@
 #include "GrowProgram/WaterPump.hpp"
 
 WaterPump::WaterPump():
-waterPumpNode("water_pump", "relay")
+_waterPumpNode("water_pump", "relay"),
+_waterPumpOverrideNode("water_pump_override", "virtual sw")
 {
-	waterPumpOn = false; // initialize to false, will be set to true in setup() when setState is called
-	waterPumpOnChangedAt = 0;
+	_power_state = false; // initialize to false
+	_initialized = false;
+	_overrideEnabled = false;
 }
 
 
 void WaterPump::setup() {
-	waterPumpNode.advertise("on");
+	_waterPumpNode.advertise("on");
 
+
+	_waterPumpOverrideNode.advertise("enabled").settable([&](const HomieRange& range, const String& value) {
+			if (value != "true" && value != "false") return false;
+			_overrideEnabled = value == "true";
+			uploadCurrentState();
+			return true;
+		});
 	setState(true);
 }
 
@@ -18,36 +27,51 @@ void WaterPump::uploadCurrentState() {
 	if (!Homie.isConnected()) {
 		return;
 	}
-	if (waterPumpOn) {
-		waterPumpNode.setProperty("on").send("true");
+	if (_power_state) {
+		_waterPumpNode.setProperty("on").setRetained(false).send("true");
 	} else {
-		waterPumpNode.setProperty("on").send("false");
+		_waterPumpNode.setProperty("on").setRetained(false).send("false");
+	}
+
+	if (_overrideEnabled) {
+		_waterPumpOverrideNode.setProperty("enabled").setRetained(false).send("true");
+	} else {
+		_waterPumpOverrideNode.setProperty("enabled").setRetained(false).send("false");
 	}
 }
 
 void WaterPump::loop() {
-	if (waterPumpOn) {
-		// Turn the pump off if it has been on for more than WATER_PUMP_ON_DURATION_MS
-		if (millis() - waterPumpOnChangedAt > WATER_PUMP_ON_DURATION_MS) {
-			setState(false);
-		}
-	} else {
-		// Turn the pump on if it has been off for more than WATER_PUMP_OFF_DURATION_MS
-		if (millis() - waterPumpOnChangedAt > WATER_PUMP_OFF_DURATION_MS) {
-			setState(true);
-		}
+	if (_overrideEnabled) {
+		return;
 	}
+
+	if (
+		hour() == 2  ||
+		hour() == 5  ||
+		hour() == 8  ||
+		hour() == 11 ||
+		hour() == 18 ||
+		hour() == 19 ||
+		hour() == 20 ||
+		hour() == 23
+	) {
+		setState(true);
+		return;
+	}
+	setState(false);
 }
 
 
 
 void WaterPump::setState(bool set_on) {
-	if (set_on == waterPumpOn) {
+	if (set_on == _power_state && _initialized) {
+		// Return if water pump is already in the desired state
+		// AND the water pump has been changed once.
 		return;
 	}
 
-	waterPumpOn = set_on;
-	waterPumpOnChangedAt = millis();
+	_power_state = set_on;
+	_initialized = true;
 	uploadCurrentState();
 
 	if (set_on) {

@@ -14,8 +14,10 @@ class WaterPump
 		void uploadCurrentState();
 
   private:
-    HomieNode waterPumpNode;
-    bool waterPumpOn;
-		unsigned long waterPumpOnChangedAt;
+    HomieNode _waterPumpNode;
+		HomieNode _waterPumpOverrideNode;
+		bool _overrideEnabled;
+    bool _power_state;
+		bool _initialized;
 		void setState(bool set_on);
 };

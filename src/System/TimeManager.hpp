@@ -5,7 +5,6 @@
 // DS1307 GND --> GND
 #include <Arduino.h>
 #include <pgmspace.h>
-
 /* for normal hardware wire use below */
 #include <Wire.h> // must be included here so that Arduino library object file references work
 #include <RtcDS1307.h>
@@ -21,7 +20,6 @@ class TimeManager
 		unsigned long lastSerialPrintMillis;
 		bool syncEventTriggered;
 		NTPSyncEvent_t ntpEvent; // Last triggered event
-
 		HomieNode timeNode;
 
 		void processSyncEvent(NTPSyncEvent_t error);
