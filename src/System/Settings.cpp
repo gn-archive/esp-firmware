@@ -3,31 +3,48 @@
 // Constructor - creates a Settings
 // and initializes the member variables and state
 Settings::Settings():
-h_light_on_at("light_on_at", "light turns on at"),
-h_light_on_duration("light_on_duration", "light duration in hours")
+h_dark_hours("dark_hours", "comma seperated hours")
 // h_timezone_id("timezone_id", "Time zone ex. America/Los_Angeles")
 {
-  light_on_at = DEFAULT_GROW_LIGHT_ON_AT;
-  light_on_duration = DEFAULT_GROW_LIGHT_ON_DURATION;
   // timezone_id = DEFAULT_TIMEZONE_ID;
 }
 
 void Settings::setup() {
+  const char* haystack;
   if (Homie.isConfigured()) {
-    light_on_at = h_light_on_at.get() ;
-    light_on_duration = h_light_on_duration.get();
+    haystack = h_dark_hours.get();
+  } else {
+    haystack = DEFAULT_DARK_HOURS;
   }
+
+  // if the hour is present in the dark hours string (haystack),
+  // flag the hour (index) in dark_hours as true;
+  for (uint8_t i = 0; i < sizeof(dark_hours); i++) {
+    // i represents the hour
+    dark_hours[i] = false;
+
+    // convert hour/i to string
+    char buffer[3];
+    if (i < 10) {
+      sprintf(buffer,"0%d,", i);
+    } else {
+      sprintf(buffer,"%d,", i);
+    }
+
+    if(strstr(haystack, buffer)) {
+      // String found, which means
+      // The hour (i) is maked as dark
+      dark_hours[i] = true;
+      Homie.getLogger() << F("XXX Marking hour as dark: ") << i << endl;
+    }
+  }
+
 }
 
 
-int Settings::get_light_on_at() {
-  return light_on_at;
+bool Settings::is_light_on_at(int hour) {
+  return !dark_hours[hour];
 }
-
-int Settings::get_light_on_duration() {
-  return light_on_duration;
-}
-
 
 // const char* Settings::get_timezone_id() {
 //   return timezone_id;

@@ -44,15 +44,10 @@ void GrowLight::uploadCurrentState() {
 		_overheat = false;
 
 		//  Control Grow Light
-		if (
-			hour() == 14 ||
-			hour() == 15 ||
-			hour() == 16 ||
-			hour() == 17
-		) {
-			setState(false, "Grow light is turning OFF");
-		} else {
+		if (System.settings.is_light_on_at(hour())) {
 			setState(true, "Grow light is turning ON");
+		} else {
+			setState(false, "Grow light is turning OFF");
 		}
 	}
 

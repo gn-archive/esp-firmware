@@ -10,8 +10,7 @@ class Settings
 	private:
 		// void setup();
 
-		HomieSetting<long>  h_light_on_at;
-		HomieSetting<long>  h_light_on_duration;
+		HomieSetting<const char*>  h_dark_hours;
 		// HomieSetting<const char*>  h_timezone_id;
 
 		// const char* timezone_id;
@@ -20,9 +19,7 @@ class Settings
     Settings();
 		void setup();
 
-		int light_on_at;
-		int light_on_duration;
-		int get_light_on_at();
-		int get_light_on_duration();
+		bool dark_hours[24];
+		bool is_light_on_at(int hour);
 		// const char* get_timezone_id();
 };
