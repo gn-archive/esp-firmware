@@ -29,33 +29,38 @@ void WaterPump::uploadCurrentState() {
 		return;
 	}
 	if (_power_state) {
-		_waterPumpNode.setProperty("on").setRetained(false).send("true");
+		_waterPumpNode.setProperty("on").send("true");
 	} else {
-		_waterPumpNode.setProperty("on").setRetained(false).send("false");
+		_waterPumpNode.setProperty("on").send("false");
 	}
 
 	if (_overrideEnabled) {
-		_waterPumpOverrideNode.setProperty("enabled").setRetained(false).send("true");
+		_waterPumpOverrideNode.setProperty("enabled").send("true");
 	} else {
-		_waterPumpOverrideNode.setProperty("enabled").setRetained(false).send("false");
+		_waterPumpOverrideNode.setProperty("enabled").send("false");
 	}
 }
 
 void WaterPump::loop() {
-	if (_overrideEnabled) {
+	if (_overrideEnabled || Sensors.air_sensor.getTemp() >= 80.0) {
 		setState(true);
 		return;
 	}
 
 	if (
+		hour() == 0  ||
 		hour() == 2  ||
-		hour() == 5  ||
+		hour() == 4  ||
+		hour() == 6  ||
 		hour() == 8  ||
-		hour() == 11 ||
+		hour() == 10 ||
+		hour() == 12 ||
+		hour() == 14 ||
+		hour() == 16 ||
 		hour() == 18 ||
 		hour() == 19 ||
 		hour() == 20 ||
-		hour() == 23
+		hour() == 22
 	) {
 		setState(true);
 		return;
