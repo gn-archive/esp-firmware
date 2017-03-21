@@ -48,19 +48,7 @@ void WaterPump::loop() {
 	}
 
 	if (
-		hour() == 0  ||
-		hour() == 2  ||
-		hour() == 4  ||
-		hour() == 6  ||
-		hour() == 8  ||
-		hour() == 10 ||
-		hour() == 12 ||
-		hour() == 14 ||
-		hour() == 16 ||
-		hour() == 18 ||
-		hour() == 19 ||
-		hour() == 20 ||
-		hour() == 22
+		(hour() == 0  || hour() == 6  || hour() == 18) && minute() < 15
 	) {
 		setState(true);
 		return;
