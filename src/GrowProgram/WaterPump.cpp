@@ -42,7 +42,7 @@ void WaterPump::uploadCurrentState() {
 }
 
 void WaterPump::loop() {
-	if (_overrideEnabled || Sensors.air_sensor.getTemp() >= 80.0) {
+	if (_overrideEnabled) {
 		setState(true);
 		return;
 	}
