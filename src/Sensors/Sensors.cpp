@@ -23,6 +23,7 @@ void SensorsClass::setup() {
 void SensorsClass::loop() {
   air_sensor.loop();
   water_temp_sensor.loop();
+  water_level_sensor.loop();
 
   if (millis() - dataLastSentAt > SEND_SENSOR_DATA_INTERVAL) {
     dataLastSentAt = millis();

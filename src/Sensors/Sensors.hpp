@@ -6,6 +6,7 @@
 #include <constants.h>
 #include "Sensors/AirSensor.hpp"
 #include "Sensors/WaterTempSensor.hpp"
+#include "Sensors/WaterLevelSensor.hpp"
 
 class SensorsClass
 {
@@ -23,6 +24,7 @@ class SensorsClass
 
 		AirSensor air_sensor;
 		WaterTempSensor water_temp_sensor;
+		WaterLevelSensor water_level_sensor;
 };
 
 extern SensorsClass Sensors;

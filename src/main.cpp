@@ -19,6 +19,7 @@ void setup()
   // data, clock, latch
   ShiftReg.setPins(SHIFT_DATA_PIN, SHIFT_CLOCK_PIN, SHIFT_LATCH_PIN);
   // All outputs default to low
+  Wire.begin();        // join i2c bus (address optional for master)
 
   delay(200);
   Serial.begin(74880);
