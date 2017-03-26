@@ -14,18 +14,24 @@ rtc(Wire) {
 
 void TimeManager::setup() {
   timeNode.advertise("time_string");
-  Homie.getLogger() << F("Compiled at ") << __DATE__ << " " << __TIME__ << endl;
-  Homie.getLogger() << F("Timezone offset is UTC") << (TIMEZONE_OFFSET > 0 ? "+" : "") << TIMEZONE_OFFSET << " hours" << endl;
+  Serial.print(F("Compiled at "));
+  Serial.print(__DATE__);
+  Serial.print(F(" "));
+  Serial.println(__TIME__);
+
+  Serial.print(F("Timezone offset is "));
+  Serial.print((TIMEZONE_OFFSET > 0 ? "+" : ""));
+  Serial.println(TIMEZONE_OFFSET);
   //--------RTC SETUP ------------
   rtc.Begin();
   Wire.begin(I2C_SDA, I2C_SCL); // SDA, SCL
 
   if (!rtc.IsDateTimeValid()) {
-    Homie.getLogger() << F("RTC not connected properly or low battery!") << endl;
+    Serial.println(F("RTC not connected properly or low battery!"));
   }
 
   if (!rtc.GetIsRunning()) {
-      Homie.getLogger() << F("RTC was not actively running, starting now") << endl;
+      Serial.println(F("RTC was not actively running, starting now"));
       rtc.SetIsRunning(true);
   }
 
@@ -68,19 +74,21 @@ void TimeManager::loop() {
 void TimeManager::setLocalSystemTimeFromRTC() {
   // Set system time from RTC
   RtcDateTime rtc_now = rtc.GetDateTime();
-  Homie.getLogger() << F("RTC Time (UTC): ") << NTP.getTimeDateString(rtc_now.Epoch32Time()) << endl; // using NTP time string formatter to print RTC time
+  Serial.print(F("RTC Time (UTC): "));
+  Serial.println(NTP.getTimeDateString(rtc_now.Epoch32Time())); // using NTP time string formatter to print RTC time
   setTime(rtc_now.Epoch32Time() + TIMEZONE_OFFSET*60*60);
-  Homie.getLogger() << F("✔ Set local system time from RTC ") << NTP.getTimeDateString(now()) << endl;
+  Serial.print(F("✔ Set local system time from RTC "));
+  Serial.println(NTP.getTimeDateString(now()));
 }
 
 
 void TimeManager::processSyncEvent(NTPSyncEvent_t error) {
     if (error) {
-        Homie.getLogger() << F("✖ Time Sync error: ");
+        Serial.println(F("✖ Time Sync error: "));
         if (error == noResponse)
-            Homie.getLogger() << F("NTP server not reachable") << endl;
+            Serial.println(F("NTP server not reachable"));
         if (error == invalidAddress)
-            Homie.getLogger() << F("Invalid NTP server address") << endl;
+            Serial.println(F("Invalid NTP server address"));
 
         setLocalSystemTimeFromRTC();
     }
@@ -88,10 +96,7 @@ void TimeManager::processSyncEvent(NTPSyncEvent_t error) {
       // Set RTC from NTP time.
       RtcDateTime rtcdt_from_ntp(now()-946684800);   // RTC set time takes seconds since Jan 1 2000. NTP tracks in seconds since epoch time.
       rtc.SetDateTime(rtcdt_from_ntp);
-      RtcDateTime rtc_now = rtc.GetDateTime();
-      Homie.getLogger() << F("↕ Synced RTC using NTP time: ") << NTP.getTimeDateString(rtc_now.Epoch32Time()) << endl;
-
-      setTime(now() + TIMEZONE_OFFSET*60*60);
-
+      Serial.print(F("↕ Synced RTC using NTP time"));
+      setLocalSystemTimeFromRTC();
     }
 };

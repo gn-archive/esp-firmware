@@ -23,10 +23,10 @@ void setup()
   delay(200);
   Serial.begin(74880);
 
-  Homie.getLogger() << endl << endl;
-  Homie.getLogger() << F("==============================================================================") << endl;
-  Homie.getLogger() << F("                               Welcome to NodeOS!") << endl;
-  Homie.getLogger() << F("==============================================================================") << endl;
+  Homie.disableLogging(); // before Homie.setup()
+  Serial.println(F("=============================================================================="));
+  Serial.println(F("                               Welcome to NodeOS!"));
+  Serial.println(F("=============================================================================="));
 
   Homie.setLedPin(HOMIE_STATUS_PIN, LOW);
   Homie_setFirmware("node-os", "0.0.14"); // The "_" is not a typo! See Magic bytes

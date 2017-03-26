@@ -70,10 +70,10 @@ void WaterPump::setState(bool set_on) {
 	uploadCurrentState();
 
 	if (set_on) {
-		Homie.getLogger() << F("Water pump is turning ON") << endl;
+		Serial.println(F("Water pump is turning ON"));
 		ShiftReg.writeBit(WATER_PUMP_SR_PIN, LOW); // relay module is active low
 	} else {
-		Homie.getLogger() << F("Water pump is turning OFF") << endl;
+		Serial.println(F("Water pump is turning OFF"));
 		ShiftReg.writeBit(WATER_PUMP_SR_PIN, HIGH); // relay module is active low
 	}
 }

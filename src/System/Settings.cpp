@@ -35,7 +35,6 @@ void Settings::setup() {
       // String found, which means
       // The hour (i) is maked as dark
       dark_hours[i] = true;
-      Homie.getLogger() << F("XXX Marking hour as dark: ") << i << endl;
     }
   }
 

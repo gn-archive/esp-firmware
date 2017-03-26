@@ -8,13 +8,14 @@ notifierNode("notification", "pushed to app")
 NotifierClass Notifier;
 
 void NotifierClass::setup() {
-	Homie.getLogger() << F("NotifierClass::setup()") << endl;
+	Serial.println(F("NotifierClass::setup()"));
 	notifierNode.advertise("send");
 }
 
 void NotifierClass::send(const char* body) {
 	if (Homie.isConnected()) {
-		Homie.getLogger() << F("Sending notification: ") << body << endl;
+		Serial.print(F("Sending notification: "));
+		Serial.println(body);
 		notifierNode.setProperty("send").send(body);
 	}
 }

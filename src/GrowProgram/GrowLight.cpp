@@ -62,11 +62,10 @@ void GrowLight::uploadCurrentState() {
 		_power_state = new_power_state;
 		uploadCurrentState();
 
+		Serial.println(message);
 		if (new_power_state) {
-			Homie.getLogger() << message << endl;
 			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, LOW); // relay module is active low
 		} else {
-			Homie.getLogger() << message << endl;
 			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, HIGH); // relay module is active low
 		}
 	}
