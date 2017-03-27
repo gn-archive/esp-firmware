@@ -30,7 +30,7 @@ void setup()
   Serial.println(F("=============================================================================="));
 
   Homie.setLedPin(HOMIE_STATUS_PIN, LOW);
-  Homie_setFirmware("node-os", "0.0.14"); // The "_" is not a typo! See Magic bytes
+  Homie_setFirmware("node-os", "0.0.15"); // The "_" is not a typo! See Magic bytes
   Homie_setBrand("Grow Nodes"); // before Homie.setup()
   Homie.onEvent(onSystemEvent);
 

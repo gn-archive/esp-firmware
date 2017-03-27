@@ -4,10 +4,11 @@
 
 class WaterLevelSensor {
   private:
-    bool _water_level_low;
+    uint8_t _water_level;
     unsigned long _last_read;
   public:
     WaterLevelSensor();
     void loop();
-    bool getWaterLevel();
+    uint8_t getWaterLevel();
+    bool waterLevelLow();
 };
