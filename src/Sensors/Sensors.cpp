@@ -18,6 +18,7 @@ void SensorsClass::setup() {
   waterTempNode.advertise("temperature");
 
   water_temp_sensor.setup();
+  water_level_sensor.setup();
 }
 
 void SensorsClass::loop() {

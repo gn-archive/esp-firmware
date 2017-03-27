@@ -1,14 +1,17 @@
 #include <Homie.h>
 #include <constants.h>
+#include <Adafruit_ADS1015.h>
 #include <Wire.h>
 
 class WaterLevelSensor {
   private:
-    uint8_t _water_level;
+    Adafruit_ADS1115 ads;
+    int16_t _water_level;
     unsigned long _last_read;
   public:
     WaterLevelSensor();
+    void setup();
     void loop();
-    uint8_t getWaterLevel();
+    int16_t getWaterLevel();
     bool waterLevelLow();
 };
