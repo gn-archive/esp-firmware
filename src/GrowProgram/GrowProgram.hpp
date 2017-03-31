@@ -6,7 +6,7 @@
 // #include "GrowProgram/ExhaustFan.hpp"
 // #include "GrowProgram/AirPump.hpp"
 #include "GrowProgram/WaterPump.hpp"
-
+#include "GrowProgram/Peltier.hpp"
 #include "System/Settings.hpp"
 
 class GrowProgram
@@ -22,6 +22,7 @@ private:
 		// ExhaustFan exhaust_fan;
 		// AirPump air_pump;
 		WaterPump water_pump;
+		Peltier peltier_cooler;
 
 
 };
