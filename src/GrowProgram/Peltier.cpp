@@ -45,7 +45,8 @@ void Peltier::uploadCurrentState() {
 		_power_state = new_power_state;
 		uploadCurrentState();
 
-		Wire.beginTransmission(8); // transmit to device #8
+		Wire.beginTransmission(HWC_BUS_ID);
+		Wire.write(PELTIER_PID);  // sends one byte
 	  Wire.write(_power_state);  // sends one byte
 	  Wire.endTransmission();    // stop transmitting
 

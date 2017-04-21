@@ -4,21 +4,23 @@
 #define I2C_SCL D2
 // D3 is factory reset pin. Ground for 5 seconds to clear flash.
 #define HOMIE_STATUS_PIN D4
-#define ONE_WIRE_BUS D5
 
 #define SHIFT_DATA_PIN D6
+#define ONE_WIRE_BUS D5
 #define AIR_SENSOR_PIN D7
 #define SHIFT_LATCH_PIN D8
 
-
-// Shift register connections
-#define GROW_LIGHT_SR_PIN 0
-#define WATER_PUMP_SR_PIN 1
+// HW controller devices
+#define HWC_BUS_ID 45
+#define HWC_GROW_LIGHT_PIN 13
+#define HWC_PELTIER_PIN 9
+// #define HWC_WATER_PUMP_PIN 1
 // #define AIR_PUMP_SR_PIN 2
 // #define FAN_SR_PIN 3
 
-// Software configuration
 
+
+// Software configuration
 #define SEND_SENSOR_DATA_INTERVAL 10*1000
 #define WATER_LEVEL_MIN 4.5
 #define AIR_TEMP_OVERHEAT 95
@@ -26,6 +28,7 @@
 #define WATER_PUMP_DURATION 25
 #define TIMEZONE_OFFSET -7 // PDT
 
+#define PELTIER_PID 9
 #define PELTIER_OFF_TEMP 74
 #define PELTIER_MAX_POWER_TEMP 80
 #define PELTIER_INTERPOLATION_RANGE (PELTIER_MAX_POWER_TEMP - PELTIER_OFF_TEMP)

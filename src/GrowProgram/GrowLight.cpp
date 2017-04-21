@@ -63,9 +63,9 @@ void GrowLight::uploadCurrentState() {
 		uploadCurrentState();
 
 		Serial.println(message);
-		if (new_power_state) {
-			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, LOW); // relay module is active low
-		} else {
-			ShiftReg.writeBit(GROW_LIGHT_SR_PIN, HIGH); // relay module is active low
-		}
+
+		Wire.beginTransmission(HWC_BUS_ID);
+		Wire.write(HWC_GROW_LIGHT_PIN);
+		Wire.write(_power_state);
+		Wire.endTransmission();
 	}

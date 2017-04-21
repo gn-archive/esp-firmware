@@ -1,7 +1,6 @@
 #include <main.h>
 
 GrowProgram grow_program;
-Shifty ShiftReg;
 
 void onSystemEvent(const HomieEvent& event) {
   switch(event.type) {
@@ -15,18 +14,14 @@ void onSystemEvent(const HomieEvent& event) {
 
 void setup()
 {
-  ShiftReg.setBitCount(8);
-  // data, clock, latch
-  ShiftReg.setPins(SHIFT_DATA_PIN, SHIFT_CLOCK_PIN, SHIFT_LATCH_PIN);
-  // All outputs default to low
   Wire.begin();        // join i2c bus (address optional for master)
 
   delay(200);
   Serial.begin(74880);
 
   Homie.disableLogging(); // before Homie.setup()
+
   Serial.println(F("=============================================================================="));
-  Serial.println(F("                               Welcome to NodeOS!"));
   Serial.println(F("=============================================================================="));
 
   Homie.setLedPin(HOMIE_STATUS_PIN, LOW);
