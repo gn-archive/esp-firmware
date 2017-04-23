@@ -47,8 +47,13 @@ void Peltier::uploadCurrentState() {
 
 		Wire.beginTransmission(HWC_BUS_ID);
 		Wire.write(PELTIER);  // command peltier
-	  Wire.write(_power_state);  // sends one byte
-	  Wire.endTransmission();    // stop transmitting
+	  Wire.write(_power_state);
+	  Wire.endTransmission();
+
+		Wire.beginTransmission(HWC_BUS_ID);
+		Wire.write(PELTIER_FAN);  // command
+	  Wire.write(_power_state > 0); //fans on if peltier is on
+	  Wire.endTransmission();
 
 		Serial.print("Peltier cooler at ");
 		Serial.print(_power_state/255.0*100);
