@@ -5,10 +5,8 @@ _waterPumpNode("water_pump", "relay"),
 _waterPumpOverrideNode("water_pump_override", "virtual sw")
 {
 	_power_state = false; // initialize to false
-	_initialized = false;
 	_overrideEnabled = false;
 }
-
 
 void WaterPump::setup() {
 	_waterPumpNode.advertise("on");
@@ -59,21 +57,16 @@ void WaterPump::loop() {
 
 
 void WaterPump::setState(bool set_on) {
-	if (set_on == _power_state && _initialized) {
+	if (set_on == _power_state) {
 		// Return if water pump is already in the desired state
-		// AND the water pump has been changed once.
 		return;
 	}
 
 	_power_state = set_on;
-	_initialized = true;
 	uploadCurrentState();
 
-	if (set_on) {
-		Serial.println(F("Water pump is turning ON"));
-		// ShiftReg.writeBit(WATER_PUMP_SR_PIN, LOW); // relay module is active low
-	} else {
-		Serial.println(F("Water pump is turning OFF"));
-		// ShiftReg.writeBit(WATER_PUMP_SR_PIN, HIGH); // relay module is active low
-	}
+	Wire.beginTransmission(HWC_BUS_ID);
+	Wire.write(WATER_PUMP);
+	Wire.write(_power_state);  // sends one byte
+	Wire.endTransmission();    // stop transmitting
 }

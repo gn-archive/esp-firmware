@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <Homie.h>
+#include <Wire.h>
 #include <constants.h>
 #include <TimeLib.h>
 #include "Sensors/Sensors.hpp"
@@ -18,6 +19,5 @@ class WaterPump
 		HomieNode _waterPumpOverrideNode;
 		bool _overrideEnabled;
     bool _power_state;
-		bool _initialized;
 		void setState(bool set_on);
 };

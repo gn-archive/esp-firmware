@@ -65,7 +65,7 @@ void GrowLight::uploadCurrentState() {
 		Serial.println(message);
 
 		Wire.beginTransmission(HWC_BUS_ID);
-		Wire.write(HWC_GROW_LIGHT_PIN);
+		Wire.write(GROW_LIGHT);
 		Wire.write(_power_state);
 		Wire.endTransmission();
 	}

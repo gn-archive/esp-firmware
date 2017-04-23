@@ -12,11 +12,11 @@
 
 // HW controller devices
 #define HWC_BUS_ID 45
-#define HWC_GROW_LIGHT_PIN 13
-#define HWC_PELTIER_PIN 9
-// #define HWC_WATER_PUMP_PIN 1
-// #define AIR_PUMP_SR_PIN 2
-// #define FAN_SR_PIN 3
+#define GROW_LIGHT 13
+#define PELTIER 9
+#define WATER_PUMP 5
+#define AIR_SENSOR 2
+// #define FAN_SR 3
 
 
 
@@ -28,7 +28,6 @@
 #define WATER_PUMP_DURATION 25
 #define TIMEZONE_OFFSET -7 // PDT
 
-#define PELTIER_PID 9
 #define PELTIER_OFF_TEMP 74
 #define PELTIER_MAX_POWER_TEMP 80
 #define PELTIER_INTERPOLATION_RANGE (PELTIER_MAX_POWER_TEMP - PELTIER_OFF_TEMP)
