@@ -14,6 +14,7 @@
 #define HWC_BUS_ID 45
 #define GROW_LIGHT 13
 #define PELTIER 9
+#define PELTIER_FAN 6
 #define WATER_PUMP 5
 #define AIR_SENSOR 2
 // #define FAN_SR 3
