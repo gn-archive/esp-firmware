@@ -18,11 +18,12 @@ void AirSensor::byte_to_struct_2(byte *a) {
 
 void AirSensor::loop() {
   if (millis() - air_sensor_data.last_read >= 2000) {
-    byte buf [10]; // guess 10 bytes?
+    const int struct_size = sizeof(air_sensor_data);
+    byte buf [struct_size];
 
-    if (Wire.requestFrom (HWC_I2C_ID, 10)) { //10 bytes?
+    if (Wire.requestFrom(HWC_I2C_ID, struct_size)) {
       // if request succeeded
-      for (byte i = 0; i < 10; i++) //10 bytes?
+      for (byte i = 0; i < struct_size; i++)
         buf [i] = Wire.read ();
 
       byte_to_struct_2(buf);
