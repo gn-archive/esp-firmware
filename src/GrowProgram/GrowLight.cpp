@@ -4,7 +4,6 @@ GrowLight::GrowLight():
 _growLightNode("grow_light", "relay")
 {
 	_power_state = false; // initialize to false
-	_is_initialized = false;
 	_overheat = false;
 }
 
@@ -45,6 +44,7 @@ void GrowLight::uploadCurrentState() {
 
 		//  Control Grow Light
 		if (System.settings.is_light_on_at(hour())) {
+		// if (second() % 2 == 0) {
 			setState(true, "Grow light is turning ON");
 		} else {
 			setState(false, "Grow light is turning OFF");
@@ -54,17 +54,16 @@ void GrowLight::uploadCurrentState() {
 
 
 	void GrowLight::setState(bool new_power_state, const char* message) {
-		if (new_power_state == _power_state && _is_initialized) {
+		if (new_power_state == _power_state) {
 			return;
 		}
 
-		_is_initialized = true;
 		_power_state = new_power_state;
 		uploadCurrentState();
 
 		Serial.println(message);
 
-		Wire.beginTransmission(HWC_BUS_ID);
+		Wire.beginTransmission(HWC_I2C_ID);
 		Wire.write(GROW_LIGHT);
 		Wire.write(_power_state);
 		Wire.endTransmission();

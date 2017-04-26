@@ -1,11 +1,11 @@
 #include <Homie.h>
+#include <Wire.h>
 #include <constants.h>
 
 class AirSensor {
   private:
-    unsigned long air_sensor_last_read;
-    float _temperature;
-    float _humidity;
+    AirSensorData air_sensor_data;
+    void byte_to_struct_2(byte *a);
   public:
     AirSensor();
     void loop();

@@ -45,9 +45,8 @@ void WaterPump::loop() {
 		return;
 	}
 
-	if (
-		(hour() == 0  || hour() == 6  || hour() == 18) && minute() < WATER_PUMP_DURATION
-	) {
+	// if ( (hour() == 0  || hour() == 6  || hour() == 18) && minute() < WATER_PUMP_DURATION	)
+	if(second() % 2 == 0) {
 		setState(true);
 		return;
 	}
@@ -64,8 +63,9 @@ void WaterPump::setState(bool set_on) {
 
 	_power_state = set_on;
 	uploadCurrentState();
-
-	Wire.beginTransmission(HWC_BUS_ID);
+	Serial.print("Water pump turning ");
+	Serial.println(_power_state ? "ON" : "OFF");
+	Wire.beginTransmission(HWC_I2C_ID);
 	Wire.write(WATER_PUMP);
 	Wire.write(_power_state);  // sends one byte
 	Wire.endTransmission();    // stop transmitting

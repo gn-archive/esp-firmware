@@ -25,11 +25,11 @@ void SensorsClass::loop() {
 
 
 void SensorsClass::uploadCurrentState() {
-  Serial.print("Air temperature: ");
-  Serial.print(air_sensor.getTemp());
-  Serial.print(" °F, humidity: ");
-  Serial.print(air_sensor.getHumidity());
-  Serial.println("% RH");
+  // Serial.print("Air temperature: ");
+  // Serial.print(air_sensor.getTemp());
+  // Serial.print(" °F, humidity: ");
+  // Serial.print(air_sensor.getHumidity());
+  // Serial.println("% RH");
 
   if (!Homie.isConnected()) {
 		return;

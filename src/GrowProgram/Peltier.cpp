@@ -45,12 +45,12 @@ void Peltier::uploadCurrentState() {
 		_power_state = new_power_state;
 		uploadCurrentState();
 
-		Wire.beginTransmission(HWC_BUS_ID);
+		Wire.beginTransmission(HWC_I2C_ID);
 		Wire.write(PELTIER);  // command peltier
 	  Wire.write(_power_state);
 	  Wire.endTransmission();
 
-		Wire.beginTransmission(HWC_BUS_ID);
+		Wire.beginTransmission(HWC_I2C_ID);
 		Wire.write(PELTIER_FAN);  // command
 	  Wire.write(_power_state > 0); //fans on if peltier is on
 	  Wire.endTransmission();
