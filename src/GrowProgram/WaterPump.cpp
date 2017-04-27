@@ -19,7 +19,7 @@ void WaterPump::setup() {
 			return true;
 		});
 
-	setState(true);
+	setState(false);
 }
 
 void WaterPump::uploadCurrentState() {
@@ -45,11 +45,11 @@ void WaterPump::loop() {
 		return;
 	}
 
-	// if ( (hour() == 0  || hour() == 6  || hour() == 18) && minute() < WATER_PUMP_DURATION	)
-	if(second() % 2 == 0) {
-		setState(true);
-		return;
-	}
+	// if ( (hour() == 0  || hour() == 6  || hour() == 18) && minute() < WATER_PUMP_DURATION	) {
+	// if(second() % 2 == 0) {
+		// setState(true);
+		// return;
+	// }
 	setState(false);
 }
 

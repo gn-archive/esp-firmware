@@ -17,8 +17,10 @@ class GrowLight
 		void start();
 		void stop();
   private:
+		bool _overrideEnabled;
 		bool _overheat;
 		bool _power_state;
 		void setState(bool set_on, const char* message);
     HomieNode _growLightNode;
+		HomieNode _growLightOverrideNode;
 };
