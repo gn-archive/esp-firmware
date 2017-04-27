@@ -23,21 +23,30 @@ void AirSensor::loop() {
   if (millis() - last_request >= 2000) {
     last_request = millis();
 
-    const int struct_size = sizeof(air_sensor_data);
-    byte buf [struct_size];
-    if (Wire.requestFrom(HWC_I2C_ID, struct_size)) {
-      // if request succeeded
-      last_request_success = true;
-      for (byte i = 0; i < struct_size; i++)
-        buf [i] = Wire.read ();
+    // Select air sensor
+    Wire.beginTransmission(HWC_I2C_ID); // transmit to device #8
+    Wire.write(AIR_SENSOR);              // sends one byte
+    Wire.endTransmission();    // stop transmitting
 
+    const int struct_size = 13;
+    // Request
+    if (Wire.requestFrom(HWC_I2C_ID, struct_size)) {
+      last_request_success = true;
+      // if request succeeded
+      byte buf [struct_size];
+      for (byte i = 0; i < struct_size; i++) {
+        buf[i] = Wire.read();
+        Serial.print(buf[i]);
+        Serial.print(" ");
+      }
+      Serial.println("");
       byte_to_struct_2(buf);
     }
     else {
       last_request_success = false;
       Serial.println(F("I2C failed"));
     }
-  }
+}
 }
 
 float AirSensor::getTemp() {
