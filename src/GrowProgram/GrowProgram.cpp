@@ -1,8 +1,5 @@
-// Central starting point for all Grow subsystems.
 #include "GrowProgram/GrowProgram.hpp"
 
-// Constructor - creates a GrowProgram
-// and initializes the member variables and state
 GrowProgram::GrowProgram() :
 grow_light(),
 // exhaust_fan(),

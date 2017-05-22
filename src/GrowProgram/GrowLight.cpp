@@ -61,12 +61,12 @@ void GrowLight::uploadCurrentState() {
 		_overheat = false;
 
 		//  Control Grow Light
-		// if (System.settings.is_light_on_at(hour())) {
+		if (System.settings.is_light_on_at(hour())) {
 		// // if (second() % 2 == 0) {
-		// 	setState(true, "Grow light is turning ON");
-		// } else {
+			setState(true, "Grow light is turning ON");
+		} else {
 			setState(false, "Grow light is turning OFF");
-		// }
+		}
 	}
 
 

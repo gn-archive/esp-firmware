@@ -1,14 +1,13 @@
 // // synchronization is done regularly without user intervention
 // // no more calls to library are needed.
 // // Update frequency is higher (every 15 seconds as default) until 1st successful sync is achieved.
-// // Since then, your own (or default 1800 seconds) adjusted period applies.
 #include <System/TimeManager.hpp>
 //
 TimeManager::TimeManager() :
 timeNode("current_time", "string"),
 rtc(Wire) {
-  lastSerialPrintMillis = 0;
-  bool syncEventTriggered = false; // True if a time even has been triggered
+  lastSerialPrintMillis = 0; // for printing the time every second
+  bool syncEventTriggered = false; // True if a time sync event has been triggered.
 }
 
 
@@ -37,7 +36,7 @@ void TimeManager::setup() {
 
   setLocalSystemTimeFromRTC();
 
-  // Lambda called on NTP sync
+  // Lambda called on NTP sync. Handled in loop
 	NTP.onNTPSyncEvent([&](NTPSyncEvent_t event) {
 		ntpEvent = event;
 		syncEventTriggered = true;
@@ -53,6 +52,7 @@ void TimeManager::uploadCurrentState() {
   if (!Homie.isConnected()) {
 		return;
 	}
+  // upload to MQTT
   timeNode.setProperty("time_string").send(NTP.getTimeDateString(now()));
 }
 
@@ -94,7 +94,8 @@ void TimeManager::processSyncEvent(NTPSyncEvent_t error) {
     }
     else {
       // Set RTC from NTP time.
-      RtcDateTime rtcdt_from_ntp(now()-946684800);   // RTC set time takes seconds since Jan 1 2000. NTP tracks in seconds since epoch time.
+      // RTC SetDateTime takes seconds since Jan 1 2000. NTP tracks UNIX epoch.
+      RtcDateTime rtcdt_from_ntp(now()-946684800); // convert to Y2K epoch
       rtc.SetDateTime(rtcdt_from_ntp);
       Serial.print(F("↕ Synced RTC using NTP time"));
       setLocalSystemTimeFromRTC();

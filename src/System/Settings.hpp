@@ -8,11 +8,11 @@
 class Settings
 {
 	private:
-		// void setup();
-
+		// comma seperated dark hours. MUST HAVE TRAILING COMMA
+		// ex. 13,14,15,16,
 		HomieSetting<const char*>  h_dark_hours;
-		// HomieSetting<const char*>  h_timezone_id;
 
+		// HomieSetting<const char*>  h_timezone_id;
 		// const char* timezone_id;
 
 	public:
